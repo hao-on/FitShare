@@ -53,8 +53,11 @@ class ProjectActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_project)
-        recyclerView = findViewById(R.id.project_list)
+       // setContentView(R.layout.activity_project)
+
+        setContentView(R.layout.recipe_test)
+
+       // recyclerView = findViewById(R.id.project_list)
     }
 
     override fun onStop() {

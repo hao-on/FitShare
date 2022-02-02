@@ -72,6 +72,8 @@ class TaskActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
+
+
         recyclerView = findViewById(R.id.task_list)
         fab = findViewById(R.id.floating_action_button)
 
