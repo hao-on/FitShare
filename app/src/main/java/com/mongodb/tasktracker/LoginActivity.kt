@@ -1,12 +1,20 @@
 package com.mongodb.tasktracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.material.button.MaterialButton
 import io.realm.mongodb.Credentials
+import io.realm.mongodb.mongo.MongoClient
+import io.realm.mongodb.mongo.MongoCollection
+import io.realm.mongodb.mongo.MongoDatabase
+import kotlinx.android.synthetic.main.login.*
+import org.bson.Document
+
 /*
 * LoginActivity: launched whenever a user isn't already logged in. Allows a user to enter email
 * and password credentials to log in to an existing account or create a new account.
@@ -19,14 +27,18 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        username = findViewById(R.id.input_username)
-        password = findViewById(R.id.input_password)
-        loginButton = findViewById(R.id.button_login)
-        createUserButton = findViewById(R.id.button_create)
+        setContentView(R.layout.login)
+        username = findViewById(R.id.txtUsername)
+        password = findViewById(R.id.txtPassword)
+        loginButton = findViewById(R.id.btnLogin)
 
         loginButton.setOnClickListener { login(false) }
-        createUserButton.setOnClickListener { login(true) }
+        //createUserButton.setOnClickListener { login(true) }
+
+        tvRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
@@ -90,6 +102,29 @@ class LoginActivity : AppCompatActivity() {
                 if (!it.isSuccess) {
                     onLoginFailed(it.error.message ?: "An error occurred.")
                 } else {
+                    /*
+                    val user = taskApp.currentUser()
+                    val mongoClient : MongoClient =
+                        user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
+                    val mongoDatabase : MongoDatabase =
+                        mongoClient.getDatabase("UserData")!!
+                    val mongoCollection : MongoCollection<Document> =
+                        mongoDatabase.getCollection("CustomUserData")!!
+                    mongoCollection.insertOne(Document("_id", user.id).append("phoneNumber", "911").append("_partition", "partition"))
+                        .getAsync { result ->
+                            if (result.isSuccess) {
+                                Log.v(
+                                    "EXAMPLE",
+                                    "Inserted custom user data document. _id of inserted document: ${result.get().insertedId}"
+                                )
+                            } else {
+                                Log.e(
+                                    "EXAMPLE",
+                                    "Unable to insert custom user data. Error: ${result.error}"
+                                )
+                            }
+                        }
+                        */
                     onLoginSuccess()
                 }
             }
