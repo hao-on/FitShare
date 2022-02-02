@@ -1,5 +1,6 @@
 package com.mongodb.tasktracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import io.realm.mongodb.Credentials
+import kotlinx.android.synthetic.main.login.*
+
 /*
 * LoginActivity: launched whenever a user isn't already logged in. Allows a user to enter email
 * and password credentials to log in to an existing account or create a new account.
@@ -19,14 +22,18 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        username = findViewById(R.id.input_username)
-        password = findViewById(R.id.input_password)
-        loginButton = findViewById(R.id.button_login)
-        createUserButton = findViewById(R.id.button_create)
+        setContentView(R.layout.login)
+        username = findViewById(R.id.txtUsername)
+        password = findViewById(R.id.txtPassword)
+        loginButton = findViewById(R.id.btnLogin)
 
         loginButton.setOnClickListener { login(false) }
         createUserButton.setOnClickListener { login(true) }
+
+        tvRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
