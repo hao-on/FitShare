@@ -36,7 +36,12 @@ class RecipeActivity: AppCompatActivity() {
         steps = findViewById(R.id.recipe_steps)
 
         submitButton = findViewById(R.id.recipe_button)
-        submitButton.setOnClickListener {  }
+        submitButton.setOnClickListener {
+            val recipe = Recipe(recipeName.toString(), description.toString(),
+                ingredients.toString(), steps.toString())
+            //write recipe to realm
+            recipeRealm.executeTransaction { realm -> realm.insert(recipe) }
+        }
     }
 
     override fun onStop(){
