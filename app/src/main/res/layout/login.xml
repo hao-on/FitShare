@@ -24,7 +24,7 @@
             android:src="@drawable/fitshare" />
 
         <EditText
-            android:id="@+id/txtUsername"
+            android:id="@+id/loginUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -38,10 +38,13 @@
             android:textColor="@color/gray_gainsboro"
             android:maxLines="1"
             android:backgroundTint="@color/gray_gainsboro"
-            android:paddingBottom="15dp" />
+            android:paddingBottom="15dp"
+            android:inputType="text"
+
+            />
 
         <EditText
-            android:id="@+id/txtPassword"
+            android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -55,7 +58,9 @@
             android:textColor="@color/gray_gainsboro"
             android:maxLines="1"
             android:backgroundTint="@color/gray_gainsboro"
-            android:paddingBottom="15dp" />
+            android:paddingBottom="15dp"
+            android:inputType="textPassword"
+            />
 
         <TextView
             android:id="@+id/tvReset"
@@ -70,7 +75,7 @@
             android:textColor="@color/gray_gainsboro" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/loginBtn"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
