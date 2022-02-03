@@ -11,6 +11,11 @@ import io.realm.mongodb.Credentials
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.login.*
 
+import io.realm.mongodb.mongo.MongoClient
+import io.realm.mongodb.mongo.MongoCollection
+import io.realm.mongodb.mongo.MongoDatabase
+import org.bson.Document
+
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var FName: EditText
@@ -36,20 +41,20 @@ class RegisterActivity : AppCompatActivity() {
 
 
         ivLeft.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java);
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
         btnRegister.setOnClickListener {
-
+            Register()
         }
     }
 
     private fun onRegisterSuccess() {
         // successful login ends this activity, bringing the user back to the project activity
         //finish()
-        val intent = Intent(this, ProjectActivity::class.java);
-        startActivity(intent);
+        val intent = Intent(this, ProjectActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
@@ -104,21 +109,19 @@ class RegisterActivity : AppCompatActivity() {
                         onLoginFailed(it.error.message ?: "An error occurred.")
                     } else {
 
-                        //val FName = findViewById(R.id.txtFName)
-                        //val LName = findViewById(R.id.txtLName)
-                        //val Reg_Username = findViewById(R.id.txtReg_Username)
-                        //val Reg_Email = findViewById(R.id.txtReg_Email)
-                        //val Reg_Password = findViewById(R.id.txtReg_Password)
-                        //val Phone = findViewById(R.id.txtPhone)
-                        //val user = taskApp.currentUser()
-                        /*
+
+
+                        val user = taskApp.currentUser()
+                        //val customUserData : Document? = user?.customData
+
+
                         val mongoClient : MongoClient =
                             user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
                         val mongoDatabase : MongoDatabase =
                             mongoClient.getDatabase("UserData")!!
                         val mongoCollection : MongoCollection<Document> =
                             mongoDatabase.getCollection("CustomUserData")!!
-                        mongoCollection.insertOne(Document("_id", user.id).append("phoneNumber", "911").append("_partition", "partition"))
+                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Reg_Password", Reg_Password).append("Phone", Phone).append("_partition", "partition"))
                             .getAsync { result ->
                                 if (result.isSuccess) {
                                     Log.v(
@@ -133,7 +136,7 @@ class RegisterActivity : AppCompatActivity() {
                                 }
                             }
 
-                         */
+
 
                         onRegisterSuccess()
                     }
