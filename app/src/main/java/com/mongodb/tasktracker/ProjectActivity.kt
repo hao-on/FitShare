@@ -89,6 +89,11 @@ class ProjectActivity : AppCompatActivity() {
                 }
                 true
             }
+            R.id.action_add_recipe -> {
+                setContentView(R.layout.activity_recipe)
+                true
+            }
+
             else -> {
                 super.onOptionsItemSelected(item)
             }

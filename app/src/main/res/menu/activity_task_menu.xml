@@ -8,4 +8,12 @@
         android:title="@string/logout"
         android:text="@string/logout"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_add_recipe"
+        android:orderInCategory="99"
+        android:title="Add Recipe"
+        android:text="Add Recipe"
+        app:showAsAction="always"
+        />
 </menu>
