@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mongodb.tasktracker.model.Recipe
 import io.realm.Realm
 import io.realm.mongodb.User
 import io.realm.kotlin.where
@@ -92,8 +93,15 @@ class TaskActivity : AppCompatActivity() {
                     }
                 }
                 }
+
                 .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()
                 }
+
+            // added
+            var recipe = Recipe("test recipe name")
+
+            projectRealm.executeTransactionAsync { realm ->
+                realm.insert(recipe)  }
 
             val dialog = dialogBuilder.create()
             dialog.setView(input)

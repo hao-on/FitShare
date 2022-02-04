@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mongodb.tasktracker.model.Project
 import com.mongodb.tasktracker.model.ProjectAdapter
+import com.mongodb.tasktracker.model.Recipe
 import com.mongodb.tasktracker.model.User
 import io.realm.*
 import io.realm.kotlin.where
@@ -28,6 +29,9 @@ class ProjectActivity : AppCompatActivity() {
     private var userRealm: Realm? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProjectAdapter
+
+    // added
+   // private lateinit var projectRealm: Realm? = realm
 
     override fun onStart() {
         super.onStart()
@@ -53,11 +57,16 @@ class ProjectActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_project)
+        setContentView(R.layout.activity_project)
 
-        setContentView(R.layout.recipe_test)
+      //  setContentView(R.layout.recipe_test)
 
-       // recyclerView = findViewById(R.id.project_list)
+        recyclerView = findViewById(R.id.project_list)
+        var recipe = Recipe("test recipe name")
+
+        userRealm?.executeTransactionAsync { realm ->
+            realm.insert(recipe)
+        }
     }
 
     override fun onStop() {
