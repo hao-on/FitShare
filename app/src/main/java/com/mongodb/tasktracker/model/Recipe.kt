@@ -10,7 +10,7 @@ open class Recipe(_name: String = "Recipe", _desc: String = "Description",
                   _ingr: String = "Ingredients", _steps: String = "Steps") : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
-    var name: String = _name
+    var recipeName: String = _name
     var description: String = _desc
     @Required
     var ingredients: String = _ingr

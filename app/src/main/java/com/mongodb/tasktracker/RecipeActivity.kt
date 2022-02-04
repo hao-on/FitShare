@@ -40,7 +40,7 @@ class RecipeActivity: AppCompatActivity() {
             val recipe = Recipe(recipeName.toString(), description.toString(),
                 ingredients.toString(), steps.toString())
             //write recipe to realm
-            recipeRealm.executeTransaction { realm -> realm.insert(recipe) }
+            recipeRealm.executeTransactionAsync { realm -> realm.insert(recipe) }
         }
     }
 
