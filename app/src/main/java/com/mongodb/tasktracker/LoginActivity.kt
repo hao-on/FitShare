@@ -23,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var loginButton: Button
-    private lateinit var createUserButton: Button
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +31,7 @@ class LoginActivity : AppCompatActivity() {
         password = findViewById(R.id.loginPassword)
         loginButton = findViewById(R.id.loginBtn)
 
-        loginButton.setOnClickListener { login(false) }
-        //createUserButton.setOnClickListener { login(true) }
+        loginButton.setOnClickListener { login() }
 
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -66,78 +64,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // handle user authentication (login) and account creation
-    private fun login(createUser: Boolean) {
+    private fun login() {
         if (!validateCredentials()) {
             onLoginFailed("Invalid username or password")
             return
         }
 
-        // while this operation completes, disable the buttons to login or create a new account
-        //createUserButton.isEnabled = false
+        // while this operation completes, disable the buttons to login
         loginButton.isEnabled = false
 
         val username = this.username.text.toString()
         val password = this.password.text.toString()
+        val creds = Credentials.emailPassword(username, password)
+        taskApp.loginAsync(creds) {
+            // re-enable the buttons after user login returns a result
+            loginButton.isEnabled = true
+            //createUserButton.isEnabled = true
+            if (!it.isSuccess) {
+                onLoginFailed(it.error.message ?: "An error occurred.")
 
-
-        if (createUser) {
-            // register a user using the Realm App we created in the TaskTracker class
-            taskApp.emailPassword.registerUserAsync(username, password) {
-                // re-enable the buttons after user registration returns a result
-                //createUserButton.isEnabled = true
-                loginButton.isEnabled = true
-                if (!it.isSuccess) {
-                    onLoginFailed("Could not register user.")
-                    Log.e(TAG(), "Error: ${it.error}")
-                } else {
-                    Log.i(TAG(), "Successfully registered user.")
-                    // when the account has been created successfully, log in to the account
-                    login(false)
-                }
-            }
-        } else {
-            val creds = Credentials.emailPassword(username, password)
-            taskApp.loginAsync(creds) {
-                // re-enable the buttons after user login returns a result
-                loginButton.isEnabled = true
-                //createUserButton.isEnabled = true
-                if (!it.isSuccess) {
-                    onLoginFailed(it.error.message ?: "An error occurred.")
-                } else {
-
-                    //val FName = findViewById(R.id.txtFName);
-                    //val LName = findViewById(R.id.txtLName);
-                    //val Reg_Username = findViewById(R.id.txtReg_Username);
-                    //val Reg_Email = findViewById(R.id.txtReg_Email);
-                    //val Reg_Password = findViewById(R.id.txtReg_Password);
-                    //val Phone = findViewById(R.id.txtPhone);
-                    //val user = taskApp.currentUser();
-                    /*
-                    val mongoClient : MongoClient =
-                        user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
-                    val mongoDatabase : MongoDatabase =
-                        mongoClient.getDatabase("UserData")!!
-                    val mongoCollection : MongoCollection<Document> =
-                        mongoDatabase.getCollection("CustomUserData")!!
-                    mongoCollection.insertOne(Document("_id", user.id).append("phoneNumber", "911").append("_partition", "partition"))
-                        .getAsync { result ->
-                            if (result.isSuccess) {
-                                Log.v(
-                                    "EXAMPLE",
-                                    "Inserted custom user data document. _id of inserted document: ${result.get().insertedId}"
-                                )
-                            } else {
-                                Log.e(
-                                    "EXAMPLE",
-                                    "Unable to insert custom user data. Error: ${result.error}"
-                                )
-                            }
-                        }
-
-                     */
-
-                    onLoginSuccess()
-                }
+            } else {
+                onLoginSuccess()
+                val user = taskApp.currentUser()
+                val customUserData : Document? = user?.customData
+                Log.v("EXAMPLE", "Fetched custom user data: $customUserData")
             }
         }
     }

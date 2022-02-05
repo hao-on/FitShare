@@ -17,7 +17,6 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 
 class RegisterActivity : AppCompatActivity() {
-
     private lateinit var FName: EditText
     private lateinit var LName: EditText
     private lateinit var Reg_Username: EditText
@@ -35,10 +34,6 @@ class RegisterActivity : AppCompatActivity() {
         Reg_Email = findViewById(R.id.txtReg_Email)
         Reg_Password = findViewById(R.id.txtReg_Password)
         Phone = findViewById(R.id.txtPhone)
-
-
-
-
 
         ivLeft.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -108,20 +103,15 @@ class RegisterActivity : AppCompatActivity() {
                     if (!it.isSuccess) {
                         onLoginFailed(it.error.message ?: "An error occurred.")
                     } else {
-
-
-
                         val user = taskApp.currentUser()
                         //val customUserData : Document? = user?.customData
-
-
                         val mongoClient : MongoClient =
                             user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
                         val mongoDatabase : MongoDatabase =
                             mongoClient.getDatabase("UserData")!!
                         val mongoCollection : MongoCollection<Document> =
                             mongoDatabase.getCollection("CustomUserData")!!
-                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Reg_Password", Reg_Password).append("Phone", Phone).append("_partition", "partition"))
+                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Phone", Phone).append("_partition", "partition"))
                             .getAsync { result ->
                                 if (result.isSuccess) {
                                     Log.v(
@@ -135,9 +125,6 @@ class RegisterActivity : AppCompatActivity() {
                                     )
                                 }
                             }
-
-
-
                         onRegisterSuccess()
                     }
                 }
