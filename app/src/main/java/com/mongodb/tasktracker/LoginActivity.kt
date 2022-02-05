@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
         // successful login ends this activity, bringing the user back to the project activity
         finish()
     }
+    //email@
 
     private fun onLoginFailed(errorMsg: String) {
         Log.e(TAG(), errorMsg)

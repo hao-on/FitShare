@@ -35,6 +35,11 @@ class RecipeActivity: AppCompatActivity() {
         ingredients = findViewById(R.id.recipe_ingredients)
         steps = findViewById(R.id.recipe_steps)
 
+        val recipe1 = Recipe("test name", "test description",
+            " ingredient 1 ingredient 2", "step 1 step 2")
+        //write recipe to realm
+        recipeRealm.executeTransactionAsync { realm -> realm.insert(recipe1) }
+
         submitButton = findViewById(R.id.recipe_button)
         submitButton.setOnClickListener {
             val recipe = Recipe(recipeName.toString(), description.toString(),
