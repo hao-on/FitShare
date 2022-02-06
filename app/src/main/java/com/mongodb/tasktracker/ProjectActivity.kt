@@ -62,11 +62,9 @@ class ProjectActivity : AppCompatActivity() {
       //  setContentView(R.layout.recipe_test)
 
         recyclerView = findViewById(R.id.project_list)
-        var recipe = Recipe("test recipe name")
 
-        userRealm?.executeTransactionAsync { realm ->
-            realm.insert(recipe)
-        }
+
+
     }
 
     override fun onStop() {
@@ -125,6 +123,11 @@ class ProjectActivity : AppCompatActivity() {
                     setUpRecyclerView(getProjects(realm))
                 }
             syncedUsers.addChangeListener(changeListener)
+
+            val recipe = Recipe("test recipe name","test desc","test ingred", "test steps")
+
+            userRealm?.executeTransactionAsync { realm ->
+                realm.insert(recipe)  }
 
             // user should have a personal project no matter what, so create it if it doesn't already exist
             // RealmRecyclerAdapters only work on managed objects,

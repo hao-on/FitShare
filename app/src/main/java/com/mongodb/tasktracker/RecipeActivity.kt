@@ -42,14 +42,14 @@ class RecipeActivity: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
        // setContentView(R.layout.activity_project)
 
-        setContentView(R.layout.recipe_test)
+      //  setContentView(R.layout.recipe_test)
 
 
       //  recyclerView = findViewById(R.id.project_list)
-        var recipe = Recipe("test recipe name")
-        projectRealm.executeTransactionAsync { realm ->
-            realm.insert(recipe)
-        }
+//        var recipe = Recipe("test recipe name")
+//        projectRealm.executeTransactionAsync { realm ->
+//            realm.insert(recipe)
+//        }
     }
 
     override fun onStop() {

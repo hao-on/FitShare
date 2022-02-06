@@ -56,6 +56,7 @@ class TaskActivity : AppCompatActivity() {
                 override fun onSuccess(realm: Realm) {
                     // since this realm should live exactly as long as this activity, assign the realm to a member variable
                     this@TaskActivity.projectRealm = realm
+
                     setUpRecyclerView(realm, user, partition)
                 }
             })
@@ -86,6 +87,10 @@ class TaskActivity : AppCompatActivity() {
                 .setCancelable(true)
                 .setPositiveButton("Create") { dialog, _ -> run {
                     dialog.dismiss()
+                    val recipe = Recipe("test recipe name","test desc","test ingred", "test steps")
+
+                    projectRealm.executeTransactionAsync { realm ->
+                        realm.insert(recipe)  }
                     val task = Task(input.text.toString())
                     // all realm writes need to occur inside of a transaction
                     projectRealm.executeTransactionAsync { realm ->
@@ -98,10 +103,7 @@ class TaskActivity : AppCompatActivity() {
                 }
 
             // added
-            var recipe = Recipe("test recipe name")
 
-            projectRealm.executeTransactionAsync { realm ->
-                realm.insert(recipe)  }
 
             val dialog = dialogBuilder.create()
             dialog.setView(input)

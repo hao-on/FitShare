@@ -6,14 +6,15 @@ import io.realm.annotations.RealmField
 import io.realm.annotations.Required
 import org.bson.types.ObjectId
 
-open class Recipe (_recipeName: String = "Recipe") : RealmObject() {
-    @PrimaryKey
-    @RealmField("_id")
-    var id: ObjectId = ObjectId()
-
+open class Recipe(_name: String = "Recipe", _desc: String = "Description",
+                  _ingr: String = "Ingredients", _steps: String = "Steps") : RealmObject() {
+    @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
-    var _partition: String = ""
-    var recipeName: String = ""
-    //var description: String = ""
-    var steps:String =""
+    var recipeName: String = _name
+    var description: String = _desc
+    @Required
+    var ingredients: String = _ingr
+    @Required
+    var steps: String = _steps
+
 }
