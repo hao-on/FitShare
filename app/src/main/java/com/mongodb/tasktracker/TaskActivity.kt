@@ -1,17 +1,20 @@
 package com.mongodb.tasktracker
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mongodb.tasktracker.model.Recipe
 import io.realm.Realm
 import io.realm.mongodb.User
 import io.realm.kotlin.where
@@ -31,6 +34,10 @@ class TaskActivity : AppCompatActivity() {
     private lateinit var adapter: TaskAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
+    private lateinit var recipeName: String
+    private lateinit var description: String
+    private lateinit var ingredients: String
+    private lateinit var steps: String
 
     override fun onStart() {
         super.onStart()
@@ -77,25 +84,44 @@ class TaskActivity : AppCompatActivity() {
 
         // create a dialog to enter a task name when the floating action button is clicked
         fab.setOnClickListener {
-            val input = EditText(this)
+
             val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Enter task name:")
-                .setCancelable(true)
-                .setPositiveButton("Create") { dialog, _ -> run {
-                    dialog.dismiss()
-                    val task = Task(input.text.toString())
-                    // all realm writes need to occur inside of a transaction
-                    projectRealm.executeTransactionAsync { realm ->
-                        realm.insert(task)
-                    }
+
+            val layout = LinearLayout(this)
+
+            dialogBuilder.setMessage("Enter Name")
+            val input = EditText(this)
+            input.setHint("Name")
+            layout.addView(input)
+
+            dialogBuilder.setMessage("Enter Description")
+            val input2 = EditText(this)
+            input2.setHint("Description")
+            layout.addView(input2)
+
+            dialogBuilder.setMessage("Enter Ingredients")
+            val input3 = EditText(this)
+            input2.setHint("Ingredients")
+            layout.addView(input3)
+
+            dialogBuilder.setMessage("Enter Steps")
+            val input4 = EditText(this)
+            input2.setHint("Steps")
+            layout.addView(input4)
+
+            dialogBuilder.setCancelable(true).setPositiveButton("Submit") {dialog, _ -> run{
+                dialog.dismiss()
+
+                val recipe = Recipe(input.text.toString(), input2.text.toString(), input3.text.toString(), input4.text.toString())
+                val task = Task("sad")
+                projectRealm.executeTransaction { realm -> realm.insert(recipe)}
+                projectRealm.executeTransaction { realm -> realm.insert(task) }
                 }
-                }
-                .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()
-                }
+            }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
             val dialog = dialogBuilder.create()
-            dialog.setView(input)
-            dialog.setTitle("Create New Task")
+            dialog.setView(layout)
+            dialog.setTitle("Welcome")
             dialog.show()
         }
     }
