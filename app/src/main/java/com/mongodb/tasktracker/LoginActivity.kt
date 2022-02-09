@@ -28,9 +28,9 @@ class LoginActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
-        username = findViewById(R.id.txtUsername)
-        password = findViewById(R.id.txtPassword)
-        loginButton = findViewById(R.id.btnLogin)
+        username = findViewById(R.id.loginUsername)
+        password = findViewById(R.id.loginPassword)
+        loginButton = findViewById(R.id.loginBtn)
 
         loginButton.setOnClickListener { login(false) }
         //createUserButton.setOnClickListener { login(true) }
@@ -48,7 +48,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onLoginSuccess() {
         // successful login ends this activity, bringing the user back to the project activity
-        finish()
+        //finish()
+        val intent =Intent(this, ProjectActivity::class.java);
+        startActivity(intent);
     }
 
     private fun onLoginFailed(errorMsg: String) {
@@ -71,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // while this operation completes, disable the buttons to login or create a new account
-        createUserButton.isEnabled = false
+        //createUserButton.isEnabled = false
         loginButton.isEnabled = false
 
         val username = this.username.text.toString()
@@ -82,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
             // register a user using the Realm App we created in the TaskTracker class
             taskApp.emailPassword.registerUserAsync(username, password) {
                 // re-enable the buttons after user registration returns a result
-                createUserButton.isEnabled = true
+                //createUserButton.isEnabled = true
                 loginButton.isEnabled = true
                 if (!it.isSuccess) {
                     onLoginFailed("Could not register user.")
@@ -98,12 +100,19 @@ class LoginActivity : AppCompatActivity() {
             taskApp.loginAsync(creds) {
                 // re-enable the buttons after user login returns a result
                 loginButton.isEnabled = true
-                createUserButton.isEnabled = true
+                //createUserButton.isEnabled = true
                 if (!it.isSuccess) {
                     onLoginFailed(it.error.message ?: "An error occurred.")
                 } else {
+
+                    //val FName = findViewById(R.id.txtFName);
+                    //val LName = findViewById(R.id.txtLName);
+                    //val Reg_Username = findViewById(R.id.txtReg_Username);
+                    //val Reg_Email = findViewById(R.id.txtReg_Email);
+                    //val Reg_Password = findViewById(R.id.txtReg_Password);
+                    //val Phone = findViewById(R.id.txtPhone);
+                    //val user = taskApp.currentUser();
                     /*
-                    val user = taskApp.currentUser()
                     val mongoClient : MongoClient =
                         user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
                     val mongoDatabase : MongoDatabase =
@@ -124,7 +133,9 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             }
                         }
-                        */
+
+                     */
+
                     onLoginSuccess()
                 }
             }
