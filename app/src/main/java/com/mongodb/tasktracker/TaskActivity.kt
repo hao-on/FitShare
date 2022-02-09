@@ -113,9 +113,9 @@ class TaskActivity : AppCompatActivity() {
                 dialog.dismiss()
 
                 val recipe = Recipe(input.text.toString(), input2.text.toString(), input3.text.toString(), input4.text.toString())
-                val task = Task("sad")
-                projectRealm.executeTransaction { realm -> realm.insert(recipe)}
-                projectRealm.executeTransaction { realm -> realm.insert(task) }
+                //val task = Task("sad")
+                projectRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
+                //projectRealm.executeTransactionAsync { realm -> realm.insert(task) }
                 }
             }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
