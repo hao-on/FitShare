@@ -47,8 +47,8 @@ class RecipeActivity: AppCompatActivity()  {
         setContentView(R.layout.recipe_test)
 
         val recipe = user?.let {
-            Recipe("test partition","test","test des",
-                "test ingr", "test step", it.id)
+            Recipe("test name","testdes","test ing",
+                "test step step", it.id)
         }
        // val recipe = Recipe("test","test des","test ingr", "test step")
 

@@ -7,7 +7,7 @@ import io.realm.annotations.Required
 import io.realm.mongodb.UserIdentity
 import org.bson.types.ObjectId
 
-open class Recipe(_partition: String ="Partition",
+open class Recipe(
                     _name: String = "Recipe",
                   _desc: String = "Description",
                   _ingr: String = "Ingredients",
@@ -16,8 +16,9 @@ open class Recipe(_partition: String ="Partition",
 
                   ) : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
+    @RealmField("_partition") var partition: String = "test"
     @Required
-    var _partition: String? = null
+    //var _partition: String = _partition
     var recipeName: String = _name
     var description: String = _desc
     @Required
