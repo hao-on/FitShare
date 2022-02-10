@@ -116,6 +116,12 @@ class TaskActivity : AppCompatActivity() {
                 //val task = Task("sad")
                 projectRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
                 //projectRealm.executeTransactionAsync { realm -> realm.insert(task) }
+                projectRealm.executeTransactionAsync {
+                    // using our thread-local new realm instance, query for and delete the task
+                    val item =
+                        it.where<Recipe>().equalTo("recipeName", input.text.toString()).findFirst()
+                    item?.deleteFromRealm()
+                    }
                 }
             }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
