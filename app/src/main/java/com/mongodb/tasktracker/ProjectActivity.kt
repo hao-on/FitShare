@@ -124,10 +124,10 @@ class ProjectActivity : AppCompatActivity() {
                 }
             syncedUsers.addChangeListener(changeListener)
 
-            val recipe = Recipe("test recipe name","test desc","test ingred", "test steps")
-
-            userRealm?.executeTransactionAsync { realm ->
-                realm.insert(recipe)  }
+//            val recipe = Recipe("test recipe name","test desc","test ingred", "test steps")
+//
+//            userRealm?.executeTransactionAsync { realm ->
+//                realm.insert(recipe)  }
 
             // user should have a personal project no matter what, so create it if it doesn't already exist
             // RealmRecyclerAdapters only work on managed objects,

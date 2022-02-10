@@ -12,7 +12,7 @@ import io.realm.mongodb.sync.SyncConfiguration
 class RecipeActivity: AppCompatActivity()  {
     private var user: io.realm.mongodb.User? = null
     private var userRealm: Realm? = null
-    private lateinit var projectRealm: Realm
+    private lateinit var recipeRealm: Realm
    // private lateinit var recyclerView: RecyclerView
    // private lateinit var adapter: ProjectAdapter
 
@@ -28,21 +28,32 @@ class RecipeActivity: AppCompatActivity()  {
                 .build()
 
             // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
-//            Realm.getInstanceAsync(config, object: Realm.Callback() {
-//                override fun onSuccess(realm: Realm) {
-//                    // since this realm should live exactly as long as this activity, assign the realm to a member variable
-//                    this@ProjectActivity.userRealm = realm
-//                    setUpRecyclerView(getProjects(realm))
-//                }
-//            })
+            Realm.getInstanceAsync(config, object: Realm.Callback() {
+                override fun onSuccess(realm: Realm) {
+                    // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                    this@RecipeActivity.userRealm = realm
+                 //   this@ProjectActivity.userRealm = realm
+                  //  setUpRecyclerView(getProjects(realm))
+                }
+            })
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        user = taskApp.currentUser()
        // setContentView(R.layout.activity_project)
 
-      //  setContentView(R.layout.recipe_test)
+        setContentView(R.layout.recipe_test)
+
+        val recipe = user?.let {
+            Recipe("test partition","test","test des",
+                "test ingr", "test step", it.id)
+        }
+       // val recipe = Recipe("test","test des","test ingr", "test step")
+
+        userRealm?.executeTransactionAsync { realm ->
+            realm.insert(recipe)  }
 
 
       //  recyclerView = findViewById(R.id.project_list)
