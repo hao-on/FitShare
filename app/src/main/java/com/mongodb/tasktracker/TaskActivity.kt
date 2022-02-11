@@ -113,15 +113,9 @@ class TaskActivity : AppCompatActivity() {
                 dialog.dismiss()
 
                 val recipe = Recipe(input.text.toString(), input2.text.toString(), input3.text.toString(), input4.text.toString())
-                //val task = Task("sad")
+
                 projectRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
-                //projectRealm.executeTransactionAsync { realm -> realm.insert(task) }
-                projectRealm.executeTransactionAsync {
-                    // using our thread-local new realm instance, query for and delete the task
-                    val item =
-                        it.where<Recipe>().equalTo("recipeName", input.text.toString()).findFirst()
-                    item?.deleteFromRealm()
-                    }
+
                 }
             }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
@@ -145,7 +139,7 @@ class TaskActivity : AppCompatActivity() {
         // Realm provides RealmRecyclerViewAdapter, which you can extend to customize for your application
         // pass the adapter a collection of Tasks from the realm
         // sort this collection so that the displayed order of Tasks remains stable across updates
-        adapter = TaskAdapter(realm.where<Task>().sort("id").findAll(), user!!, partition)
+        adapter = TaskAdapter(realm.where<Recipe>().sort("id").findAll(), user!!, partition)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)

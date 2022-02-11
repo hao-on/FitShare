@@ -64,7 +64,7 @@ internal class ProjectAdapter(data: RealmList<Project>, var user: User) : RealmR
 
     internal inner class ProjectViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.name)
-        var status: TextView = view.findViewById(R.id.status)
+        //var status: TextView = view.findViewById(R.id.status)
         var data: Project? = null
         var menu: TextView = view.findViewById(R.id.menu)
 
