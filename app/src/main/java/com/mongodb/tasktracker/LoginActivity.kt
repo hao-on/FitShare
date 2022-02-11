@@ -33,6 +33,11 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener { login() }
 
+        tvForgot.setOnClickListener {
+            val intent = Intent(this, ResetAcitivity::class.java)
+            startActivity(intent)
+        }
+
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -76,18 +81,15 @@ class LoginActivity : AppCompatActivity() {
         val username = this.username.text.toString()
         val password = this.password.text.toString()
         val creds = Credentials.emailPassword(username, password)
+
         taskApp.loginAsync(creds) {
-            // re-enable the buttons after user login returns a result
-            loginButton.isEnabled = true
-            //createUserButton.isEnabled = true
+
             if (!it.isSuccess) {
                 onLoginFailed(it.error.message ?: "An error occurred.")
 
             } else {
+
                 onLoginSuccess()
-                val user = taskApp.currentUser()
-                val customUserData : Document? = user?.customData
-                Log.v("EXAMPLE", "Fetched custom user data: $customUserData")
             }
         }
     }

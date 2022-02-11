@@ -35,10 +35,11 @@ class RegisterActivity : AppCompatActivity() {
         Reg_Password = findViewById(R.id.txtReg_Password)
         Phone = findViewById(R.id.txtPhone)
 
+        /*
         ivLeft.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         btnRegister.setOnClickListener {
             Register()
@@ -52,17 +53,12 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /*
     override fun onBackPressed() {
         // Disable going back to the MainActivity
         moveTaskToBack(true)
     }
-
-    private fun onLoginSuccess() {
-        // successful login ends this activity, bringing the user back to the project activity
-        //finish()
-        val intent = Intent(this, ProjectActivity::class.java);
-        startActivity(intent)
-    }
+    */
 
     private fun onLoginFailed(errorMsg: String) {
         Log.e(TAG(), errorMsg)
@@ -115,12 +111,12 @@ class RegisterActivity : AppCompatActivity() {
                             .getAsync { result ->
                                 if (result.isSuccess) {
                                     Log.v(
-                                        "EXAMPLE",
+                                        "CustomData",
                                         "Inserted custom user data document. _id of inserted document: ${result.get().insertedId}"
                                     )
                                 } else {
                                     Log.e(
-                                        "EXAMPLE",
+                                        "CustomData",
                                         "Unable to insert custom user data. Error: ${result.error}"
                                     )
                                 }
