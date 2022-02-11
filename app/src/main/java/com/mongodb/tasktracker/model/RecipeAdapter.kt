@@ -41,7 +41,7 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
 
                 // add a delete button to the menu, identified by the delete code
                 val deleteCode = -1
-                menu.add(0, deleteCode, Menu.NONE, "Delete Task")
+                menu.add(0, deleteCode, Menu.NONE, "Delete Recipe")
 
                 // handle clicks for each button based on the code the button passes the listener
                 popup.setOnMenuItemClickListener { item: MenuItem? ->

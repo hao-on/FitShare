@@ -80,31 +80,29 @@ class RecipeActivity : AppCompatActivity() {
             val dialogBuilder = AlertDialog.Builder(this)
 
             val layout = LinearLayout(this)
+            layout.setOrientation(LinearLayout.VERTICAL)
+            dialogBuilder.setMessage("Enter Recipe Information!")
 
-            dialogBuilder.setMessage("Enter Name")
-            val input = EditText(this)
-            input.setHint("Name")
-            layout.addView(input)
+            val nameInput = EditText(this)
+            nameInput.setHint("Name")
+            layout.addView(nameInput)
 
-            dialogBuilder.setMessage("Enter Description")
-            val input2 = EditText(this)
-            input2.setHint("Description")
-            layout.addView(input2)
+            val descInput = EditText(this)
+            descInput.setHint("Description")
+            layout.addView(descInput)
 
-            dialogBuilder.setMessage("Enter Ingredients")
-            val input3 = EditText(this)
-            input2.setHint("Ingredients")
-            layout.addView(input3)
+            val ingrInput = EditText(this)
+            ingrInput.setHint("Ingredients")
+            layout.addView(ingrInput)
 
-            dialogBuilder.setMessage("Enter Steps")
-            val input4 = EditText(this)
-            input2.setHint("Steps")
-            layout.addView(input4)
+            val stepInput = EditText(this)
+            stepInput.setHint("Steps")
+            layout.addView(stepInput)
 
             dialogBuilder.setCancelable(true).setPositiveButton("Submit") {dialog, _ -> run{
                 dialog.dismiss()
 
-                val recipe = Recipe(input.text.toString(), input2.text.toString(), input3.text.toString(), input4.text.toString())
+                val recipe = Recipe(nameInput.text.toString(), descInput.text.toString(), ingrInput.text.toString(), stepInput.text.toString())
 
                 projectRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
 
@@ -113,8 +111,9 @@ class RecipeActivity : AppCompatActivity() {
 
             val dialog = dialogBuilder.create()
             dialog.setView(layout)
-            dialog.setTitle("Welcome")
+            dialog.setTitle("Adding Recipe...")
             dialog.show()
+            dialog.getWindow()?.setLayout(850, 1000)
         }
     }
 
