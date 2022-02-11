@@ -134,7 +134,7 @@ class ProjectActivity : AppCompatActivity() {
                 fakeRealm.executeTransaction {
                     fakeCustomUserData = it.createObject(User::class.java, user?.id)
                     projectsList = fakeCustomUserData?.memberOf!!
-                    projectsList?.add(Project("My Project", "project=${user?.id}"))
+                    projectsList?.add(Project("My Recipes", "project=${user?.id}"))
                 }
             } else {
                 projectsList = fakeCustomUserData?.memberOf

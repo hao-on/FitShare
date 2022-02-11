@@ -1,12 +1,10 @@
 package com.mongodb.tasktracker.model
 
-import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mongodb.tasktracker.R
-import com.mongodb.tasktracker.TAG
 import io.realm.OrderedRealmCollection
 import io.realm.Realm
 import io.realm.RealmRecyclerViewAdapter
@@ -18,7 +16,7 @@ import org.bson.types.ObjectId
 * TaskAdapter: extends the Realm-provided RealmRecyclerViewAdapter to provide data for a RecyclerView to display
 * Realm objects on screen to a user.
 */
-internal class TaskAdapter(data: OrderedRealmCollection<Recipe>, val user: io.realm.mongodb.User, private val partition: String) : RealmRecyclerViewAdapter<Recipe, TaskAdapter.TaskViewHolder?>(data, true) {
+internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.realm.mongodb.User, private val partition: String) : RealmRecyclerViewAdapter<Recipe, RecipeAdapter.TaskViewHolder?>(data, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.task_view, parent, false)
