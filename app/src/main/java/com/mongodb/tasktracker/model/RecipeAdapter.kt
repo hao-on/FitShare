@@ -37,8 +37,6 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
                 val popup = PopupMenu(holder.itemView.context, holder.menu)
                 val menu = popup.menu
 
-                // the menu should only contain statuses different from the current status
-
                 // add a delete button to the menu, identified by the delete code
                 val deleteCode = -1
                 menu.add(0, deleteCode, Menu.NONE, "Delete Recipe")
