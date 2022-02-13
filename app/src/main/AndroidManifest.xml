@@ -18,6 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
+
+
+
+
       <!--  <activity android:name=".ProjectActivity" /> -->
         <!--  <activity android:name=".TaskActivity" />-->
         <!--  <activity android:name=".MemberActivity" />-->

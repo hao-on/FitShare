@@ -1,5 +1,6 @@
 package com.mongodb.tasktracker.model
 
+import com.mongodb.tasktracker.PARTITION_EXTRA_KEY
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmField

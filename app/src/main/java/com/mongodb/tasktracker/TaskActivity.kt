@@ -83,14 +83,15 @@ class TaskActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val input = EditText(this)
             val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Enter task name:")
+            dialogBuilder.setMessage("Enter recipe :")
                 .setCancelable(true)
                 .setPositiveButton("Create") { dialog, _ -> run {
                     dialog.dismiss()
-//                    val recipe = Recipe("test recipe name","test desc","test ingred", "test steps")
-//
-//                    projectRealm.executeTransactionAsync { realm ->
-//                        realm.insert(recipe)  }
+                    val recipe = Recipe("test recipe name","test desc","test ingred", "test steps")
+
+                    projectRealm.executeTransactionAsync { realm ->
+                        realm.insert(recipe)  }
+
                     val task = Task(input.text.toString())
 
                     // all realm writes need to occur inside of a transaction
