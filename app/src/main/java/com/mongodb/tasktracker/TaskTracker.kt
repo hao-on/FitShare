@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.fitshare.BuildConfig
 
 import io.realm.Realm
 import io.realm.log.LogLevel
