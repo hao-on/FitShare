@@ -14,11 +14,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
+        /*
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-        /*
+        */
         setContentView(R.layout.activity_main)
 
         val posts: ArrayList<Post> = ArrayList()
@@ -27,6 +28,6 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = PostsAdapter(posts, this)
-        */
+
     }
 }
