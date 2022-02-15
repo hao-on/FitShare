@@ -21,8 +21,9 @@
 
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".TaskActivity" />
+        <activity android:name=".RecipeActivity" />
         <activity android:name=".MemberActivity" />
+        <activity android:name=".RecipeActivity"/>
     </application>
 
 </manifest>

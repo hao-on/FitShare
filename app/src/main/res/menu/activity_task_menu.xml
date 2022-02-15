@@ -8,4 +8,5 @@
         android:title="@string/logout"
         android:text="@string/logout"
         app:showAsAction="always"/>
+
 </menu>

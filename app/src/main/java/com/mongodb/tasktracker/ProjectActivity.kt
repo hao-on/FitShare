@@ -89,6 +89,11 @@ class ProjectActivity : AppCompatActivity() {
                 }
                 true
             }
+//            R.id.action_add_recipe -> {
+//                startActivity(Intent(this, RecipeActivity::class.java))
+//                true
+//            }
+
             else -> {
                 super.onOptionsItemSelected(item)
             }
@@ -129,7 +134,7 @@ class ProjectActivity : AppCompatActivity() {
                 fakeRealm.executeTransaction {
                     fakeCustomUserData = it.createObject(User::class.java, user?.id)
                     projectsList = fakeCustomUserData?.memberOf!!
-                    projectsList?.add(Project("My Project", "project=${user?.id}"))
+                    projectsList?.add(Project("My Recipes", "project=${user?.id}"))
                 }
             } else {
                 projectsList = fakeCustomUserData?.memberOf
