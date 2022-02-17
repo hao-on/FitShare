@@ -41,11 +41,17 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
                 val deleteCode = -1
                 menu.add(0, deleteCode, Menu.NONE, "Delete Recipe")
 
+                val updateCode = -1
+                menu.add(0, updateCode, Menu.NONE,  "Modify Recipe")
+
                 // handle clicks for each button based on the code the button passes the listener
                 popup.setOnMenuItemClickListener { item: MenuItem? ->
                     when (item!!.itemId) {
                         deleteCode -> {
                             removeAt(holder.data?.id!!)
+                        }
+                        updateCode -> {
+                            updateAt(holder.data?.id!!)
                         }
                     }
 
@@ -75,6 +81,19 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
         realm.close()
     }
 
+    private fun updateAt(id: ObjectId){
+        val config = SyncConfiguration.Builder(user,partition).build()
+        val realm: Realm =  Realm.getInstance(config)
+
+        realm.executeTransactionAsync{
+            val item = it.where<Recipe>().equalTo("id", id).findFirst()
+            item!!.recipeName = "sd"
+            item!!.description = "sd"
+            item!!.ingredients = "sd"
+            item!!.steps = "sd"
+
+        }
+    }
     private fun removeAt(id: ObjectId) {
         // need to create a separate instance of realm to issue an update, since this event is
         // handled by a background thread and realm instances cannot be shared across threads
