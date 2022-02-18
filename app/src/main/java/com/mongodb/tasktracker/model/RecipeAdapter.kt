@@ -3,10 +3,7 @@ package com.mongodb.tasktracker.model
 import android.app.AlertDialog
 import android.content.Context
 import android.view.*
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.mongodb.tasktracker.R
 import io.realm.OrderedRealmCollection
@@ -89,48 +86,56 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
     private fun updateAt(holder: Context, id: ObjectId){
         val config = SyncConfiguration.Builder(user,partition).build()
         val realm: Realm =  Realm.getInstance(config)
+        val thisRecipe = realm.where<Recipe>().equalTo("id", id).findFirst()
 
         val dialogBuilder = AlertDialog.Builder(holder)
-
+        val scrollView = ScrollView(holder)
         val layout = LinearLayout(holder)
         layout.setOrientation(LinearLayout.VERTICAL)
+        scrollView.addView(layout)
+
         dialogBuilder.setMessage("Enter Recipe Information!")
 
         val nameInput = EditText(holder)
         nameInput.setHint("Name")
+        nameInput.setText(thisRecipe!!.recipeName)
         layout.addView(nameInput)
 
         val descInput = EditText(holder)
         descInput.setHint("Description")
+        descInput.setText(thisRecipe!!.description)
         layout.addView(descInput)
 
         val ingrInput = EditText(holder)
         ingrInput.setHint("Ingredients")
+        ingrInput.setText(thisRecipe!!.ingredients)
         layout.addView(ingrInput)
 
         val stepInput = EditText(holder)
         stepInput.setHint("Steps")
+        stepInput.setText(thisRecipe!!.steps)
         layout.addView(stepInput)
 
         dialogBuilder.setCancelable(true).setPositiveButton("Submit") {dialog, _ -> run{
             dialog.dismiss()
 
             realm.executeTransactionAsync{
-                val item = it.where<Recipe>().equalTo("id", id).findFirst()
-                item!!.recipeName = nameInput.text.toString()
-                item!!.description = descInput.text.toString()
-                item!!.ingredients = ingrInput.text.toString()
-                item!!.steps = stepInput.text.toString()
+                val oldRecipe = it.where<Recipe>().equalTo("id", id).findFirst()
+                oldRecipe!!.recipeName = nameInput.text.toString()
+                oldRecipe!!.description = descInput.text.toString()
+                oldRecipe!!.ingredients = ingrInput.text.toString()
+                oldRecipe!!.steps = stepInput.text.toString()
             }
 
         }
         }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
         val dialog = dialogBuilder.create()
-        dialog.setView(layout)
+        dialog.setView(scrollView)
         dialog.setTitle("Modifying Recipe...")
         dialog.show()
         dialog.getWindow()?.setLayout(850, 1000)
+        dialog.getWindow()?.exitTransition
     }
 
     private fun removeAt(id: ObjectId) {
