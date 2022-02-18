@@ -1,6 +1,10 @@
 package com.mongodb.tasktracker.model
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.*
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,20 +20,21 @@ import org.bson.types.ObjectId
 * TaskAdapter: extends the Realm-provided RealmRecyclerViewAdapter to provide data for a RecyclerView to display
 * Realm objects on screen to a user.
 */
-internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.realm.mongodb.User, private val partition: String) : RealmRecyclerViewAdapter<Recipe, RecipeAdapter.TaskViewHolder?>(data, true) {
+internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.realm.mongodb.User, private val partition: String) : RealmRecyclerViewAdapter<Recipe, RecipeAdapter.RecipeViewHolder?>(data, true) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.task_view, parent, false)
-        return TaskViewHolder(itemView)
+        return RecipeViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val obj: Recipe? = getItem(position)
         holder.data = obj
         holder.recipeName.text = obj?.recipeName
         holder.description.text = obj?.description
         holder.ingredients.text = obj?.ingredients
         holder.steps.text = obj?.steps
+
 
         // multiselect popup to control status
         holder.itemView.setOnClickListener {
@@ -41,7 +46,7 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
                 val deleteCode = -1
                 menu.add(0, deleteCode, Menu.NONE, "Delete Recipe")
 
-                val updateCode = -1
+                val updateCode = 1
                 menu.add(0, updateCode, Menu.NONE,  "Modify Recipe")
 
                 // handle clicks for each button based on the code the button passes the listener
@@ -51,7 +56,7 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
                             removeAt(holder.data?.id!!)
                         }
                         updateCode -> {
-                            updateAt(holder.data?.id!!)
+                            updateAt(holder.itemView.context, holder.data?.id!!)
                         }
                     }
 
@@ -81,19 +86,53 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
         realm.close()
     }
 
-    private fun updateAt(id: ObjectId){
+    private fun updateAt(holder: Context, id: ObjectId){
         val config = SyncConfiguration.Builder(user,partition).build()
         val realm: Realm =  Realm.getInstance(config)
 
-        realm.executeTransactionAsync{
-            val item = it.where<Recipe>().equalTo("id", id).findFirst()
-            item!!.recipeName = "sd"
-            item!!.description = "sd"
-            item!!.ingredients = "sd"
-            item!!.steps = "sd"
+        val dialogBuilder = AlertDialog.Builder(holder)
+
+        val layout = LinearLayout(holder)
+        layout.setOrientation(LinearLayout.VERTICAL)
+        dialogBuilder.setMessage("Enter Recipe Information!")
+
+        val nameInput = EditText(holder)
+        nameInput.setHint("Name")
+        layout.addView(nameInput)
+
+        val descInput = EditText(holder)
+        descInput.setHint("Description")
+        layout.addView(descInput)
+
+        val ingrInput = EditText(holder)
+        ingrInput.setHint("Ingredients")
+        layout.addView(ingrInput)
+
+        val stepInput = EditText(holder)
+        stepInput.setHint("Steps")
+        layout.addView(stepInput)
+
+        dialogBuilder.setCancelable(true).setPositiveButton("Submit") {dialog, _ -> run{
+            dialog.dismiss()
+
+            realm.executeTransactionAsync{
+                val item = it.where<Recipe>().equalTo("id", id).findFirst()
+                item!!.recipeName = nameInput.text.toString()
+                item!!.description = descInput.text.toString()
+                item!!.ingredients = ingrInput.text.toString()
+                item!!.steps = stepInput.text.toString()
+            }
 
         }
+        }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
+
+        val dialog = dialogBuilder.create()
+        dialog.setView(layout)
+        dialog.setTitle("Modifying Recipe...")
+        dialog.show()
+        dialog.getWindow()?.setLayout(850, 1000)
     }
+
     private fun removeAt(id: ObjectId) {
         // need to create a separate instance of realm to issue an update, since this event is
         // handled by a background thread and realm instances cannot be shared across threads
@@ -112,13 +151,12 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
         realm.close()
     }
 
-    internal inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    internal inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var recipeName: TextView = view.findViewById(R.id.name)
         var description: TextView = view.findViewById(R.id.description)
         var ingredients: TextView = view.findViewById(R.id.ingredients)
         var steps: TextView = view.findViewById(R.id.steps)
         var data: Recipe? = null
         var menu: TextView = view.findViewById(R.id.menu)
-
     }
 }
