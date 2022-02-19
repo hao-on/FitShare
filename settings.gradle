@@ -7,5 +7,5 @@
         jcenter() // Warning: this repository is going to shut down soon
     }
 }*/
-rootProject.name = "FitShare"
+rootProject.name = "FitShare5"
 include ':app'
