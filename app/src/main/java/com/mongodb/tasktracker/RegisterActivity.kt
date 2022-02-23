@@ -111,7 +111,13 @@ class RegisterActivity : AppCompatActivity() {
                             mongoClient.getDatabase("UserData")!!
                         val mongoCollection : MongoCollection<Document> =
                             mongoDatabase.getCollection("CustomUserData")!!
+
                         mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Phone", Phone).append("_partition", "partition"))
+
+                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName)
+                            .append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email)
+                            .append("Reg_Password", Reg_Password).append("Phone", Phone).append("_partition", "partition"))
+
                             .getAsync { result ->
                                 if (result.isSuccess) {
                                     Log.v(

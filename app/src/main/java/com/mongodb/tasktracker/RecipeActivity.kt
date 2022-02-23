@@ -3,34 +3,33 @@ package com.mongodb.tasktracker
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mongodb.tasktracker.model.Recipe
 import io.realm.Realm
 import io.realm.mongodb.User
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
-import com.mongodb.tasktracker.model.TaskAdapter
-import com.mongodb.tasktracker.model.Task
+import com.mongodb.tasktracker.model.RecipeAdapter
 
 /*
 * TaskActivity: allows a user to view a collection of Tasks, edit the status of those tasks,
 * create new tasks, and delete existing tasks from the collection. All tasks are stored in a realm
 * and synced across devices using the partition "project=<user id>".
 */
-class TaskActivity : AppCompatActivity() {
+class RecipeActivity : AppCompatActivity() {
     private lateinit var projectRealm: Realm
     private var user: User? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: TaskAdapter
+    private lateinit var adapter: RecipeAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
+
 
     override fun onStart() {
         super.onStart()
@@ -54,7 +53,7 @@ class TaskActivity : AppCompatActivity() {
             Realm.getInstanceAsync(config, object: Realm.Callback() {
                 override fun onSuccess(realm: Realm) {
                     // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                    this@TaskActivity.projectRealm = realm
+                    this@RecipeActivity.projectRealm = realm
                     setUpRecyclerView(realm, user, partition)
                 }
             })
@@ -77,26 +76,44 @@ class TaskActivity : AppCompatActivity() {
 
         // create a dialog to enter a task name when the floating action button is clicked
         fab.setOnClickListener {
-            val input = EditText(this)
+
             val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Enter task name:")
-                .setCancelable(true)
-                .setPositiveButton("Create") { dialog, _ -> run {
-                    dialog.dismiss()
-                    val task = Task(input.text.toString())
-                    // all realm writes need to occur inside of a transaction
-                    projectRealm.executeTransactionAsync { realm ->
-                        realm.insert(task)
-                    }
+
+            val layout = LinearLayout(this)
+            layout.setOrientation(LinearLayout.VERTICAL)
+            dialogBuilder.setMessage("Enter Recipe Information!")
+
+            val nameInput = EditText(this)
+            nameInput.setHint("Name")
+            layout.addView(nameInput)
+
+            val descInput = EditText(this)
+            descInput.setHint("Description")
+            layout.addView(descInput)
+
+            val ingrInput = EditText(this)
+            ingrInput.setHint("Ingredients")
+            layout.addView(ingrInput)
+
+            val stepInput = EditText(this)
+            stepInput.setHint("Steps")
+            layout.addView(stepInput)
+
+            dialogBuilder.setCancelable(true).setPositiveButton("Submit") {dialog, _ -> run{
+                dialog.dismiss()
+
+                val recipe = Recipe(nameInput.text.toString(), descInput.text.toString(), ingrInput.text.toString(), stepInput.text.toString())
+
+                projectRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
+
                 }
-                }
-                .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()
-                }
+            }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
             val dialog = dialogBuilder.create()
-            dialog.setView(input)
-            dialog.setTitle("Create New Task")
+            dialog.setView(layout)
+            dialog.setTitle("Adding Recipe...")
             dialog.show()
+            dialog.getWindow()?.setLayout(850, 1000)
         }
     }
 
@@ -111,9 +128,9 @@ class TaskActivity : AppCompatActivity() {
     private fun setUpRecyclerView(realm: Realm, user: User?, partition: String) {
         // a recyclerview requires an adapter, which feeds it items to display.
         // Realm provides RealmRecyclerViewAdapter, which you can extend to customize for your application
-        // pass the adapter a collection of Tasks from the realm
-        // sort this collection so that the displayed order of Tasks remains stable across updates
-        adapter = TaskAdapter(realm.where<Task>().sort("id").findAll(), user!!, partition)
+        // pass the adapter a collection of Recipes from the realm
+        // sort this collection so that the displayed order of Recipes remains stable across updates
+        adapter = RecipeAdapter(realm.where<Recipe>().sort("id").findAll(), user!!, partition)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
