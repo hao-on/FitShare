@@ -94,8 +94,6 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
         layout.setOrientation(LinearLayout.VERTICAL)
         scrollView.addView(layout)
 
-        dialogBuilder.setMessage("Enter Recipe Information!")
-
         val nameInput = EditText(holder)
         nameInput.setHint("Name")
         nameInput.setText(thisRecipe!!.recipeName)
@@ -132,9 +130,9 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
 
         val dialog = dialogBuilder.create()
         dialog.setView(scrollView)
-        dialog.setTitle("Modifying Recipe...")
+        dialog.setTitle("Modifying Recipe..." + "\n" + "Enter Recipe Information")
         dialog.show()
-        dialog.getWindow()?.setLayout(850, 1000)
+        dialog.getWindow()?.setLayout(850, 965)
         dialog.getWindow()?.exitTransition
     }
 

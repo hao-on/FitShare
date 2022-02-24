@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -84,10 +85,10 @@ class RecipeActivity : AppCompatActivity() {
         fab.setOnClickListener {
 
             val dialogBuilder = AlertDialog.Builder(this)
-
+            val scrollView = ScrollView(this)
             val layout = LinearLayout(this)
             layout.setOrientation(LinearLayout.VERTICAL)
-            dialogBuilder.setMessage("Enter Recipe Information!")
+            scrollView.addView(layout)
 
             val nameInput = EditText(this)
             nameInput.setHint("Name")
@@ -116,10 +117,10 @@ class RecipeActivity : AppCompatActivity() {
             }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
             val dialog = dialogBuilder.create()
-            dialog.setView(layout)
-            dialog.setTitle("Adding Recipe...")
+            dialog.setView(scrollView)
+            dialog.setTitle("Adding Recipe..." + "\n" + "Enter Recipe Information")
             dialog.show()
-            dialog.getWindow()?.setLayout(850, 1000)
+            dialog.getWindow()?.setLayout(850, 965)
         }
     }
 
