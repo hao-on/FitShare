@@ -89,10 +89,6 @@ class ProjectActivity : AppCompatActivity() {
                 }
                 true
             }
-//            R.id.action_add_recipe -> {
-//                startActivity(Intent(this, RecipeActivity::class.java))
-//                true
-//            }
 
             else -> {
                 super.onOptionsItemSelected(item)
