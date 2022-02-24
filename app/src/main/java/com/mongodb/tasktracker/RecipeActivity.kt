@@ -1,10 +1,16 @@
 package com.mongodb.tasktracker
 
 import android.app.AlertDialog
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +22,7 @@ import io.realm.mongodb.User
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import com.mongodb.tasktracker.model.RecipeAdapter
+import io.realm.Case
 
 /*
 * TaskActivity: allows a user to view a collection of Tasks, edit the status of those tasks,
@@ -124,13 +131,52 @@ class RecipeActivity : AppCompatActivity() {
         projectRealm.close()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+        searchView.setMaxWidth(Int.MAX_VALUE)
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(text: String): Boolean {
+                recyclerSearch(projectRealm, user, partition, text)
+                return false
+            }
+
+            override fun onQueryTextChange(text: String): Boolean {
+                recyclerSearch(projectRealm, user, partition, text)
+                return false
+            }
+        })
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        return if (id == R.id.action_search) {
+            true
+        } else super.onOptionsItemSelected(item)
+    }
+
+
+    private fun recyclerSearch(realm: Realm, user: User?, partition: String , text: String){
+        adapter = RecipeAdapter(realm.where<Recipe>().contains("recipeName", text, Case.INSENSITIVE).findAll(), user!!, partition)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+    }
 
     private fun setUpRecyclerView(realm: Realm, user: User?, partition: String) {
         // a recyclerview requires an adapter, which feeds it items to display.
         // Realm provides RealmRecyclerViewAdapter, which you can extend to customize for your application
         // pass the adapter a collection of Recipes from the realm
         // sort this collection so that the displayed order of Recipes remains stable across updates
-        adapter = RecipeAdapter(realm.where<Recipe>().sort("id").findAll(), user!!, partition)
+        adapter = RecipeAdapter(realm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
