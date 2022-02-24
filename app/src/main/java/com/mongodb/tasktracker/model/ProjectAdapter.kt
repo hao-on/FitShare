@@ -21,7 +21,7 @@ internal class ProjectAdapter(data: RealmList<Project>, var user: User) : RealmR
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
         // save a reference to the parent view so we can use the context to launch TaskActivity on item clicks
         this.parent = parent
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.task_view, parent, false)
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recipe_view, parent, false)
         return ProjectViewHolder(itemView)
     }
 

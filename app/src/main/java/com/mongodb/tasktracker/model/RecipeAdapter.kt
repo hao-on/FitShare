@@ -20,7 +20,7 @@ import org.bson.types.ObjectId
 internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.realm.mongodb.User, private val partition: String) : RealmRecyclerViewAdapter<Recipe, RecipeAdapter.RecipeViewHolder?>(data, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.task_view, parent, false)
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recipe_view, parent, false)
         return RecipeViewHolder(itemView)
     }
 
