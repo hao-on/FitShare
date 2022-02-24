@@ -28,9 +28,9 @@ internal class RecipeAdapter(data: OrderedRealmCollection<Recipe>, val user: io.
         val obj: Recipe? = getItem(position)
         holder.data = obj
         holder.recipeName.text = obj?.recipeName
-        holder.description.text = obj?.description
-        holder.ingredients.text = obj?.ingredients
-        holder.steps.text = obj?.steps
+        holder.description.text = "Description: " + obj?.description
+        holder.ingredients.text = "Ingredients: " + obj?.ingredients
+        holder.steps.text = "Steps: " + obj?.steps
 
 
         // multiselect popup to control status
