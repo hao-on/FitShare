@@ -13,6 +13,6 @@ open class WorkoutPlan(_name: String = "Name", _desc: String = "Description"
     @Required
     var recipeName: String = _name
     var description: String = _desc
-   
+
 
 }
