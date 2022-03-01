@@ -12,4 +12,8 @@
     <string name="recipe_desc"> Description </string>
     <string name="recipe_ingred"> Enter ingredients </string>
     <string name="recipe_steps">Enter steps</string>
+    <string name="title_activity_work_out_plan">WorkOutPlanActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_workout_plan">WorkoutPlanActivity</string>
 </resources>
