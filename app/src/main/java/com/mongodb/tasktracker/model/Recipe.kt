@@ -1,6 +1,8 @@
 package com.mongodb.tasktracker.model
 
 import io.realm.RealmObject
+import io.realm.RealmResults
+import io.realm.annotations.LinkingObjects
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmField
 import io.realm.annotations.Required
@@ -16,5 +18,9 @@ open class Recipe(_name: String = "Recipe", _desc: String = "Description",
     var ingredients: String = _ingr
     @Required
     var steps: String = _steps
+//    @Required
+//    var UserID: String = _userID
+   // @LinkingObjects("recipes")
+    //val user: RealmResults<User>? = null
 
 }

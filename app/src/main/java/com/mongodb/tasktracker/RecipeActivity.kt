@@ -102,11 +102,14 @@ class RecipeActivity : AppCompatActivity() {
             dialogBuilder.setCancelable(true).setPositiveButton("Submit") {dialog, _ -> run{
                 dialog.dismiss()
 
-                val recipe = Recipe(nameInput.text.toString(), descInput.text.toString(), ingrInput.text.toString(), stepInput.text.toString())
+                val recipe = Recipe(nameInput.text.toString(), descInput.text.toString(),
+                    ingrInput.text.toString(), stepInput.text.toString())
 
                 projectRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
 
                 }
+
+
             }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel()}
 
             val dialog = dialogBuilder.create()

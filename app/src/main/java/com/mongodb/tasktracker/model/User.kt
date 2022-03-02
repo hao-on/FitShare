@@ -10,5 +10,6 @@ open class User(
     @PrimaryKey @RealmField("_id") var id: String = "",
     var _partition: String = "",
     var memberOf: RealmList<Project> = RealmList(),
+    var recipes: RealmList<Recipe> = RealmList(),
     var name: String = ""
 ): RealmObject()
