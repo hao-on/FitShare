@@ -9,30 +9,40 @@ import io.realm.annotations.RealmField
 import io.realm.annotations.Required
 import org.bson.types.ObjectId
 
-/*
+
 open class Recipe(_name: String = "Recipe", _desc: String = "Description",
-                  _ingr: String = "Ingredients", _steps: String = "Steps") : RealmObject() {
+                  _ingr: String = "Ingredients", _steps: String = "Steps",
+                  _time: String = "Prep_Time") : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
-    var name: String = _name
+    var recipeName: String = _name
+    @Required
     var description: String = _desc
     @Required
     var ingredients: String = _ingr
     @Required
     var steps: String = _steps
+    /*
+    @Required
+    var prepTime: String = _time
+     */
+    /*
+    @LinkingObjects("recipes")
+    val user: RealmResults<User>? = null
+    */
 }
-*/
 
-open class Recipe : RealmObject{
-    @PrimaryKey @RealmField("_id") var id: ObjectId = ObjectId()
+/*
+open class Recipe(
+    @PrimaryKey @RealmField("_id") var id: ObjectId = ObjectId(),
     @Required
-    var name: String? = null
+    var name: String = "",
     @Required
-    var description: String? = null
+    var description: String = "",
     @Required
-    var ingredients: String? = null
+    var ingredients: String = "",
     @Required
-    var steps: String? = null
+    var steps: String = "",
     @LinkingObjects("recipes")
     val user: RealmResults<User>? = null
 
@@ -45,4 +55,5 @@ open class Recipe : RealmObject{
     }
 
     constructor(){}
-}
+): RealmObject()
+*/

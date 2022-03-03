@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--ImageVIew to display our Course Image-->
+        <ImageView
+            android:id="@+id/ivRecipeImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:background="@drawable/login_edittext_background"
+            android:src="@drawable/food2" />
+
+        <!--Text View to display Recipe Name-->
+        <TextView
+            android:id="@+id/tvRecipeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/ivRecipeImage"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <!--Text VIew to display Recipe Desccription-->
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvRecipeName"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/ivRecipeImage"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/roboto_light" />
+
+        <TextView
+            android:id="@+id/tvPrepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDescription"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@id/ivRecipeImage"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/roboto_light"
+            app:drawableStartCompat="@drawable/ic_clock" />
+
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDescription"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@id/tvPrepTime"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="4.0"
+            android:textColor="@color/mikado_yellow"
+            android:drawableRight="@drawable/ic_star"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
