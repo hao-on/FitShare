@@ -1,4 +1,4 @@
-package Profile
+package com.example.fitshare.Profile
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey

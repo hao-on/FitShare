@@ -1,4 +1,0 @@
-package Profile
-
-class ProfileAdapter {
-}

@@ -24,7 +24,7 @@ open class User : RealmObject {
     var recipes: RealmList<Recipe> ?= null
     var name: String = ""
     var profile: Profile ?= null
-    
+
     constructor(
         id: String,
         _partition: String,
