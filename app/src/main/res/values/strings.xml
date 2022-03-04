@@ -13,4 +13,5 @@
     <string name="recipe_ingred"> Enter ingredients </string>
     <string name="recipe_steps">Enter steps</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name = "google_maps_key">AIzaSyBV92vrb2TP1g1N8A8JijI_P0E6uLpgehU</string>
 </resources>
