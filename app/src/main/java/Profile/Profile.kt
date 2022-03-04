@@ -9,7 +9,7 @@ import org.bson.types.ObjectId
 open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
                     _bio: String = "Bio", _addr: String = "Address",
                     _zip: String = "Zipcode", _phone: String = "Phone Number",
-                    _meet: Boolean = false) : RealmObject(){
+                    _username: String = "Username" ,_meet: Boolean = false) : RealmObject(){
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var firstName: String = _fname
@@ -23,6 +23,8 @@ open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
     var zipcode: String = _zip
     @Required
     var phoneNumber: String = _phone
+    @Required
+    var username: String = _username
     var meetUp: Boolean = _meet
 
 }
