@@ -1,10 +1,15 @@
 package com.example.fitshare
 
+import Profile.ProfileEditButton
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import io.realm.Realm
+import io.realm.mongodb.sync.SyncConfiguration
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,15 +23,18 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var user: io.realm.mongodb.User? = null
+    private lateinit var profileRealm: Realm
+    private lateinit var userRealm: Realm
+    //private lateinit var adapter: ProfileAdapter
+    private lateinit var fab: FloatingActionButton
+    private lateinit var partition: String
+    private lateinit var messaging: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -34,7 +42,31 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        user = fitApp.currentUser()
+        partition = "profile"
+        val config = SyncConfiguration.Builder(user!!, partition).build()
+
+        Realm.getInstanceAsync(config, object: Realm.Callback(){
+            override fun onSuccess(realm: Realm) {
+                this@ProfileFragment.profileRealm = realm
+            }
+        })
+
+        val user_config: SyncConfiguration =
+            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
+                .build()
+        Realm.getInstanceAsync(config, object: Realm.Callback(){
+            override fun onSuccess(realm: Realm) {
+                this@ProfileFragment.userRealm = realm
+            }
+        })
+
+        fab = view.findViewById(R.id.btnEditProfile)
+        fab.setOnClickListener{
+
+        }
+        return view
     }
 
     companion object {
