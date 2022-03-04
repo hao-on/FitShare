@@ -23,7 +23,6 @@ open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
     var zipcode: String = _zip
     @Required
     var phoneNumber: String = _phone
-    @Required
     var meetUp: Boolean = _meet
 
 }

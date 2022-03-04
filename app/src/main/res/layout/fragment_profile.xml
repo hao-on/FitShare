@@ -5,13 +5,140 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FeedsFragment"
-    android:id="@+id/fragment_feeds">
+    android:id="@+id/fragment_feeds"
+    android:background="@color/cream"
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/profileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:fontFamily="@font/dancing_script"
+            android:paddingTop="20sp"
+            android:text="My Profile"
+            android:textColor="#116530"
+            android:textFontWeight="600"
+            android:textSize="35sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/infoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="40dp"
+            android:orientation="vertical"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileTitle">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="430px"
+                android:layout_height="420px"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="118dp"
+                tools:src="@drawable/fitshare"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20sp"
+                android:text="My First + Last Name"
+                android:textFontWeight="600"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Email"
+                android:paddingLeft="20sp"
+                android:textFontWeight="600"
+                android:textSize="25sp"
+                />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Phone"
+                android:paddingLeft="20sp"
+                android:textFontWeight="600"
+                android:textSize="25sp"
+                />
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20sp"
+                android:text="My Address + Zipcode"
+                android:textFontWeight="600"
+                android:textSize="25sp"
+                />
+
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20sp"
+                android:text="My Bio"
+                android:textFontWeight="600"
+                android:textSize="25sp"
+                />
+            <LinearLayout
+                android:id="@+id/Container"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="40dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <CheckBox
+                    android:id="@+id/meetUp"
+                    android:layout_width="10sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Meet-up Status" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="10sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Message" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Profile Fragment"
-        android:textSize="25dp" />
+        android:src="@drawable/ic_edit_pencil"
+        app:maxImageSize="50dp"
+        android:backgroundTint="@color/white"
+        android:layout_gravity="right"
+        android:layout_marginBottom="100dp"
+    />
+
 </FrameLayout>
