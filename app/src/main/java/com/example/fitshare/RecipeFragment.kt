@@ -6,30 +6,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TextView
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.Recipe.Recipe
+import com.example.fitshare.User.User
 import com.example.fitshare.Recipe.RecipeAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import io.realm.kotlin.where
-import io.realm.mongodb.User
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_recipe.*
-import android.R.attr.button
-import android.R.attr
-import android.app.SearchManager
-import android.content.Context
-import android.view.Menu
+import android.widget.*
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.DialogFragment
 import io.realm.Case
+import kotlinx.android.synthetic.main.layout_add_recipe.*
 import java.util.*
+import io.realm.RealmResults
+
+import io.realm.RealmList
+
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -47,10 +45,13 @@ class RecipeFragment : Fragment(){
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recipeRealm: Realm
-    private var user: User? = null
+    private lateinit var userRealm: Realm
+    private var user: io.realm.mongodb.User? = null
     private lateinit var adapter: RecipeAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
+    private lateinit var searchview: SearchView
+    private lateinit var myRecipe: AppCompatButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,10 +75,56 @@ class RecipeFragment : Fragment(){
                 rvRecipe.adapter = adapter
             }
         })
+
+        val user_config : SyncConfiguration =
+            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
+                .build()
+
+        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@RecipeFragment.userRealm = realm
+            }
+        })
+
+        fab = view.findViewById(R.id.btnRecipe)
+        // adding on click listener for our button.
+        fab.setOnClickListener {
+            val addBottomDialog : BottomDialog = BottomDialog.newInstance()
+            addBottomDialog.show(parentFragmentManager, null)
+        }
+
+        searchview = view.findViewById(R.id.searchView)
+        searchview.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(text: String): Boolean {
+                recyclerSearch(recipeRealm, user, partition, text)
+                return false
+            }
+            override fun onQueryTextChange(text: String): Boolean {
+                recyclerSearch(recipeRealm, user, partition, text)
+                return false
+            }
+        })
+
+
+        myRecipe = view.findViewById(R.id.myRecipeFilter)
+        myRecipe.setOnClickListener {
+            val userData = userRealm.where<User>().findFirst()
+            val recipeList: RealmList<Recipe>? = userData?.recipes
+            val results: RealmResults<Recipe> =
+                recipeList?.where()!!.findAll()
+
+            adapter = RecipeAdapter(results, user!!, partition)
+            rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+            rvRecipe.adapter = adapter
+            rvRecipe.setHasFixedSize(true)
+        }
+
+
         return view
     }
 
-    private fun recyclerSearch(realm: Realm, user: User?, partition: String, text: String){
+    private fun recyclerSearch(realm: Realm, user: io.realm.mongodb.User?, partition: String, text: String){
         adapter = RecipeAdapter(realm.where<Recipe>().contains("recipeName", text, Case.INSENSITIVE)
             .findAll(), user!!, partition)
         rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
@@ -85,30 +132,6 @@ class RecipeFragment : Fragment(){
         rvRecipe.setHasFixedSize(true)
     }
 
-    /*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.search_menu, menu)
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-        searchView.setMaxWidth(Int.MAX_VALUE)
-
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(text: String): Boolean {
-                recyclerSearch(projectRealm, user, partition, text)
-                return false
-            }
-
-            override fun onQueryTextChange(text: String): Boolean {
-                recyclerSearch(projectRealm, user, partition, text)
-                return false
-            }
-        })
-
-        return true
-    }*/
 
     companion object {
         /**

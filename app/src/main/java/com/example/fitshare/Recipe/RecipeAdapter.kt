@@ -33,13 +33,13 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
         holder.data = obj
         holder.recipeName.text = obj?.recipeName
         holder.description.text = obj?.description
-        //holder.prepTime.text = obj?.prepTime
+        holder.prepTime.text = obj?.prepTime
     }
 
     inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var recipeName: TextView = view.findViewById(R.id.tvRecipeName)
         var description: TextView = view.findViewById(R.id.tvDescription)
-        //var prepTime: TextView = view.findViewById(R.id.tvPrepTime)
+        var prepTime: TextView = view.findViewById(R.id.tvPrepTime)
         var data: Recipe? = null
     }
 }

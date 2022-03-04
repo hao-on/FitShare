@@ -22,14 +22,10 @@ open class Recipe(_name: String = "Recipe", _desc: String = "Description",
     var ingredients: String = _ingr
     @Required
     var steps: String = _steps
-    /*
     @Required
     var prepTime: String = _time
-     */
-    /*
     @LinkingObjects("recipes")
     val user: RealmResults<User>? = null
-    */
 }
 
 /*

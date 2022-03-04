@@ -12,46 +12,104 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:textAlignment="center"
         android:text="Add Recipe"
+        android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textSize="25sp" />
 
-    <EditText
-        android:id="@+id/txtRec_Name"
-        android:hint="Name"
-        style="@style/modifiedTextBox"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
 
-    <EditText
-        android:id="@+id/txtRec_Descr"
-        android:hint="Description"
-        style="@style/modifiedTextBox"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtRec_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"/>
 
-    <EditText
-        android:id="@+id/txtRec_Time"
-        android:hint="Preparation Time"
-        style="@style/modifiedTextBox"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/txtRec_Ingr"
-        android:hint="Ingredients"
-        style="@style/modifiedTextBox"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
 
-    <EditText
-        android:id="@+id/txtRec_Steps"
-        android:hint="Steps"
-        style="@style/modifiedTextBox"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtRec_Descr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtRec_Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Preperation Time"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtRec_Ingr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingredients" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtRec_Steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Steps"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <!--button for dismissing our dialog-->
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnSubmitRecipe"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/dark_blue"
         android:text="Submit"
         android:textAllCaps="false"
