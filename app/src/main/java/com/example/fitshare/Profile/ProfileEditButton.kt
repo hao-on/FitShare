@@ -67,12 +67,13 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.profile = profile
             }
+            dialog?.dismiss()
         }
         return view
     }
     companion object{
-        fun newInstance(): BottomDialog{
-            return BottomDialog()
+        fun newInstance(): ProfileEditButton{
+            return ProfileEditButton()
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.example.fitshare.Profile
 
+import com.example.fitshare.User.User
 import io.realm.RealmObject
+import io.realm.RealmResults
+import io.realm.annotations.LinkingObjects
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmField
 import io.realm.annotations.Required
@@ -26,5 +29,8 @@ open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
     @Required
     var username: String = _username
     var meetUp: Boolean = _meet
+
+    @LinkingObjects("profile")
+    val user: RealmResults<User>? = null
 
 }

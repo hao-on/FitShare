@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import com.example.fitshare.Profile.ProfileEditButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
@@ -55,7 +56,7 @@ class ProfileFragment : Fragment() {
         val user_config: SyncConfiguration =
             SyncConfiguration.Builder(user!!, "user=${user!!.id}")
                 .build()
-        Realm.getInstanceAsync(config, object: Realm.Callback(){
+        Realm.getInstanceAsync(user_config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@ProfileFragment.userRealm = realm
             }
@@ -63,7 +64,8 @@ class ProfileFragment : Fragment() {
 
         fab = view.findViewById(R.id.btnEditProfile)
         fab.setOnClickListener{
-
+            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+            editProfileButton.show(parentFragmentManager, null)
         }
         return view
     }
