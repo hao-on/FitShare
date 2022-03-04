@@ -1,5 +1,6 @@
 package com.example.fitshare.User
 
+import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Recipe.Recipe
 import io.realm.RealmList
 import io.realm.RealmObject
@@ -22,7 +23,8 @@ open class User : RealmObject {
     var _partition: String = ""
     var recipes: RealmList<Recipe> ?= null
     var name: String = ""
-
+    var profile: Profile ?= null
+    
     constructor(
         id: String,
         _partition: String,
