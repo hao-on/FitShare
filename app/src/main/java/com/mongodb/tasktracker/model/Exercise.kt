@@ -8,19 +8,19 @@ import org.bson.types.ObjectId
 import java.util.*
 
 
-open class Exercise(_name: String = "Name",
-                  _sets : Int = 1, _reps : Int = 1, _weight : Double = 1.0,_userid: String = "",  _date: Date ) : RealmObject() {
+open class Exercise(name: String = "Name",
+                  sets : Int = 1, reps : Int = 1, weight : Double = 1.0,userid: String = "",  date: Date ) : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
-    var exerciseName: String = _name
-    var sets: Int = _sets
+    var exerciseName: String = name
+    var exerciseSets: Int = sets
     @Required
-    var reps: Int = _reps
+    var  exerciseReps: Int = reps
     @Required
-    var weight: Double = _weight
+    var  exerciseWeight: Double = weight
     @Required
-    var userid: String =_userid
+    var  exerciseUserid: String =userid
     @Required
-    var date: Date = _date;
+    var  exerciseDate: Date = date;
 
 }

@@ -17,12 +17,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         def appId = "y-zybag"  // Replace with proper Application ID
         debug {
             buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""
         }
+
         release {
             buildConfigField "String", "MONGODB_REALM_APP_ID", "\"${appId}\""
             minifyEnabled false
