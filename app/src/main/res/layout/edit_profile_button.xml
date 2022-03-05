@@ -134,7 +134,7 @@
 
     <!--button for dismissing our dialog-->
     <Button
-        android:id="@+id/btnSubmitRecipe"
+        android:id="@+id/btnSubmitProfile"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

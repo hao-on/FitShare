@@ -54,7 +54,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 this@ProfileEditButton.userRealm = realm
             }
         })
-        submitButton = view.findViewById(R.id.btnEditProfile)
+        submitButton = view.findViewById(R.id.btnSubmitProfile)
 
         submitButton.setOnClickListener{
             val profile = Profile(editProfile_first.text.toString(),
