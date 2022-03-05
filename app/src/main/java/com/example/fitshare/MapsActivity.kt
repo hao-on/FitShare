@@ -2,6 +2,8 @@ package com.mongodb.tasktracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.fitshare.R
+import com.example.fitshare.databinding.ActivityMapsBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,7 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.mongodb.tasktracker.databinding.ActivityMapsBinding
+//import com.mongodb.tasktracker.databinding.ActivityMapsBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 

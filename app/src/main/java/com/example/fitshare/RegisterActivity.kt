@@ -1,15 +1,15 @@
-package com.mongodb.tasktracker
+package com.example.fitshare
+
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import io.realm.mongodb.Credentials
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.login.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 import io.realm.mongodb.mongo.MongoClient
 import io.realm.mongodb.mongo.MongoCollection
@@ -17,7 +17,6 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 
 class RegisterActivity : AppCompatActivity() {
-
     private lateinit var FName: EditText
     private lateinit var LName: EditText
     private lateinit var Reg_Username: EditText
@@ -36,14 +35,11 @@ class RegisterActivity : AppCompatActivity() {
         Reg_Password = findViewById(R.id.txtReg_Password)
         Phone = findViewById(R.id.txtPhone)
 
-
-
-
-
+        /*
         ivLeft.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         btnRegister.setOnClickListener {
             Register()
@@ -53,24 +49,19 @@ class RegisterActivity : AppCompatActivity() {
     private fun onRegisterSuccess() {
         // successful login ends this activity, bringing the user back to the project activity
         //finish()
-        val intent = Intent(this, ProjectActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
+    /*
     override fun onBackPressed() {
         // Disable going back to the MainActivity
         moveTaskToBack(true)
     }
-
-    private fun onLoginSuccess() {
-        // successful login ends this activity, bringing the user back to the project activity
-        //finish()
-        val intent = Intent(this, ProjectActivity::class.java);
-        startActivity(intent)
-    }
+    */
 
     private fun onLoginFailed(errorMsg: String) {
-        Log.e(TAG(), errorMsg)
+        Log.e("Login", errorMsg)
         Toast.makeText(baseContext, errorMsg, Toast.LENGTH_LONG).show()
     }
 
@@ -90,56 +81,52 @@ class RegisterActivity : AppCompatActivity() {
         val Phone = this.Phone.text.toString()
 
         // register a user using the Realm App we created in the TaskTracker class
-        taskApp.emailPassword.registerUserAsync(Reg_Email, Reg_Password) {
+        fitApp.emailPassword.registerUserAsync(Reg_Email, Reg_Password) {
             // re-enable the buttons after user registration returns a result
             //createUserButton.isEnabled = true
 
             if (!it.isSuccess) {
                 onLoginFailed("Could not register user.")
-                Log.e(TAG(), "Error: ${it.error}")
+                Log.e("Register", "Error: ${it.error}")
             } else {
-                Log.i(TAG(), "Successfully registered user.")
+                Log.i("Register", "Successfully registered user.")
                 // when the account has been created successfully, log in to the account
                 val creds = Credentials.emailPassword(Reg_Email, Reg_Password)
-                taskApp.loginAsync(creds) {
+                fitApp.loginAsync(creds) {
                     // re-enable the buttons after user login returns a result
 
                     //createUserButton.isEnabled = true
                     if (!it.isSuccess) {
                         onLoginFailed(it.error.message ?: "An error occurred.")
                     } else {
-
-
-
-                        val user = taskApp.currentUser()
+                        val user = fitApp.currentUser()
                         //val customUserData : Document? = user?.customData
-
-
                         val mongoClient : MongoClient =
                             user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
                         val mongoDatabase : MongoDatabase =
                             mongoClient.getDatabase("UserData")!!
                         val mongoCollection : MongoCollection<Document> =
                             mongoDatabase.getCollection("CustomUserData")!!
+<<<<<<< HEAD:app/src/main/java/com/mongodb/tasktracker/RegisterActivity.kt
                         mongoCollection.insertOne(Document("_id", user.id).append("FName", FName)
                             .append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email)
                             .append("Reg_Password", Reg_Password).append("Phone", Phone).append("_partition", "partition"))
+=======
+                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Phone", Phone).append("_partition", "partition"))
+>>>>>>> hao_new_app:app/src/main/java/com/example/fitshare/RegisterActivity.kt
                             .getAsync { result ->
                                 if (result.isSuccess) {
                                     Log.v(
-                                        "EXAMPLE",
+                                        "CustomData",
                                         "Inserted custom user data document. _id of inserted document: ${result.get().insertedId}"
                                     )
                                 } else {
                                     Log.e(
-                                        "EXAMPLE",
+                                        "CustomData",
                                         "Unable to insert custom user data. Error: ${result.error}"
                                     )
                                 }
                             }
-
-
-
                         onRegisterSuccess()
                     }
                 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/newsFeed"
+        android:title="Home"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/fitness"
+        android:title="Fitness"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_fitness"/>
+    <item
+        android:id="@+id/holder"
+        android:title=" "
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/recipe"
+        android:title="Recipe"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_recipe"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_profile"/>
+</menu>

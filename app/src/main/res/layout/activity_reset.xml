@@ -24,7 +24,7 @@
             android:src="@drawable/fitshare" />
 
         <EditText
-            android:id="@+id/loginUsername"
+            android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -44,7 +44,7 @@
             />
 
         <EditText
-            android:id="@+id/loginPassword"
+            android:id="@+id/txtNewPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -52,7 +52,7 @@
             android:layout_marginEnd="20dp"
             android:drawableStart="@drawable/ic_password"
             android:drawablePadding="15dp"
-            android:hint="Password"
+            android:hint="New Password"
             android:textSize="16sp"
             android:textColorHint="@color/gray_gainsboro"
             android:textColor="@color/gray_gainsboro"
@@ -62,20 +62,8 @@
             android:inputType="textPassword"
             />
 
-        <TextView
-            android:id="@+id/tvReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:padding="8dp"
-            android:text="Forgot Password?"
-            android:textStyle="italic"
-            android:textColor="@color/gray_gainsboro" />
-
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/resetBtn"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -83,24 +71,12 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#04619f"
-            android:text="Sign In"
+            android:text="Reset"
             android:textAllCaps="false"
             android:textColor="@color/cream"
             android:textSize="16sp"
             app:cornerRadius="30dp" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New User? Register"
-        android:textColor="@color/cream"
-        android:textSize="14sp"
-        android:padding="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

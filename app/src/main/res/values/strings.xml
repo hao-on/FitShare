@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FitShare App</string>
+    <string name="app_name">FitShare</string>
     <string name="username">Email</string>
     <string name="password">Password</string>
     <string name="create_account">Create account</string>
@@ -14,4 +14,5 @@
     <string name="recipe_steps">Enter steps</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name = "google_maps_key">AIzaSyBV92vrb2TP1g1N8A8JijI_P0E6uLpgehU</string>
+
 </resources>

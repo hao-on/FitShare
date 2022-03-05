@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_search"
+        />
+
+    <item
+        android:id="@+id/message"
+        android:title="Item"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_chat"
+        />
+
+</menu>
