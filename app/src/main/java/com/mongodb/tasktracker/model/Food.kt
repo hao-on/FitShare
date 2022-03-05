@@ -8,21 +8,21 @@ import org.bson.types.ObjectId
 import java.util.*
 
 
-open class Food(_name: String = "Name",
-                    _calories : Double = 0.0, _protein : Double = 0.0, _carbs : Double = 0.0, _fats : Double = 0.0, _userid: String = "", _date: Date) : RealmObject() {
+open class Food(name: String = "Name",
+                    calories : Double = 0.0, protein : Double = 0.0, carbs : Double = 0.0, fats : Double = 0.0, userid: String = "", date: Date) : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
-    var foodName: String = _name
-    var calories: Double = _calories
+    var foodName: String = name
+    var foodCalories: Double = calories
     @Required
-    var protein: Double = _protein
+    var foodProtein: Double = protein
     @Required
-    var carbs: Double = _carbs
+    var foodCarbs: Double = carbs
     @Required
-    var fats: Double = _fats
+    var foodfats: Double = fats
     @Required
-    var userid: String =_userid
+    var foodUserid: String =userid
     @Required
-    var date: Date = _date;
+    var foodDate: Date = date;
 
 }
