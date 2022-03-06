@@ -50,7 +50,8 @@ class LoginActivity : AppCompatActivity() {
     private fun onLoginSuccess() {
         // successful login ends this activity, bringing the user back to the project activity
         //finish()
-        val intent =Intent(this, MainActivity::class.java);
+        //val intent =Intent(this, MainActivity::class.java);
+        val intent =Intent(this, MapsActivity::class.java);
         startActivity(intent);
     }
 

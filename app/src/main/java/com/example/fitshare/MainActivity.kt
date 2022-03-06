@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         /*
         val posts: ArrayList<Post> = ArrayList()
         for ( i in 0..1){
