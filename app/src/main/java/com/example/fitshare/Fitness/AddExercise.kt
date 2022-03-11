@@ -80,7 +80,7 @@ class AddExercise : AppCompatActivity() {
     private fun createRecipe(){
         val recipe = Recipe("Hammer Curl" , 55, "Fish, toritlla", "Wrap and Cook")
 
-        recipeRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
+        exerciseRealm.executeTransactionAsync { realm -> realm.insert(recipe)}
 
     }
 }
