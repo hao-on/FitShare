@@ -55,6 +55,14 @@ class MainActivity : AppCompatActivity() {
                     openFragment(ProfileFragment.newInstance("",""))
                     return@OnItemSelectedListener true
                 }
+                R.id.fitnessAddExercise-> {
+                    openFragment(FeedsFragment.newInstance("",""))
+                    return@OnItemSelectedListener true
+                }
+                R.id.fitnessAddFood-> {
+                    openFragment(FeedsFragment.newInstance("",""))
+                    return@OnItemSelectedListener true
+                }
             }
             false
         })
