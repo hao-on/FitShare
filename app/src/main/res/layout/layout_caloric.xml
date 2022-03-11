@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calories Remaining"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/tvGoal"
+            style="@style/modifiedNumberView"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginStart="20dp"
+            android:text="2000" />
+
+        <TextView
+            android:id="@+id/tvMinus"
+            style="@style/modifiedTextView"
+            android:text="-"
+            android:layout_marginTop="2dp"
+            android:paddingHorizontal="10dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_toEndOf="@id/tvGoal"/>
+
+        <TextView
+            android:id="@+id/tvFood"
+            style="@style/modifiedNumberView"
+            android:text="2000"
+            android:layout_below="@id/tvTitle"
+            android:layout_toEndOf="@+id/tvMinus"
+            />
+
+        <TextView
+            android:id="@+id/tvPlus"
+            style="@style/modifiedTextView"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:text="+"
+            android:paddingHorizontal="10dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_toEndOf="@id/tvFood"/>
+
+        <TextView
+            android:id="@+id/tvExercises"
+            style="@style/modifiedNumberView"
+            android:layout_marginStart="5dp"
+            android:text="2000"
+            android:layout_below="@id/tvTitle"
+            android:layout_toEndOf="@+id/tvPlus"
+            />
+
+        <TextView
+            android:id="@+id/tvEqual"
+            style="@style/modifiedTextView"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:text="="
+            android:paddingHorizontal="10dp"
+            android:layout_below="@id/tvTitle"
+            android:layout_toEndOf="@id/tvExercises"/>
+
+        <TextView
+            android:id="@+id/tvRemaining"
+            style="@style/modifiedNumberView"
+            android:layout_marginStart="12dp"
+            android:text="2000"
+            android:textColor="@color/neon_blue"
+            android:layout_below="@id/tvTitle"
+            android:layout_toEndOf="@id/tvEqual"/>
+
+
+        <TextView
+            android:id="@+id/tvGoalTitle"
+            style="@style/modifiedTextView"
+            android:text="Goal"
+            android:layout_marginStart="38dp"
+            android:layout_below="@id/tvGoal"/>
+
+
+        <TextView
+            android:id="@+id/tvFoodTitle"
+            style="@style/modifiedTextView"
+            android:text="Food"
+            android:layout_marginStart="58dp"
+            android:layout_below="@id/tvFood"
+            android:layout_toEndOf="@+id/tvGoalTitle"
+            />
+
+        <TextView
+            android:id="@+id/tvExercisesTitle"
+            style="@style/modifiedTextView"
+            android:text="Exercises"
+            android:layout_marginStart="58dp"
+            android:layout_below="@id/tvExercises"
+            android:layout_toEndOf="@id/tvFoodTitle"/>
+
+        <TextView
+            android:id="@+id/tvRemainingTitle"
+            style="@style/modifiedTextView"
+            android:text="Remaining"
+            android:textColor="@color/neon_blue"
+            android:layout_marginStart="60dp"
+            android:layout_below="@id/tvRemaining"
+            android:layout_toEndOf="@+id/tvExercisesTitle"
+            />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

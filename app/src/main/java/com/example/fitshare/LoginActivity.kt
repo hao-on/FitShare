@@ -29,12 +29,12 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener { login() }
 
-        /*
+
         tvReset.setOnClickListener {
             val intent = Intent(this, ResetActivity::class.java)
             startActivity(intent)
         }
-        */
+
 
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)

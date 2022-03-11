@@ -23,7 +23,6 @@ import io.realm.Case
 import kotlinx.android.synthetic.main.layout_add_recipe.*
 import java.util.*
 import io.realm.RealmResults
-
 import io.realm.RealmList
 
 
@@ -87,13 +86,14 @@ class RecipeFragment : Fragment(){
             }
         })
 
+        /*
         fab = view.findViewById(R.id.btnRecipe)
         // adding on click listener for our button.
         fab.setOnClickListener {
             val addBottomDialog : BottomDialog = BottomDialog.newInstance()
             addBottomDialog.show(parentFragmentManager, null)
         }
-
+*/
         searchview = view.findViewById(R.id.searchView)
         searchview.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(text: String): Boolean {

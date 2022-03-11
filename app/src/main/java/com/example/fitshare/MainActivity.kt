@@ -11,16 +11,29 @@ import com.google.android.material.navigation.NavigationBarView
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.fitshare.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.widget.Toast
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
     private var user: io.realm.mongodb.User? = null
     private lateinit var fab: FloatingActionButton
+    private lateinit var workoutFab: FloatingActionButton
+    private lateinit var nutritionFab: FloatingActionButton
+    private val rotateOpenAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation)}
+    private val rotateCloseAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_animation)}
+    private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation)}
+    private val toBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation)}
+    private var clicked: Boolean = false
 
     override fun onStart() {
         super.onStart()
@@ -58,6 +71,31 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
+
+        fab = findViewById(R.id.uploadBtn)
+        fab.setOnClickListener(View.OnClickListener {
+            val currFragment: Fragment? =
+                supportFragmentManager.findFragmentById(R.id.frameLayout)
+
+            if (currFragment is RecipeFragment) {
+                val addBottomDialog : BottomDialog = BottomDialog.newInstance()
+                addBottomDialog.show(supportFragmentManager, null)
+            }
+            if (currFragment is FitnessFragment) {
+                onAddButtonClicked()
+            }
+        })
+
+        workoutFab = findViewById(R.id.workoutBtn)
+        workoutFab.setOnClickListener{
+            Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        nutritionFab = findViewById(R.id.nutritionBtn)
+        nutritionFab.setOnClickListener{
+            Toast.makeText(this, "Nutrition Button Clicked", Toast.LENGTH_SHORT).show()
+        }
+
         /*
         val posts: ArrayList<Post> = ArrayList()
         for ( i in 0..1){
@@ -75,6 +113,47 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.frameLayout, fragment)
         transaction.addToBackStack(null) //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
         transaction.commit() // commit() performs the action
+    }
+
+    private fun onAddButtonClicked() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        setClickable(clicked)
+        clicked = !clicked
+    }
+
+    private fun setVisibility(clicked: Boolean) {
+        if (!clicked) {
+            workoutFab.visibility = View.INVISIBLE
+            nutritionFab.visibility = View.INVISIBLE
+        }
+        else{
+            workoutFab.visibility = View.VISIBLE
+            nutritionFab.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setAnimation(clicked: Boolean) {
+        if (!clicked){
+            workoutFab.startAnimation(fromBottomAnimation)
+            nutritionFab.startAnimation(fromBottomAnimation)
+            fab.startAnimation(rotateOpenAnimation)
+        }else{
+            workoutFab.startAnimation(toBottomAnimation)
+            nutritionFab.startAnimation(toBottomAnimation)
+            fab.startAnimation(rotateCloseAnimation)
+        }
+    }
+
+    private fun setClickable(clicked: Boolean) {
+        if (!clicked) {
+            workoutFab.isClickable = true
+            nutritionFab.isClickable = true
+        }
+        else{
+            workoutFab.isClickable = false
+            nutritionFab.isClickable = false
+        }
     }
 
 }
