@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Profile.ProfileEditButton
+import com.example.fitshare.User.User
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
@@ -31,7 +35,8 @@ class ProfileFragment : Fragment() {
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     private lateinit var messaging: AppCompatButton
-
+    private lateinit var profileName: TextView
+    private lateinit var meetUp: CheckBox
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //
@@ -61,6 +66,23 @@ class ProfileFragment : Fragment() {
                 this@ProfileFragment.userRealm = realm
             }
         })
+
+
+        meetUp = view.findViewById(R.id.meetUp)
+        meetUp.setOnClickListener{
+            
+            //Check box functionality
+            userRealm.executeTransactionAsync{
+                val userData = it.where(User::class.java).findFirst()
+                if(meetUp.isChecked()){
+                        userData?.profile?.meetUp = true
+                    }
+
+                else if(!meetUp.isChecked()){
+                        userData?.profile?.meetUp = false
+                    }
+            }
+        }
 
         fab = view.findViewById(R.id.btnEditProfile)
         fab.setOnClickListener{
