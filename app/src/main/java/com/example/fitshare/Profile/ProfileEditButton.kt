@@ -61,11 +61,11 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 editProfile_last.text.toString(), editProfile_bio.text.toString(),
                 editProfile_address.text.toString(), editProfile_zip.text.toString(),
                 editProfile_phone.text.toString(), editProfile_username.text.toString())
-            profileRealm.executeTransactionAsync{ realm -> realm.insert(profile)}
+            //profileRealm.executeTransactionAsync{ realm -> realm.insert(profile)}
 
             userRealm.executeTransactionAsync{transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
-                userData?.profile = profile
+                userData?.profile = transactionRealm.copyToRealm(profile)
             }
             dialog?.dismiss()
         }
