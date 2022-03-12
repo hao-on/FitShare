@@ -26,6 +26,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
     private var user: io.realm.mongodb.User? = null
     private lateinit var submitButton: Button
     private  lateinit var partition: String
+    
 
     @Nullable
     override fun onCreateView(
@@ -61,10 +62,12 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 editProfile_last.text.toString(), editProfile_bio.text.toString(),
                 editProfile_address.text.toString(), editProfile_zip.text.toString(),
                 editProfile_phone.text.toString(), editProfile_username.text.toString())
-            //profileRealm.executeTransactionAsync{ realm -> realm.insert(profile)}
 
             userRealm.executeTransactionAsync{transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
+                val prof = transactionRealm.where(Profile::class.java).
+                            equalTo("_id", userData?.profile?.id).findFirst()
+                prof?.deleteFromRealm()
                 userData?.profile = transactionRealm.copyToRealm(profile)
             }
             dialog?.dismiss()
