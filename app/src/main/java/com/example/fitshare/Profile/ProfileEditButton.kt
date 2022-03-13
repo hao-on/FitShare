@@ -89,7 +89,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
             userRealm.executeTransactionAsync{transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
 
-                //Find all profile data and delete
+                //Find old profile data and delete
                 val oldProf = transactionRealm.where(Profile::class.java).
                             equalTo("_id", userData?.profile?.id).findFirst()
                 oldProf?.deleteFromRealm()

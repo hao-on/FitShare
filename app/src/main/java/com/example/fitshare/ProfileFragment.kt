@@ -69,8 +69,17 @@ class ProfileFragment : Fragment() {
 
 
         meetUp = view.findViewById(R.id.meetUp)
+        val realm: Realm = Realm.getInstance(config)
+            val userData = realm.where(User::class.java).findFirst()
+            val oldProf = realm.where(Profile::class.java).
+            equalTo("_id", userData?.profile?.id).findFirst()
+            if(oldProf?.meetUp == true){
+                meetUp.isChecked = true
+            }else{meetUp.isChecked = false}
+
+
         meetUp.setOnClickListener{
-            
+
             //Check box functionality
             userRealm.executeTransactionAsync{
                 val userData = it.where(User::class.java).findFirst()
