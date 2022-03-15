@@ -18,7 +18,6 @@ import io.realm.Realm
 import com.example.fitshare.User.User
 import com.example.fitshare.fitApp
 import com.google.android.material.textfield.TextInputEditText
-import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.edit_profile_button.*
@@ -56,23 +55,6 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ProfileEditButton.profileRealm = realm
-
-//                firstName = view.findViewById(R.id.editProfile_first)
-//                lastName = view.findViewById(R.id.editProfile_last)
-//                username = view.findViewById(R.id.editProfile_username)
-//                phone = view.findViewById(R.id.editProfile_phone)
-//                address = view.findViewById(R.id.editProfile_address)
-//                zipcode = view.findViewById(R.id.editProfile_zip)
-//                bio = view.findViewById(R.id.editProfile_bio)
-//
-//                val userData = profileRealm.where<Profile>().findFirst()
-//                firstName.setText(userData?.firstName)
-//                lastName.setText(userData?.lastName)
-//                username.setText(userData?.username)
-//                phone.setText(userData?.phoneNumber)
-//                address.setText(userData?.address)
-//                zipcode.setText(userData?.zipcode)
-//                bio.setText(userData?.bio)
             }
         })
 
@@ -82,25 +64,18 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         Realm.getInstanceAsync(user_config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ProfileEditButton.userRealm = realm
-//                firstName = view.findViewById(R.id.editProfile_first)
-//                lastName = view.findViewById(R.id.editProfile_last)
-//                username = view.findViewById(R.id.editProfile_username)
-//                phone = view.findViewById(R.id.editProfile_phone)
-//                address = view.findViewById(R.id.editProfile_address)
-//                zipcode = view.findViewById(R.id.editProfile_zip)
-//                bio = view.findViewById(R.id.editProfile_bio)
-//
-//                val userData = userRealm.where<User>().findFirst()
-//                firstName.setText(userData?.profile?.firstName)
-//                lastName.setText(userData?.profile?.lastName)
-//                username.setText(userData?.profile?.username)
-//                phone.setText(userData?.profile?.phoneNumber)
-//                address.setText(userData?.profile?.address)
-//                zipcode.setText(userData?.profile?.zipcode)
-//                bio.setText(userData?.profile?.bio)
-
             }
         })
+
+
+        //was gonna try to use this to put previous profile data (if available) in text fields
+//        firstName = view.findViewById(R.id.editProfile_first)
+//        lastName = view.findViewById(R.id.editProfile_last)
+//        username = view.findViewById(R.id.editProfile_username)
+//        phone = view.findViewById(R.id.editProfile_phone)
+//        address = view.findViewById(R.id.editProfile_address)
+//        zipcode = view.findViewById(R.id.editProfile_zip)
+//        bio = view.findViewById(R.id.editProfile_bio)
 
 
         submitButton = view.findViewById(R.id.btnSubmitProfile)
@@ -114,15 +89,13 @@ class ProfileEditButton : BottomSheetDialogFragment() {
             userRealm.executeTransactionAsync{transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
 
+                //Find old profile data and delete
                 val oldProf = transactionRealm.where(Profile::class.java).
                             equalTo("_id", userData?.profile?.id).findFirst()
-                userData?.profile?.deleteFromRealm()
+                oldProf?.deleteFromRealm()
 
                 //Modify with new profile data
                 userData?.profile = transactionRealm.copyToRealm(profile)
-            }
-            profileRealm.executeTransactionAsync{realm ->
-                realm.insertOrUpdate(profile)
             }
             dialog?.dismiss()
         }

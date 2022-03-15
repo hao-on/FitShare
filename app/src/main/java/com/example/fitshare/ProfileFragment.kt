@@ -33,7 +33,6 @@ class ProfileFragment : Fragment() {
     private lateinit var userRealm: Realm
     //private lateinit var adapter: ProfileAdapter
     private lateinit var fab: FloatingActionButton
-    private lateinit var fabAdd: FloatingActionButton
     private lateinit var partition: String
     private lateinit var messaging: AppCompatButton
     private lateinit var profileName: TextView
@@ -62,23 +61,23 @@ class ProfileFragment : Fragment() {
         val user_config: SyncConfiguration =
             SyncConfiguration.Builder(user!!, "user=${user!!.id}")
                 .build()
-
         Realm.getInstanceAsync(user_config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@ProfileFragment.userRealm = realm
-
-//                meetUp = view.findViewById(R.id.meetUp)
-//                val userData = userRealm.where(User::class.java).findFirst()
-//                if(userData?.profile?.meetUp == true){
-//                    meetUp.isChecked = true
-//                }else{meetUp.isChecked = false}
             }
         })
 
 
-
-
         meetUp = view.findViewById(R.id.meetUp)
+        val realm: Realm = Realm.getInstance(config)
+            val userData = realm.where(User::class.java).findFirst()
+            val oldProf = realm.where(Profile::class.java).
+            equalTo("_id", userData?.profile?.id).findFirst()
+            if(oldProf?.meetUp == true){
+                meetUp.isChecked = true
+            }else{meetUp.isChecked = false}
+
+
         meetUp.setOnClickListener{
 
             //Check box functionality
@@ -93,7 +92,7 @@ class ProfileFragment : Fragment() {
                     }
             }
         }
-        
+
         fab = view.findViewById(R.id.btnEditProfile)
         fab.setOnClickListener{
             val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
