@@ -13,7 +13,6 @@ import com.mongodb.tasktracker.model.Plan_Core
 import com.mongodb.tasktracker.model.Plan_Pull
 import com.mongodb.tasktracker.model.Plan_Push
 import com.example.fitshare.User.User
-import com.example.fitshare.Fitness
 import com.example.fitshare.Recipe.RecipeAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
@@ -23,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_recipe.*
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
+import com.mongodb.tasktracker.model.Exercise
 import io.realm.Case
 import kotlinx.android.synthetic.main.layout_add_recipe.*
 import java.util.*
@@ -155,6 +155,34 @@ class WorkoutPlanFragment : Fragment(){
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    fun getExerciseFromWorkoutPlan(){
+        var workoutList: RealmList<Plan_Core>? = exerciseRealm.where<Plan_Core>.findFirst()
+
+        val realm = Realm.getInstance(config)
+        var exercise : Exercise? = null
+
+        realm.executeTransaction {transactionReam: Realm ->
+            exercise = transactionRealm.createObject(Exercise::class.java, ObjectID())
+            exercise?.name = workoutList.abs1.toString()
+            exercise?.reps = workoutList.abs1reps
+            exercise?.sets = workoutList.abs1sets
+        }
+
+        fun getExerciseFromWorkoutPlan(){
+            var workoutList: RealmList<Plan_Core>? = exerciseRealm.where<Plan_Core>.findFirst()
+
+            val realm = Realm.getInstance(config)
+            var exercise : Exercise? = null
+
+            realm.executeTransaction {transactionReam: Realm ->
+                exercise = transactionRealm.createObject(Exercise::class.java, ObjectID())
+                exercise?.name = workoutList.abs2.toString()
+                exercise?.reps = workoutList.abs2reps
+                exercise?.sets = workoutList.abs2sets
+            }
+
+
     }
 }
 
