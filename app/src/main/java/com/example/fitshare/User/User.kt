@@ -23,16 +23,19 @@ open class User : RealmObject {
     var recipes: RealmList<Recipe> ?= null
     var name: String = ""
 
+
     constructor(
         id: String,
         _partition: String,
         recipes: RealmList<Recipe>?,
         name: String
+
     ) {
         this.id = id
         this._partition = _partition
         this.name = name
         this.recipes = recipes
+
     }
 
     constructor() {} // RealmObject subclasses must provide an empty constructor

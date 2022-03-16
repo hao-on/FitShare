@@ -6,6 +6,8 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
+import com.example.fitshare.User.User
+import com.example.fitshare.User.UserLocation
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -17,6 +19,8 @@ import com.example.fitshare.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.Marker
+import io.realm.Realm
+import io.realm.mongodb.sync.SyncConfiguration
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private var user: io.realm.mongodb.User? = null
@@ -25,6 +29,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var binding: ActivityMapsBinding
 
     private lateinit var lastLocation: Location
+
+    private lateinit var partition: String
+
+    private lateinit var mapRealm: Realm
 
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -36,10 +44,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onStart() {
         super.onStart()
         user = fitApp.currentUser()
-//        if (user == null) {
-//            // if no user is currently logged in, start the login activity so the user can authenticate
-//            startActivity(Intent(this, LoginActivity::class.java))
-//        }
+
+        partition = "location"
+        val config = SyncConfiguration.Builder(user!!, partition)
+            .build()
+        // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
+        Realm.getInstanceAsync(config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@MapsActivity.mapRealm = realm
+               // setUpRecyclerView(realm, user, partition)
+            }
+        })
     }
 
 
@@ -62,6 +78,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+
+                var currentLoc = UserLocation(user.toString(),location.latitude,location.longitude)
+
+
+
+                mapRealm.executeTransactionAsync(realm -> realm.insert(currentLoc))
+
             }
         }
 
@@ -80,6 +103,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
 
     }
 
