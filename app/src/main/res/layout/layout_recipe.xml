@@ -21,9 +21,12 @@
             android:id="@+id/ivRecipeImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:padding="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/login_edittext_background"
+            android:padding="5dp"
             android:src="@drawable/food2" />
 
         <!--Text View to display Recipe Name-->
