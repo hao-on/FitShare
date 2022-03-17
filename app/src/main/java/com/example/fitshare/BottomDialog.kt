@@ -6,11 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.annotation.Nullable
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Recipe.Recipe
-import com.example.fitshare.Recipe.RecipeAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import com.example.fitshare.User.User
 import io.realm.mongodb.sync.SyncConfiguration
@@ -68,12 +65,11 @@ class BottomDialog : BottomSheetDialogFragment() {
                 txtRec_Time.text.toString())
             recipeRealm.executeTransactionAsync { realm -> realm.insert(recipe) }
 
-
             userRealm.executeTransactionAsync { transactionRealm: Realm ->
-                // get a frog from the database to update
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.recipes?.add(recipe)
             }
+
 
             dialog?.dismiss()
         }

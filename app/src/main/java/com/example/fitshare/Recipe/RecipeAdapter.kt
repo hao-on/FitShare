@@ -1,14 +1,13 @@
 package com.example.fitshare.Recipe
 
-import android.app.AlertDialog
-import android.content.Context
 import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.R
+import com.example.fitshare.User.User
 import io.realm.OrderedRealmCollection
-import io.realm.Realm
 import io.realm.RealmRecyclerViewAdapter
+import io.realm.RealmResults
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import org.bson.types.ObjectId

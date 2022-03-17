@@ -1,13 +1,11 @@
 package com.example.fitshare
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.Recipe.Recipe
 import com.example.fitshare.User.User
 import com.example.fitshare.Recipe.RecipeAdapter
@@ -20,10 +18,10 @@ import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
 import io.realm.Case
+import io.realm.RealmList
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.layout_add_recipe.*
 import java.util.*
-import io.realm.RealmResults
-import io.realm.RealmList
 
 
 
@@ -45,6 +43,7 @@ class RecipeFragment : Fragment(){
     private var param2: String? = null
     private lateinit var recipeRealm: Realm
     private lateinit var userRealm: Realm
+    private lateinit var uRecipeRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var adapter: RecipeAdapter
     private lateinit var fab: FloatingActionButton
@@ -106,21 +105,33 @@ class RecipeFragment : Fragment(){
             }
         })
 
+        val uRecipe_config : SyncConfiguration =
+            SyncConfiguration.Builder(user!!, "recipe")
+                .build()
+
+        Realm.getInstanceAsync(uRecipe_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@RecipeFragment.uRecipeRealm = realm
+            }
+        })
 
         myRecipe = view.findViewById(R.id.myRecipeFilter)
         myRecipe.setOnClickListener {
             val userData = userRealm.where<User>().findFirst()
+            val recipeData = userRealm.where<Recipe>().findAll()
             val recipeList: RealmList<Recipe>? = userData?.recipes
-            val results: RealmResults<Recipe> =
-                recipeList?.where()!!.findAll()
+            val uRecipe = uRecipeRealm.where<Recipe>().findFirst()
+            val results: RealmResults<Recipe> = userData?.recipes?.where()!!.findAll()
+
+            val test: RealmResults<Recipe> = recipeRealm.where(Recipe::class.java)
+                .contains("user", user!!.id).findAll()
 
             adapter = RecipeAdapter(results, user!!, partition)
             rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
             rvRecipe.adapter = adapter
             rvRecipe.setHasFixedSize(true)
         }
-
-
         return view
     }
 
