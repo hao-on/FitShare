@@ -109,15 +109,7 @@ class RecipeFragment : Fragment(){
 
         myRecipe = view.findViewById(R.id.myRecipeFilter)
         myRecipe.setOnClickListener {
-            val userData = userRealm.where<User>().findFirst()
-            val recipeList: RealmList<Recipe>? = userData?.recipes
-            val results: RealmResults<Recipe> =
-                recipeList?.where()!!.findAll()
 
-            adapter = RecipeAdapter(results, user!!, partition)
-            rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
-            rvRecipe.adapter = adapter
-            rvRecipe.setHasFixedSize(true)
         }
 
 

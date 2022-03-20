@@ -5,6 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fitshare.Exercise.kt.Exercise
+import com.example.fitshare.Exercise.kt.ExerciseAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import io.realm.Case
+import io.realm.Realm
+import io.realm.kotlin.where
+import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.fragment_fitness.*
+import kotlinx.android.synthetic.main.layout_addexercise_exercise.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +32,14 @@ class FitnessFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var exerciseRealm: Realm
+    private lateinit var userRealm: Realm
+    private var user: io.realm.mongodb.User? = null
+    private lateinit var exerciseAdapter: ExerciseAdapter
+    private lateinit var fab: FloatingActionButton
+    private lateinit var partition: String
+
+    //private lateinit var myRecipe: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +54,45 @@ class FitnessFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fitness, container, false)
+        val view: View =inflater.inflate(R.layout.fragment_fitness, container, false)
+        user = fitApp.currentUser()
+        partition = "fitness"
+        val config = SyncConfiguration.Builder(user!!, partition)
+            .build()
+
+        Realm.getInstanceAsync(config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@FitnessFragment.exerciseRealm = realm
+                rvExercise.layoutManager =
+                    LinearLayoutManager(requireActivity().applicationContext)
+                rvExercise.setHasFixedSize(true)
+                exerciseAdapter = ExerciseAdapter(realm.where<Exercise>().sort("exerciseName").findAll(), user!!, partition)
+                rvExercise.adapter = exerciseAdapter
+            }
+        })
+
+        val user_config : SyncConfiguration =
+            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
+                .build()
+
+        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@FitnessFragment.userRealm = realm
+            }
+        })
+    return view
     }
+
+    private fun recyclerExerciseUpdate(realm: Realm, user: io.realm.mongodb.User?, partition: String, text: String){
+        exerciseAdapter = ExerciseAdapter(realm.where<Exercise>().contains("exerciseName", text, Case.INSENSITIVE)
+            .findAll(), user!!, partition)
+        rvExercise.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+        rvExercise.adapter = exerciseAdapter
+        rvExercise.setHasFixedSize(true)
+    }
+
 
     companion object {
         /**

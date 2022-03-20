@@ -70,6 +70,15 @@
             android:layout_toEndOf="@id/ivExerciseImage"
             android:drawablePadding="2dp"
             android:fontFamily="@font/roboto_light" />
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWeight"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/ivExerciseImage"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/roboto_light" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -1,6 +1,7 @@
 package com.example.fitshare.User
 
 import com.example.fitshare.Recipe.Recipe
+import com.example.fitshare.Exercise.kt.Exercise
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
@@ -21,6 +22,7 @@ open class User : RealmObject {
     var id: String = ""
     var _partition: String = ""
     var recipes: RealmList<Recipe> ?= null
+    var exercises: RealmList<Exercise> ?= null
     var name: String = ""
 
     constructor(
@@ -33,6 +35,7 @@ open class User : RealmObject {
         this._partition = _partition
         this.name = name
         this.recipes = recipes
+        this.exercises=exercises
     }
 
     constructor() {} // RealmObject subclasses must provide an empty constructor
