@@ -12,7 +12,7 @@ import org.bson.types.ObjectId
 open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
                     _bio: String = "Bio", _addr: String = "Address",
                     _zip: String = "Zipcode", _phone: String = "Phone Number",
-                    _username: String = "Username" ,_meet: Boolean = false) : RealmObject(){
+                    _username: String = "Username" ,_meet: Boolean = false, _uid: String = "uid") : RealmObject(){
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var firstName: String = _fname
@@ -29,6 +29,8 @@ open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
     @Required
     var username: String = _username
     var meetUp: Boolean = _meet
+    @Required
+    var userid: String = _uid
 
     @LinkingObjects("profile")
     val user: RealmResults<User>? = null

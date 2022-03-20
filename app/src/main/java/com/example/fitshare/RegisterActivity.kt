@@ -69,6 +69,7 @@ class RegisterActivity : AppCompatActivity() {
             if (!it.isSuccess) {
                 onLoginFailed("Could not register user.")
                 Log.e("Register", "Error: ${it.error}")
+                btnRegister.isEnabled = true
             } else {
                 Log.i("Register", "Successfully registered user.")
                 val intent = Intent(this, LoginActivity::class.java)

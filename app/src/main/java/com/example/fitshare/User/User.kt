@@ -29,12 +29,14 @@ open class User : RealmObject {
         id: String,
         _partition: String,
         recipes: RealmList<Recipe>?,
-        name: String
+        name: String,
+        profile: Profile
     ) {
         this.id = id
         this._partition = _partition
         this.name = name
         this.recipes = recipes
+        this.profile = profile
     }
 
     constructor() {} // RealmObject subclasses must provide an empty constructor
