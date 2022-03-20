@@ -38,13 +38,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun onRegisterSuccess() {
-        // successful login ends this activity, bringing the user back to the project activity
-        //finish()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
-
     /*
     override fun onBackPressed() {
         // Disable going back to the MainActivity
@@ -78,19 +71,9 @@ class RegisterActivity : AppCompatActivity() {
                 Log.e("Register", "Error: ${it.error}")
             } else {
                 Log.i("Register", "Successfully registered user.")
-                // when the account has been created successfully, log in to the account
-                val creds = Credentials.emailPassword(Reg_Email, Reg_Password)
-                fitApp.loginAsync(creds) {
-                    // re-enable the buttons after user login returns a result
-
-                    //createUserButton.isEnabled = true
-                    if (!it.isSuccess) {
-                        onLoginFailed(it.error.message ?: "An error occurred.")
-                    } else {
-                        onRegisterSuccess()
-                    }
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
                 }
             }
         }
     }
-}
