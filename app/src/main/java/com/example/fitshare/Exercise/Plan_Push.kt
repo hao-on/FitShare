@@ -8,6 +8,15 @@ import org.bson.types.ObjectId
 
 open class Plan_Push(name: String = "", _chest1: String = "", _chest1reps: Int = 0, _chest1sets: Int = 0,_chest2: String = "", _chest2reps: Int = 0, _chest2sets: Int = 0,
                      _sho1 : String = "", _sho1reps : Int = 0, _sho1sets : Int = 0,_sho2 : String ="", _sho2reps : Int = 0, _sho2sets : Int = 0) : RealmObject() {
+
+    object pushplan {
+        var name1 : String = "Bench Press"
+        var reps1 : Int = 15
+        var sets1 : Int = 3
+        var name2 : String = "Shoulder Press"
+        var reps2 : Int = 20
+        var sets2 : Int = 3
+    }
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var _name: String = name

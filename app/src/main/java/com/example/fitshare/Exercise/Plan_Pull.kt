@@ -10,6 +10,17 @@ open class Plan_Pull(_name: String = "", _arms1: String = "", _arms1reps: Int = 
                      _arms3: String = "", _arms3reps: Int = 0, _arms3sets: Int = 0,_back1 : String ="", _back1reps : Int = 0,
                      _back1sets : Int = 0,_back2 : String ="", _back2reps : Int = 0, _back2sets : Int = 0,
                      _back3 : String ="", _back3reps : Int = 0, _back3sets : Int = 0) : RealmObject() {
+    object pullplan {
+        var name1 : String = "Bicep Curls"
+        var reps1 : Int = 15
+        var sets1 : Int = 3
+        var name2 : String = "Lat Pull-Downs"
+        var reps2 : Int = 20
+        var sets2 : Int = 3
+        var name3 : String = "Rows"
+        var reps3 : Int = 20
+        var sets3: Int = 3
+    }
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var name: String = _name
