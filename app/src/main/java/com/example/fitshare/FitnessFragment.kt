@@ -114,7 +114,7 @@ class FitnessFragment : Fragment()  {
 
 
         // Set a click listener for button widget
-        monthDayText=findViewById(R.id.monthDayText)
+        monthDayText= view.findViewById(R.id.monthDayText)
         monthDayText.setOnClickListener{
             // Initialize a new DatePickerFragment
             val newFragment = DatePickerFragment()
