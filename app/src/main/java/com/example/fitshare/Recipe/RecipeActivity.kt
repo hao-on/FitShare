@@ -159,11 +159,8 @@ class RecipeActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView(realm: Realm, user: User?, partition: String) {
-        // a recyclerview requires an adapter, which feeds it items to display.
-        // Realm provides RealmRecyclerViewAdapter, which you can extend to customize for your application
-        // pass the adapter a collection of Recipes from the realm
-        // sort this collection so that the displayed order of Recipes remains stable across updates
-        adapter = RecipeAdapter(realm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
+        adapter = RecipeAdapter(realm.where<Recipe>().contains("_partition", partition).
+        sort("recipeName").findAll(), user!!, partition)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)

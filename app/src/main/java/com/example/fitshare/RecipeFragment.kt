@@ -1,5 +1,6 @@
 package com.example.fitshare
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,10 @@ import kotlinx.android.synthetic.main.fragment_recipe.*
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.fitshare.Helper.MyButton
+import com.example.fitshare.Helper.MySwipeHelper
+import com.example.fitshare.Listener.MyButtonClickListener
 import io.realm.Case
 import io.realm.RealmList
 import io.realm.RealmResults
@@ -43,13 +48,13 @@ class RecipeFragment : Fragment(){
     private var param2: String? = null
     private lateinit var recipeRealm: Realm
     private lateinit var userRealm: Realm
-    private lateinit var uRecipeRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var adapter: RecipeAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     private lateinit var searchview: SearchView
     private lateinit var myRecipe: AppCompatButton
+    private lateinit var allRecipe: AppCompatButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,14 +90,6 @@ class RecipeFragment : Fragment(){
             }
         })
 
-        /*
-        fab = view.findViewById(R.id.btnRecipe)
-        // adding on click listener for our button.
-        fab.setOnClickListener {
-            val addBottomDialog : BottomDialog = BottomDialog.newInstance()
-            addBottomDialog.show(parentFragmentManager, null)
-        }
-*/
         searchview = view.findViewById(R.id.searchView)
         searchview.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(text: String): Boolean {
@@ -105,33 +102,60 @@ class RecipeFragment : Fragment(){
             }
         })
 
-        val uRecipe_config : SyncConfiguration =
-            SyncConfiguration.Builder(user!!, "recipe")
-                .build()
-
-        Realm.getInstanceAsync(uRecipe_config, object: Realm.Callback() {
-            override fun onSuccess(realm: Realm) {
-                // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@RecipeFragment.uRecipeRealm = realm
-            }
-        })
-
         myRecipe = view.findViewById(R.id.myRecipeFilter)
         myRecipe.setOnClickListener {
-            val userData = userRealm.where<User>().findFirst()
-            val recipeData = userRealm.where<Recipe>().findAll()
-            val recipeList: RealmList<Recipe>? = userData?.recipes
-            val uRecipe = uRecipeRealm.where<Recipe>().findFirst()
-            val results: RealmResults<Recipe> = userData?.recipes?.where()!!.findAll()
+            //val userData = userRealm.where<User>().findFirst()
+            //val recipeList: RealmList<Recipe>? = userData?.recipes
+            //val results: RealmResults<Recipe> = userData?.recipes?.where()!!.findAll()
 
-            val test: RealmResults<Recipe> = recipeRealm.where(Recipe::class.java)
-                .contains("user", user!!.id).findAll()
-
-            adapter = RecipeAdapter(results, user!!, partition)
+            adapter = RecipeAdapter(recipeRealm.where<Recipe>().contains("user_id", user?.id.toString())
+                .findAll(), user!!, partition)
             rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
             rvRecipe.adapter = adapter
             rvRecipe.setHasFixedSize(true)
+
+            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
+                override fun instantiateMyButton(
+                    viewHolder: RecyclerView.ViewHolder,
+                    buffer: MutableList<MyButton>
+                ) {
+                    buffer.add(MyButton(requireActivity().applicationContext,
+                        "Delete",
+                        30,
+                        0,
+                        Color.parseColor("#FF3C30"),
+                        object: MyButtonClickListener{
+                            override fun onClick(pos: Int) {
+                                Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    ))
+
+                    buffer.add(MyButton(requireActivity().applicationContext,
+                        "Modify",
+                        30,
+                        0,
+                        Color.parseColor("#FF9502"),
+                        object: MyButtonClickListener{
+                            override fun onClick(pos: Int) {
+                                Toast.makeText(requireActivity().applicationContext, "Modify Button Clicked", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    ))
+                }
+            }
         }
+
+        allRecipe = view.findViewById(R.id.allFilter)
+        allRecipe.setOnClickListener {
+            rvRecipe.layoutManager =
+                LinearLayoutManager(requireActivity().applicationContext)
+            rvRecipe.setHasFixedSize(true)
+            adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
+            rvRecipe.adapter = adapter
+        }
+
+
         return view
     }
 

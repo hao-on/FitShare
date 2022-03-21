@@ -13,7 +13,7 @@ import org.bson.types.ObjectId
 open class Recipe(
     _name: String = "Recipe", _desc: String = "Description",
     _ingr: String = "Ingredients", _steps: String = "Steps",
-    _time: String = "Prep_Time") : RealmObject() {
+    _time: String = "Prep_Time", _userId: String = "UserID") : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var recipeName: String = _name
@@ -27,6 +27,7 @@ open class Recipe(
     var prepTime: String = _time
     @LinkingObjects("recipes")
     val user: RealmResults<User>? = null
+    var user_id: String = _userId
 }
 
 /*

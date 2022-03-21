@@ -31,7 +31,7 @@
             android:id="@+id/txtRec_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"/>
+            android:hint="Name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +63,7 @@
             android:id="@+id/txtRec_Time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Preperation Time"/>
+            android:hint="Preperation Time" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

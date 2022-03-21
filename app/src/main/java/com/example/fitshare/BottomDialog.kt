@@ -62,14 +62,17 @@ class BottomDialog : BottomSheetDialogFragment() {
                 txtRec_Descr.text.toString(),
                 txtRec_Ingr.text.toString(),
                 txtRec_Steps.text.toString(),
-                txtRec_Time.text.toString())
-            recipeRealm.executeTransactionAsync { realm -> realm.insert(recipe) }
+                txtRec_Time.text.toString(),
+                user?.id.toString())
 
             userRealm.executeTransactionAsync { transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.recipes?.add(recipe)
+                transactionRealm.insertOrUpdate(userData)
             }
 
+            recipeRealm.executeTransactionAsync { transactionRealm:Realm ->
+                transactionRealm.insert(recipe) }
 
             dialog?.dismiss()
         }
