@@ -1,10 +1,12 @@
 package com.example.fitshare.Profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +31,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
     private lateinit var submitButton: Button
     private  lateinit var partition: String
 
-    private lateinit var firstName :TextInputEditText
+    private lateinit var firstName : TextInputEditText
     private lateinit var lastName :TextInputEditText
     private lateinit var username :TextInputEditText
     private lateinit var phone :TextInputEditText
@@ -68,34 +70,48 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         })
 
 
-        //was gonna try to use this to put previous profile data (if available) in text fields
-//        firstName = view.findViewById(R.id.editProfile_first)
-//        lastName = view.findViewById(R.id.editProfile_last)
-//        username = view.findViewById(R.id.editProfile_username)
-//        phone = view.findViewById(R.id.editProfile_phone)
-//        address = view.findViewById(R.id.editProfile_address)
-//        zipcode = view.findViewById(R.id.editProfile_zip)
-//        bio = view.findViewById(R.id.editProfile_bio)
-
+        firstName = view.findViewById(R.id.editProfile_first)
+        lastName = view.findViewById(R.id.editProfile_last)
+        username = view.findViewById(R.id.editProfile_username)
+        phone = view.findViewById(R.id.editProfile_phone)
+        address = view.findViewById(R.id.editProfile_address)
+        zipcode = view.findViewById(R.id.editProfile_zip)
+        bio = view.findViewById(R.id.editProfile_bio)
 
         submitButton = view.findViewById(R.id.btnSubmitProfile)
 
         submitButton.setOnClickListener{
-            val profile = Profile(editProfile_first.text.toString(),
-                editProfile_last.text.toString(), editProfile_bio.text.toString(),
-                editProfile_address.text.toString(), editProfile_zip.text.toString(),
-                editProfile_phone.text.toString(), editProfile_username.text.toString())
 
             userRealm.executeTransactionAsync{transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
+                Log.i("checker", userData!!.id)
 
-                //Find old profile data and delete
+                //Find old profile data
                 val oldProf = transactionRealm.where(Profile::class.java).
-                            equalTo("_id", userData?.profile?.id).findFirst()
-                oldProf?.deleteFromRealm()
+                equalTo("_id", userData.profile?.id).findFirst()
+                Log.i("checker", oldProf?.id.toString())
 
-                //Modify with new profile data
-                userData?.profile = transactionRealm.copyToRealm(profile)
+                if(oldProf == null){
+                    val profile =  Profile(firstName.text.toString(),
+                        lastName.text.toString(), bio.text.toString(),
+                        address.text.toString(), zipcode.text.toString(),
+                        phone.text.toString(), username.text.toString(),
+                        false, userData?.id.toString())
+
+                    transactionRealm.insertOrUpdate(profile)
+                }else {
+                    oldProf?.firstName = firstName.text.toString()
+                    oldProf?.lastName = lastName.text.toString()
+                    oldProf?.bio = bio.text.toString()
+                    oldProf?.address = address.text.toString()
+                    oldProf?.zipcode = zipcode.text.toString()
+                    oldProf?.phoneNumber = phone.text.toString()
+                    oldProf?.username = username.text.toString()
+                    oldProf?.userid = userData?.id.toString()
+
+                    transactionRealm.insertOrUpdate(oldProf)
+                }
+
             }
             dialog?.dismiss()
         }
