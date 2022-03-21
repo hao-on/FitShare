@@ -19,9 +19,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.fitshare.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
-
-
-
+import kotlinx.android.synthetic.main.fitness_toolbar.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation)}
     private val toBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation)}
     private var clicked: Boolean = false
+    private lateinit var todayBtn: TextView
 
     override fun onStart() {
         super.onStart()
@@ -86,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                 onAddButtonClicked()
             }
         })
+
 
         workoutFab = findViewById(R.id.workoutBtn)
         workoutFab.setOnClickListener{

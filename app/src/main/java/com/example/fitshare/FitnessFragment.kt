@@ -1,22 +1,47 @@
 package com.example.fitshare
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
+import com.google.android.material.navigation.NavigationBarView
+import android.content.ContentValues.TAG
+import android.util.Log
+
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+
+import androidx.core.text.HtmlCompat
+import androidx.fragment.app.FragmentTransaction
+import com.example.fitshare.databinding.ActivityMainBinding
+
+import android.widget.Toast
+import kotlinx.android.synthetic.main.fitness_toolbar.*
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Exercise.kt.Exercise
 import com.example.fitshare.Exercise.kt.ExerciseAdapter
+import com.example.fitshare.FitnessFragment.Companion.newInstance
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Case
 import io.realm.Realm
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.fitness_toolbar.*
 import kotlinx.android.synthetic.main.fragment_fitness.*
 import kotlinx.android.synthetic.main.layout_addexercise_exercise.*
+import java.util.Calendar.getInstance
+import kotlinx.android.synthetic.main.fitness_toolbar.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +53,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FitnessFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FitnessFragment : Fragment() {
+class FitnessFragment : Fragment()  {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,6 +63,9 @@ class FitnessFragment : Fragment() {
     private lateinit var exerciseAdapter: ExerciseAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
+    //private lateinit var todayView: TextView
+    private lateinit var monthDayText: TextView
+
 
     //private lateinit var myRecipe: AppCompatButton
 
@@ -82,6 +110,18 @@ class FitnessFragment : Fragment() {
                 this@FitnessFragment.userRealm = realm
             }
         })
+
+
+
+        // Set a click listener for button widget
+        monthDayText=findViewById(R.id.monthDayText)
+        monthDayText.setOnClickListener{
+            // Initialize a new DatePickerFragment
+            val newFragment = DatePickerFragment()
+            // Show the date picker dialog
+            newFragment.show(parentFragmentManager, "Date Picker")
+        }
+
     return view
     }
 
