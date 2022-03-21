@@ -87,8 +87,8 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 Log.i("checker", userData!!.id)
 
                 //Find old profile data
-                val oldProf = transactionRealm.where(Profile::class.java).
-                equalTo("_id", userData.profile?.id).findFirst()
+                val oldProf = transactionRealm.where(Profile::class.java).findFirst()
+                //equalTo("id", userData.profile?.id).findFirst()
                 Log.i("checker", oldProf?.id.toString())
 
                 if(oldProf == null){
