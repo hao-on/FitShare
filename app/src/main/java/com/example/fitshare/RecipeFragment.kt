@@ -154,8 +154,6 @@ class RecipeFragment : Fragment(){
             adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
             rvRecipe.adapter = adapter
         }
-
-
         return view
     }
 
@@ -167,6 +165,14 @@ class RecipeFragment : Fragment(){
         rvRecipe.setHasFixedSize(true)
     }
 
+
+    override fun onStop() {
+        super.onStop()
+        user.run {
+            recipeRealm.close()
+            userRealm.close()
+        }
+    }
 
     companion object {
         /**
