@@ -27,9 +27,6 @@ open class User : RealmObject {
     var exercises: RealmList<Exercise> ?= null
     var calorics: RealmList<Caloric> ?= null
     var foods: RealmList<Food> ?= null
-
-
-
     var name: String = ""
 
     constructor(
