@@ -35,12 +35,11 @@ class WorkoutPlanActivity : AppCompatActivity() {
         setContentView(R.layout.workoutplan_main)
 
         // get reference to button
-        //val pushbutton = findViewById(R.id.push_button) as Button
-        //val pullbutton = findViewById(R.id.pull_button) as Button
-        //val corebutton = findViewById(R.id.core_button) as Button
+        /*
         var myTextView = findViewById(R.id.textView2) as TextView
         var myTextView2 = findViewById(R.id.textView3) as TextView
         var myTextView3 = findViewById(R.id.textView6) as TextView
+         */
         var plan_core = Plan_Core.coreplan
         var plan_push = Plan_Push.pushplan
         var plan_pull = Plan_Pull.pullplan
