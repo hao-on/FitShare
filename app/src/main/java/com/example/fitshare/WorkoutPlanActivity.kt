@@ -22,6 +22,9 @@ class WorkoutPlanActivity : AppCompatActivity() {
     private lateinit var planRealm: Realm
     private lateinit var userRealm: Realm
     private lateinit var partition: String
+    private lateinit var partition1: String
+    private lateinit var partition2: String
+    private lateinit var partition3: String
     private lateinit var adapter: ExerciseAdapter
     private var user: io.realm.mongodb.User? = null
 
@@ -30,8 +33,10 @@ class WorkoutPlanActivity : AppCompatActivity() {
         setContentView(R.layout.workoutplan_main)
 
         user = fitApp.currentUser()
-        partition="plan_core"
-
+        partition = "plan_core"
+        partition1 = "plan_push"
+        partition2 = "plan_pull"
+        partition3 ="plan_leg"
         val config = SyncConfiguration.Builder(user!!, partition)
             .build()
         Realm.getInstanceAsync(config, object: Realm.Callback() {
@@ -53,7 +58,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
 
          //set on-click listener
         planCore.setOnClickListener {
-            /*
+
             val exercise1 = Exercise(
                 "Crunches",
                 3,
@@ -68,12 +73,102 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 realm.insert(exercise1)
                 realm.insert(exercise2)
             }
-            */
-            rvCore.layoutManager = LinearLayoutManager(this)
-            rvCore.setHasFixedSize(true)
+
+            rvPlan.layoutManager = LinearLayoutManager(this)
+            rvPlan.setHasFixedSize(true)
             adapter = ExerciseAdapter(exerciseRealm.where<Exercise>()
                 .sort("exerciseName").findAll(), user!!, partition)
-            rvCore.adapter = adapter
+            rvPlan.adapter = adapter
+        }
+        planPush.setOnClickListener {
+
+            val exercise1 = Exercise(
+                "Bench Press",
+                3,
+                15,
+                0.0)
+            val exercise2 = Exercise(
+                "Shoulder Press",
+                4,
+                10,
+                0.0)
+            val exercise3 = Exercise(
+                "Incline Bench Press",
+                3,
+                15,
+                0.0)
+            planRealm.executeTransactionAsync { realm ->
+                realm.insert(exercise1)
+                realm.insert(exercise2)
+                realm.insert(exercise3)
+            }
+
+            rvPlan.layoutManager = LinearLayoutManager(this)
+            rvPlan.setHasFixedSize(true)
+            adapter = ExerciseAdapter(exerciseRealm.where<Exercise>()
+                .sort("exerciseName").findAll(), user!!, partition)
+            rvPlan.adapter = adapter
+        }
+        planPull.setOnClickListener {
+
+            val exercise1 = Exercise(
+                "Bicep Curl",
+                3,
+                15,
+                0.0)
+            val exercise2 = Exercise(
+                "Latisimus Pull Down",
+                4,
+                10,
+                0.0)
+            val exercise3 = Exercise(
+                "Bent-over Row",
+                3,
+                15,
+                0.0)
+            planRealm.executeTransactionAsync { realm ->
+                realm.insert(exercise1)
+                realm.insert(exercise2)
+                realm.insert(exercise3)
+            }
+
+            rvPlan.layoutManager = LinearLayoutManager(this)
+            rvPlan.setHasFixedSize(true)
+            adapter = ExerciseAdapter(exerciseRealm.where<Exercise>().sort("exerciseName").findAll(), user!!, partition)
+            rvPlan.adapter = adapter
+        }
+        planPull.setOnClickListener {
+
+            val exercise1 = Exercise(
+                "Quad Extensions",
+                3,
+                15,
+                0.0)
+            val exercise2 = Exercise(
+                "Squats",
+                4,
+                10,
+                0.0)
+            val exercise3 = Exercise(
+                "Calf Raises",
+                3,
+                15,
+                0.0)
+            val exercise4 = Exercise(
+                "Calf Raises",
+                3,
+                15,
+                0.0)
+            planRealm.executeTransactionAsync { realm ->
+                realm.insert(exercise1)
+                realm.insert(exercise2)
+                realm.insert(exercise3)
+            }
+
+            rvPlan.layoutManager = LinearLayoutManager(this)
+            rvPlan.setHasFixedSize(true)
+            adapter = ExerciseAdapter(exerciseRealm.where<Exercise>().sort("exerciseName").findAll(), user!!, partition)
+            rvPlan.adapter = adapter
         }
     }
 }

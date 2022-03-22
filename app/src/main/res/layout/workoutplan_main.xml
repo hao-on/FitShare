@@ -90,7 +90,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCore"
+        android:id="@+id/rvPlan"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
