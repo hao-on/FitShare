@@ -1,5 +1,6 @@
 package com.mongodb.tasktracker.model
 
+import com.example.fitshare.Exercise.kt.Exercise
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmField
@@ -11,6 +12,8 @@ open class Plan_Pull(_name: String = "", _arms1: String = "", _arms1reps: Int = 
                      _back1sets : Int = 0,_back2 : String ="", _back2reps : Int = 0, _back2sets : Int = 0,
                      _back3 : String ="", _back3reps : Int = 0, _back3sets : Int = 0) : RealmObject() {
     object pullplan {
+        var list : MutableList<Exercise> = mutableListOf<Exercise>()
+        /*
         var name1 : String = "Bicep Curls"
         var reps1 : Int = 15
         var sets1 : Int = 3
@@ -20,7 +23,9 @@ open class Plan_Pull(_name: String = "", _arms1: String = "", _arms1reps: Int = 
         var name3 : String = "Rows"
         var reps3 : Int = 20
         var sets3: Int = 3
+         */
     }
+    /*
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var name: String = _name
@@ -42,4 +47,6 @@ open class Plan_Pull(_name: String = "", _arms1: String = "", _arms1reps: Int = 
     var back3 : String = _back3
     var back3reps : Int = _back3reps
     var back3sets : Int = _back3sets
+
+     */
 }

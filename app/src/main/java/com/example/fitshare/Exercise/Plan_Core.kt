@@ -1,5 +1,6 @@
 package com.mongodb.tasktracker.model
 
+import com.example.fitshare.Exercise.kt.Exercise
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmField
@@ -7,14 +8,16 @@ import io.realm.annotations.Required
 import org.bson.types.ObjectId
 
 open class Plan_Core(name: String = "", _abs1: String = "", _abs1reps: Int = 0, _abs1sets: Int = 0,_abs2: String = "", _abs2reps: Int = 0, _abs2sets: Int = 0,
-                     _abs3: String = "", _abs3reps: Int = 0, _abs3sets: Int = 0,) : RealmObject() {
+                     _abs3: String = "", _abs3reps: Int = 0, _abs3sets: Int = 0, ) : RealmObject() {
+    // create array list of item
+    // array list of exercises
+    /*
+        PlanCore =[Ex1, Ex2]
+        Ex1= {name = crunch, rep = 15, set = 3}
+        Ex2= {name = russian twist, rep = 20, set = 3}
+     */
     object coreplan {
-        var name1 : String = "Crunches"
-        var reps1 : Int = 15
-        var sets1 : Int = 3
-        var name2 : String = "Russian Twists"
-        var reps2 : Int = 20
-        var sets2 : Int = 3
+        var list : MutableList<Exercise> = mutableListOf<Exercise>()
     }
 
         @PrimaryKey
