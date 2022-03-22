@@ -114,7 +114,7 @@ class RecipeFragment : Fragment(){
             rvRecipe.adapter = adapter
             rvRecipe.setHasFixedSize(true)
 
-            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
+            /*val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
                 override fun instantiateMyButton(
                     viewHolder: RecyclerView.ViewHolder,
                     buffer: MutableList<MyButton>
@@ -143,7 +143,7 @@ class RecipeFragment : Fragment(){
                         }
                     ))
                 }
-            }
+            }*/
         }
 
         allRecipe = view.findViewById(R.id.allFilter)

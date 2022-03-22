@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentTransaction
-import com.example.fitshare.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
 
@@ -88,7 +87,8 @@ class MainActivity : AppCompatActivity() {
 
         workoutFab = findViewById(R.id.workoutBtn)
         workoutFab.setOnClickListener{
-            Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, WorkoutPlanActivity::class.java))
         }
 
         nutritionFab = findViewById(R.id.nutritionBtn)
