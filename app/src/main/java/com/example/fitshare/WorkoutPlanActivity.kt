@@ -69,9 +69,15 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 3,
                 15,
                 0.0)
+            val exercise3 = Exercise(
+                "Leg Lifts",
+                3,
+                15,
+                0.0)
             planRealm.executeTransactionAsync { realm ->
                 realm.insert(exercise1)
                 realm.insert(exercise2)
+                realm.insert(exercise3)
             }
 
             rvPlan.layoutManager = LinearLayoutManager(this)
