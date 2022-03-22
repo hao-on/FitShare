@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation)}
     private val toBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation)}
     private var clicked: Boolean = false
-    private lateinit var todayBtn: TextView
+
 
     override fun onStart() {
         super.onStart()
@@ -102,6 +102,15 @@ class MainActivity : AppCompatActivity() {
             addBottomDialogFood.show(supportFragmentManager, null)
 
         }
+
+        // Set a click listener for button widget
+
+        /*monthDayText.setOnClickListener{
+            // Initialize a new DatePickerFragment
+            val newFragment = DatePickerFragment()
+            // Show the date picker dialog
+            newFragment.show(supportFragmentManager, "Date Picker")
+        }*/
 
         /*
         val posts: ArrayList<Post> = ArrayList()

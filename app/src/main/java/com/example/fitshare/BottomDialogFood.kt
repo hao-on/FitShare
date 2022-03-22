@@ -69,11 +69,11 @@ class BottomDialogFood : BottomSheetDialogFragment() {
             foodRealm.executeTransactionAsync { realm -> realm.insert(food) }
 
 
-            userRealm.executeTransactionAsync { transactionRealm: Realm ->
+            /*userRealm.executeTransactionAsync { transactionRealm: Realm ->
                 // get a frog from the database to update
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.foods?.add(food)
-            }
+            }*/
 
             dialog?.dismiss()
         }

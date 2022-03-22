@@ -31,32 +31,15 @@
             app:layout_constraintTop_toBottomOf="@id/fitnessToolbar" />
 
         <include
-            android:id="@+id/fitnessBreakfast"
-            layout="@layout/layout_addfood_breakfast"
+            android:id="@+id/fitnessNutrition"
+            layout="@layout/layout_addfood_nutrition"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fitnessCaloric" />
-        <include
-            android:id="@+id/fitnessLunch"
-            layout="@layout/layout_addfood_lunch"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fitnessBreakfast" />
-        <include
-            android:id="@+id/fitnessDinner"
-            layout="@layout/layout_addfood_dinner"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fitnessLunch" />
+
         <include
             android:id="@+id/fitnessExercises"
             layout="@layout/layout_addexercise_exercise"
@@ -65,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fitnessDinner" />
+            app:layout_constraintTop_toBottomOf="@id/fitnessNutrition" />
 
 
 

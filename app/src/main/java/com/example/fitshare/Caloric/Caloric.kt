@@ -30,7 +30,6 @@ open class Caloric(_goal: Int = 1,
 
     var date: Date = _date
 
-    @LinkingObjects("calorics")
-
-    val user: RealmResults<User>? = null
+    //@LinkingObjects("calorics")
+    //val user: RealmResults<User>? = null
 }

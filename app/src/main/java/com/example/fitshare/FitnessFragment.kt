@@ -64,7 +64,7 @@ class FitnessFragment : Fragment()  {
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     //private lateinit var todayView: TextView
-    private lateinit var monthDayText: TextView
+   // private lateinit var monthDayText: TextView
 
 
     //private lateinit var myRecipe: AppCompatButton
@@ -114,13 +114,13 @@ class FitnessFragment : Fragment()  {
 
 
         // Set a click listener for button widget
-        monthDayText=findViewById(R.id.monthDayText)
-        monthDayText.setOnClickListener{
+
+       /* monthDayText.setOnClickListener{
             // Initialize a new DatePickerFragment
             val newFragment = DatePickerFragment()
             // Show the date picker dialog
             newFragment.show(parentFragmentManager, "Date Picker")
-        }
+        }*/
 
     return view
     }

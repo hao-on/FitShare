@@ -24,7 +24,7 @@ class BottomDialogExercise : BottomSheetDialogFragment() {
     private lateinit var exerciseRealm: Realm
     private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
-    private lateinit var btnSubmit: Button
+    private lateinit var btnSubmitExercise: Button
     private lateinit var partition: String
 
     @Nullable
@@ -59,10 +59,10 @@ class BottomDialogExercise : BottomSheetDialogFragment() {
             }
         })
 
-        btnSubmit = view.findViewById(R.id.btnSubmitExercise)
+
 
         // adding on click listener for our button.
-        btnSubmit.setOnClickListener {
+        btnSubmitExercise.setOnClickListener {
             val exercise= Exercise(
                 txtEx_Name.text.toString(),
                 txtEx_Reps.text.toString().toInt(),
@@ -71,11 +71,11 @@ class BottomDialogExercise : BottomSheetDialogFragment() {
             exerciseRealm.executeTransactionAsync { realm -> realm.insert(exercise) }
 
 
-            userRealm.executeTransactionAsync { transactionRealm: Realm ->
+            /*userRealm.executeTransactionAsync { transactionRealm: Realm ->
                 // get a frog from the database to update
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.exercises?.add(exercise)
-            }
+            }*/
 
             dialog?.dismiss()
         }
