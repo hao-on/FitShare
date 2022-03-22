@@ -163,6 +163,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 realm.insert(exercise1)
                 realm.insert(exercise2)
                 realm.insert(exercise3)
+                realm.insert(exercise4)
             }
 
             rvPlan.layoutManager = LinearLayoutManager(this)
