@@ -13,7 +13,7 @@ import java.util.*
 
 open class Exercise(_name: String = "Exercise", _sets: Int = 1,
                   _reps: Int = 1, _weight: Double = 1.0,
-                  _date: Date = Date(), _userid: String = "") : RealmObject() {
+                  _date: Date = Date()) : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var exerciseName: String = _name
@@ -26,7 +26,7 @@ open class Exercise(_name: String = "Exercise", _sets: Int = 1,
 
     var date: Date = _date
 
-    var userid: String = _userid
+//    var userid: String = _userid
      // @LinkingObjects("exercises")
     //val user: RealmResults<User>? = null
 }

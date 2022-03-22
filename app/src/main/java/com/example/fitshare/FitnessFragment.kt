@@ -28,9 +28,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fitshare.Caloric.CaloricAdapter
 import com.example.fitshare.Exercise.kt.Exercise
 import com.example.fitshare.Exercise.kt.ExerciseAdapter
+import com.example.fitshare.Food.Food
+import com.example.fitshare.Food.FoodAdapter
 import com.example.fitshare.FitnessFragment.Companion.newInstance
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Case
 import io.realm.Realm
@@ -41,6 +45,7 @@ import kotlinx.android.synthetic.main.fragment_fitness.*
 import kotlinx.android.synthetic.main.layout_addexercise_exercise.*
 import java.util.Calendar.getInstance
 import kotlinx.android.synthetic.main.fitness_toolbar.*
+import kotlinx.android.synthetic.main.layout_addfood_nutrition.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -61,6 +66,8 @@ class FitnessFragment : Fragment()  {
     private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var exerciseAdapter: ExerciseAdapter
+    private lateinit var foodAdapter: FoodAdapter
+    private lateinit var caloricAdapter: CaloricAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     //private lateinit var todayView: TextView
@@ -95,8 +102,15 @@ class FitnessFragment : Fragment()  {
                 rvExercise.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvExercise.setHasFixedSize(true)
-                exerciseAdapter = ExerciseAdapter(realm.where<Exercise>().sort("exerciseName").findAll(), user!!, partition)
+                val data  = realm.where<Exercise>().sort("exerciseName").findAll()
+                exerciseAdapter = ExerciseAdapter(data, user!!, partition)
                 rvExercise.adapter = exerciseAdapter
+
+                rvNutrition.layoutManager =
+                    LinearLayoutManager(requireActivity().applicationContext)
+                rvNutrition.setHasFixedSize(true)
+                foodAdapter = FoodAdapter(realm.where<Food>().sort("foodName").findAll(), user!!, partition)
+                rvNutrition.adapter = foodAdapter
             }
         })
 
