@@ -22,6 +22,7 @@ import io.realm.mongodb.mongo.MongoClient
 import io.realm.mongodb.mongo.MongoCollection
 import io.realm.mongodb.mongo.MongoDatabase
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.layout_add_exercise.*
 import kotlinx.android.synthetic.main.workoutplan_main.*
 import org.bson.Document
 import org.bson.types.ObjectId
@@ -44,7 +45,20 @@ class WorkoutPlanActivity : AppCompatActivity() {
 // set on-click listener
         corebutton.setOnClickListener {
             myTextView.text = plan_core.toString()
-            Toast.makeText(this@WorkoutPlanActivity, "Plan for Core:",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@WorkoutPlanActivity, "Plan for Core:",Toast.LENGTH_SHORT).show()
+                val exercise= Exercise(
+                    txtEx_Name.text.toString(),
+                    txtEx_Reps.text.toString().toInt(),
+                    txtEx_Sets.text.toString().toInt(),
+                    txtEx_Weight.text.toString().toDouble())
+                exerciseRealm.executeTransactionAsync { realm -> realm.insert(exercise) }
+
+
+                userRealm.executeTransactionAsync { transactionRealm: Realm ->
+                    // get a frog from the database to update
+                    val userData = transactionRealm.where(com.example.fitshare.User.User::class.java).findFirst()
+                    userData?.exercises?.add(exercise)
+                }
         }
 
         pushbutton.setOnClickListener {
