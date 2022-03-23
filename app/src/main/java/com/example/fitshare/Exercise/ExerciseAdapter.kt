@@ -1,4 +1,4 @@
-package com.example.fitshare.Exercise.kt
+package com.example.fitshare.Exercise
 
 import android.app.AlertDialog
 import android.content.Context

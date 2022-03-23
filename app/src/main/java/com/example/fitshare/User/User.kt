@@ -1,7 +1,7 @@
 package com.example.fitshare.User
 
 import com.example.fitshare.Recipe.Recipe
-import com.example.fitshare.Exercise.kt.Exercise
+import com.example.fitshare.Exercise.Exercise
 import com.example.fitshare.Caloric.Caloric
 import com.example.fitshare.Food.Food
 import io.realm.RealmList
@@ -24,10 +24,9 @@ open class User : RealmObject {
     var id: String = ""
     var _partition: String = ""
     var recipes: RealmList<Recipe> ?= null
-    //var exercises: RealmList<Exercise> ?= null
+    var exercises: RealmList<Exercise> ?= null
     //var calorics: RealmList<Caloric> ?= null
     //var foods: RealmList<Food> ?= null
-
 
 
     var name: String = ""
@@ -36,7 +35,7 @@ open class User : RealmObject {
         id: String,
         _partition: String,
         recipes: RealmList<Recipe>?,
-        //exercises: RealmList<Exercise>?,
+        exercises: RealmList<Exercise>?,
         //foods: RealmList<Food>?,
         //calorics: RealmList<Caloric>?,
         name: String
@@ -45,7 +44,7 @@ open class User : RealmObject {
         this._partition = _partition
         this.name = name
         this.recipes = recipes
-        //this.exercises=exercises
+        this.exercises=exercises
         //this.foods=foods
         //this.calorics=calorics
     }

@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
                 addBottomDialog.show(supportFragmentManager, null)
             }
             if (currFragment is FitnessFragment) {
-
                 onAddButtonClicked()
             }
         })
@@ -90,9 +89,14 @@ class MainActivity : AppCompatActivity() {
         workoutFab = findViewById(R.id.workoutBtn)
         workoutFab.setOnClickListener{
             Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
-            val addBottomDialogExercise : BottomDialogExercise = BottomDialogExercise.newInstance()
-            addBottomDialogExercise.show(supportFragmentManager, null)
+            val currFragment: Fragment? =
+                supportFragmentManager.findFragmentById(R.id.frameLayout)
 
+            if (currFragment is FitnessFragment) {
+                val addBottomDialogExercise: BottomDialogExercise =
+                    BottomDialogExercise.newInstance()
+                addBottomDialogExercise.show(supportFragmentManager, null)
+            }
         }
 
         nutritionFab = findViewById(R.id.nutritionBtn)
