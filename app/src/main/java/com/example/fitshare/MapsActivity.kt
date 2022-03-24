@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.example.fitshare.User.User
 import com.example.fitshare.User.UserLocation
@@ -21,6 +22,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.Marker
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.recipe_view.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private var user: io.realm.mongodb.User? = null
@@ -45,9 +47,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         super.onStart()
         user = fitApp.currentUser()
 
+
         partition = "location"
         val config = SyncConfiguration.Builder(user!!, partition)
             .build()
+       // this@MapsActivity.mapRealm = realm
         // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
         Realm.getInstanceAsync(config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
@@ -77,17 +81,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
 
                 var currentLoc = UserLocation(user.toString(),location.latitude,location.longitude)
+                mapRealm.executeTransactionAsync{realm -> realm.insert(currentLoc)}
 
 
+                val locationsQuery = mapRealm.where(UserLocation::class.java).findAll()
 
-                mapRealm.executeTransactionAsync(realm -> realm.insert(currentLoc))
+//                for(loc in locationsQuery.indices){
+//                    Log.e("Long",locationsQuery[loc])
+//                }
+
+                Log.i("Maps", locationsQuery[0]?.latitude.toString())
+
+
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+
+                map.addMarker(MarkerOptions().position(LatLng(33.8,-118.03)).title("TEST"))
+
+                for (loc in locationsQuery) {
+                    map.addMarker(
+                        MarkerOptions()
+                            .position(LatLng(loc.latitude,loc.longitude))
+                            .title("TEST MARKER")
+                    )
+                }
 
             }
         }
 
+        // retrieve markers in db and add user profile name to object
+
+
+//        val sydney = LatLng(-33.852, 151.211)
+//        map.addMarker(
+//            MarkerOptions()
+//                .position(sydney)
+//                .title("Marker in Sydney")
+//        )
     }
 
 
@@ -103,6 +134,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
 
 
     }

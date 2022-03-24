@@ -10,23 +10,6 @@ import io.realm.annotations.RealmField
 import io.realm.annotations.Required
 import org.bson.types.ObjectId
 
-//open class Recipe(_name: String = "Recipe", _desc: String = "Description",
-//                  _ingr: String = "Ingredients", _steps: String = "Steps",
-//                  _time: String = "Prep_Time") : RealmObject() {
-//    @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
-//    @Required
-//    var recipeName: String = _name
-//    @Required
-//    var description: String = _desc
-//    @Required
-//    var ingredients: String = _ingr
-//    @Required
-//    var steps: String = _steps
-//    @Required
-//    var prepTime: String = _time
-//    @LinkingObjects("recipes")
-//    val user: RealmResults<User>? = null
-//}
 
 open class UserLocation(_userName: String ="UserName", _latitude:Double = 0.0,
                         _longitude:Double = 0.0)  : RealmObject(){

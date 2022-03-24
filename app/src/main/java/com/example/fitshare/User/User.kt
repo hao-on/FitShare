@@ -39,4 +39,9 @@ open class User : RealmObject {
     }
 
     constructor() {} // RealmObject subclasses must provide an empty constructor
+
+     fun getName(){
+        return this.getName()
+    }
 }
+
