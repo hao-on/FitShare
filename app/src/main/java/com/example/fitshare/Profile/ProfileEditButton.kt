@@ -83,8 +83,8 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         submitButton.setOnClickListener{
 
             userRealm.executeTransactionAsync{transactionRealm: Realm ->
-                val userData = transactionRealm.where(User::class.java).findFirst()
-                Log.i("checker", userData!!.id)
+                //val userData = transactionRealm.where(User::class.java).findFirst()
+                Log.i("checker", user?.id.toString())
 
                 //Find old profile data
                 val oldProf = transactionRealm.where(Profile::class.java).findFirst()
@@ -96,7 +96,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                         lastName.text.toString(), bio.text.toString(),
                         address.text.toString(), zipcode.text.toString(),
                         phone.text.toString(), username.text.toString(),
-                        false, userData?.id.toString())
+                        false, user?.id.toString())
 
                     transactionRealm.insertOrUpdate(profile)
                 }else {
@@ -107,7 +107,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                     oldProf?.zipcode = zipcode.text.toString()
                     oldProf?.phoneNumber = phone.text.toString()
                     oldProf?.username = username.text.toString()
-                    oldProf?.userid = userData?.id.toString()
+                    oldProf?.userid = user?.id.toString()
 
                     transactionRealm.insertOrUpdate(oldProf)
                 }
