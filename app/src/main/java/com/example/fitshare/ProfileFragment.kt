@@ -1,18 +1,13 @@
 package com.example.fitshare
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Profile.ProfileEditButton
 import com.example.fitshare.User.User
@@ -39,8 +34,9 @@ class ProfileFragment : Fragment() {
     //private lateinit var adapter: ProfileAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
+    private lateinit var messaging: AppCompatButton
+    private lateinit var profileName: TextView
     private lateinit var meetUp: CheckBox
-    private lateinit var otherProfileButton: Button
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //
@@ -53,23 +49,15 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         user = fitApp.currentUser()
-        partition = "Profile"
+        partition = "profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
-        //Profile Realm sync config
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@ProfileFragment.profileRealm = realm
-                    val oldProf = profileRealm.where(Profile::class.java).
-                    equalTo("userid", user?.id.toString()).findFirst()
-                    if(oldProf?.meetUp == true){
-                        meetUp.isChecked = true
-                    }else{meetUp.isChecked = false}
-                }
-
+            }
         })
 
-        //User Realm sync config
         val user_config: SyncConfiguration =
             SyncConfiguration.Builder(user!!, "user=${user!!.id}")
                 .build()
@@ -80,55 +68,46 @@ class ProfileFragment : Fragment() {
         })
 
 
-        //Meet-up status functionality
         meetUp = view.findViewById(R.id.meetUp)
+        val realm: Realm = Realm.getInstance(config)
+            val userData = realm.where(User::class.java).findFirst()
+            val oldProf = realm.where(Profile::class.java).
+            equalTo("_id", userData?.profile?.id).findFirst()
+            if(oldProf?.meetUp == true){
+                meetUp.isChecked = true
+            }else{meetUp.isChecked = false}
+
+
         meetUp.setOnClickListener{
 
             //Check box functionality
-            profileRealm.executeTransactionAsync{
-                val oldProf = it.where(Profile::class.java).
-                equalTo("userid", user?.id.toString()).findFirst()
+            userRealm.executeTransactionAsync{
+                val userData = it.where(User::class.java).findFirst()
                 if(meetUp.isChecked()){
-                        oldProf?.meetUp = true
+                        userData?.profile?.meetUp = true
                     }
+
                 else if(!meetUp.isChecked()){
-                        oldProf?.meetUp = false
+                        userData?.profile?.meetUp = false
                     }
             }
         }
 
-        //Button for adding/editing a profile
         fab = view.findViewById(R.id.btnEditProfile)
         fab.setOnClickListener{
             val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
             editProfileButton.show(parentFragmentManager, null)
         }
-
-        //Test Viewing Other Profile Activity **DELETE LATER**
-        otherProfileButton = view.findViewById(R.id.other_profile_button)
-        otherProfileButton.setOnClickListener{
-            //openFragment(OtherProfileFragment)
-        }
-
         return view
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        userRealm.close()
-        profileRealm.close()
+    
+    override fun onStop() {
+        super.onStop()
+        user.run {
+            profileRealm.close()
+            userRealm.close()
+        }
     }
-
-//    private fun openFragment(fragment: Fragment) {
-//        Log.d(ContentValues.TAG, "openFragment: ")
-//        val transaction: FragmentTransaction = FragmentManager::beginTransaction()
-//        //this is a helper class that replaces the container with the fragment. You can replace or add fragments.
-//        transaction.replace(R.id.frameLayout, fragment)
-//        transaction.addToBackStack(null) //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
-//        transaction.commit() // commit() performs the action
-//    }
-
     companion object {
         /**
          * Use this factory method to create a new instance of
