@@ -101,6 +101,13 @@ class ProfileFragment : Fragment() {
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        userRealm.close()
+        profileRealm.close()
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

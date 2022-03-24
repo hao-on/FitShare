@@ -108,15 +108,50 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                     oldProf?.phoneNumber = phone.text.toString()
                     oldProf?.username = username.text.toString()
                     oldProf?.userid = user?.id.toString()
-
+                    Log.i("checker", oldProf?.id.toString())
                     transactionRealm.insertOrUpdate(oldProf)
                 }
 
+            }
+            profileRealm.executeTransactionAsync{
+                Log.i("checkerProf", user?.id.toString())
+                val oldProf = it.where(Profile::class.java).findFirst()
+                //equalTo("id", userData.profile?.id).findFirst()
+                Log.i("checkerProf", oldProf?.id.toString())
+
+                if(oldProf == null){
+                    val profile =  Profile(firstName.text.toString(),
+                        lastName.text.toString(), bio.text.toString(),
+                        address.text.toString(), zipcode.text.toString(),
+                        phone.text.toString(), username.text.toString(),
+                        false, user?.id.toString())
+
+                    it.insertOrUpdate(profile)
+                }else {
+                    oldProf?.firstName = firstName.text.toString()
+                    oldProf?.lastName = lastName.text.toString()
+                    oldProf?.bio = bio.text.toString()
+                    oldProf?.address = address.text.toString()
+                    oldProf?.zipcode = zipcode.text.toString()
+                    oldProf?.phoneNumber = phone.text.toString()
+                    oldProf?.username = username.text.toString()
+                    oldProf?.userid = user?.id.toString()
+                    Log.i("checkerProf", oldProf?.id.toString())
+                    it.insertOrUpdate(oldProf)
+                }
             }
             dialog?.dismiss()
         }
         return view
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        userRealm.close()
+        profileRealm.close()
+    }
+
     companion object{
         fun newInstance(): ProfileEditButton{
             return ProfileEditButton()
