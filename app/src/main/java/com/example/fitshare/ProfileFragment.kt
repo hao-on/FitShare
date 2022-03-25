@@ -49,7 +49,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         user = fitApp.currentUser()
-        partition = "profile"
+        partition = "Profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
         Realm.getInstanceAsync(config, object: Realm.Callback(){
@@ -68,36 +68,36 @@ class ProfileFragment : Fragment() {
         })
 
 
-        meetUp = view.findViewById(R.id.meetUp)
-        val realm: Realm = Realm.getInstance(config)
-            val userData = realm.where(User::class.java).findFirst()
-            val oldProf = realm.where(Profile::class.java).
-            equalTo("_id", userData?.profile?.id).findFirst()
-            if(oldProf?.meetUp == true){
-                meetUp.isChecked = true
-            }else{meetUp.isChecked = false}
-
-
-        meetUp.setOnClickListener{
-
-            //Check box functionality
-            userRealm.executeTransactionAsync{
-                val userData = it.where(User::class.java).findFirst()
-                if(meetUp.isChecked()){
-                        userData?.profile?.meetUp = true
-                    }
-
-                else if(!meetUp.isChecked()){
-                        userData?.profile?.meetUp = false
-                    }
-            }
-        }
-
-        fab = view.findViewById(R.id.btnEditProfile)
-        fab.setOnClickListener{
-            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
-            editProfileButton.show(parentFragmentManager, null)
-        }
+//        meetUp = view.findViewById(R.id.meetUp)
+//        val realm: Realm = Realm.getInstance(config)
+//            val userData = realm.where(User::class.java).findFirst()
+//            val oldProf = realm.where(Profile::class.java).
+//            equalTo("_id", userData?.profile?.id).findFirst()
+//            if(oldProf?.meetUp == true){
+//                meetUp.isChecked = true
+//            }else{meetUp.isChecked = false}
+//
+//
+//        meetUp.setOnClickListener{
+//
+//            //Check box functionality
+//            userRealm.executeTransactionAsync{
+//                val userData = it.where(User::class.java).findFirst()
+//                if(meetUp.isChecked()){
+//                        userData?.profile?.meetUp = true
+//                    }
+//
+//                else if(!meetUp.isChecked()){
+//                        userData?.profile?.meetUp = false
+//                    }
+//            }
+//        }
+//
+//        fab = view.findViewById(R.id.btnEditProfile)
+//        fab.setOnClickListener{
+//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+//            editProfileButton.show(parentFragmentManager, null)
+//        }
         return view
     }
 

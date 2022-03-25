@@ -30,7 +30,7 @@ open class User : RealmObject {
         _partition: String,
         recipes: RealmList<Recipe>?,
         name: String,
-        profile: Profile
+        profile: Profile?
     ) {
         this.id = id
         this._partition = _partition
