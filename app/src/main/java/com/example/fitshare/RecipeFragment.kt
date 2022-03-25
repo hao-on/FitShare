@@ -76,6 +76,13 @@ class RecipeFragment : Fragment(){
                 rvRecipe.setHasFixedSize(true)
                 adapter = RecipeAdapter(realm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
                 rvRecipe.adapter = adapter
+                adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
+                    override fun onItemClick(position: Int) {
+                        Toast.makeText(requireActivity().applicationContext,
+                            "You clicked on item at the position $position", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
             }
         })
 
