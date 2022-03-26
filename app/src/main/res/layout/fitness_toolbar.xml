@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
+
+    <ImageButton
+        android:id="@+id/previousDayBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="20dp"
+        android:padding="10dp"
+        android:onClick="previousDayAction"
+        android:src="@drawable/ic_left" />
+
+    <TextView
+        android:id="@+id/monthDayText"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/dancing_script"
+        android:layout_gravity="center_horizontal"
+        android:text="Today"
+        android:paddingHorizontal="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/nextDayBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:background="@null"
+        android:onClick="nextDayAction"
+        android:src="@drawable/ic_right" />
+
+
+</androidx.appcompat.widget.Toolbar>
