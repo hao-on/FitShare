@@ -93,11 +93,11 @@ class ProfileFragment : Fragment() {
 //            }
 //        }
 //
-//        fab = view.findViewById(R.id.btnEditProfile)
-//        fab.setOnClickListener{
-//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
-//            editProfileButton.show(parentFragmentManager, null)
-//        }
+        fab = view.findViewById(R.id.btnEditProfile)
+        fab.setOnClickListener{
+            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+            editProfileButton.show(parentFragmentManager, null)
+        }
         return view
     }
 

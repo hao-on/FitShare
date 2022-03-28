@@ -29,8 +29,8 @@ open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
     @Required
     var username: String = _username
     var meetUp: Boolean = _meet
-//    @Required
-//    var userid: String = _uid
+    @Required
+   var userid: String = _uid
 //
 //    @LinkingObjects("profile")
 //    val user: RealmResults<User>? = null

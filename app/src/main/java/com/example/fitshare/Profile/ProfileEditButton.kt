@@ -68,20 +68,18 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 this@ProfileEditButton.userRealm = realm
             }
         })
-//
-//
-//        firstName = view.findViewById(R.id.editProfile_first)
-//        lastName = view.findViewById(R.id.editProfile_last)
-//        username = view.findViewById(R.id.editProfile_username)
-//        phone = view.findViewById(R.id.editProfile_phone)
-//        address = view.findViewById(R.id.editProfile_address)
-//        zipcode = view.findViewById(R.id.editProfile_zip)
-//        bio = view.findViewById(R.id.editProfile_bio)
-//
-//        submitButton = view.findViewById(R.id.btnSubmitProfile)
-//
-//        submitButton.setOnClickListener{
-//
+
+        firstName = view.findViewById(R.id.editProfile_first)
+        lastName = view.findViewById(R.id.editProfile_last)
+        username = view.findViewById(R.id.editProfile_username)
+        phone = view.findViewById(R.id.editProfile_phone)
+        address = view.findViewById(R.id.editProfile_address)
+        zipcode = view.findViewById(R.id.editProfile_zip)
+        bio = view.findViewById(R.id.editProfile_bio)
+        submitButton = view.findViewById(R.id.btnSubmitProfile)
+
+        submitButton.setOnClickListener{
+
 //            userRealm.executeTransactionAsync{transactionRealm: Realm ->
 //                //val userData = transactionRealm.where(User::class.java).findFirst()
 //                Log.i("checker", user?.id.toString())
@@ -107,41 +105,43 @@ class ProfileEditButton : BottomSheetDialogFragment() {
 //                    oldProf?.zipcode = zipcode.text.toString()
 //                    oldProf?.phoneNumber = phone.text.toString()
 //                    oldProf?.username = username.text.toString()
-////                    oldProf?.userid = user?.id.toString()
+//                    oldProf?.userid = user?.id.toString()
 //                    Log.i("checker", oldProf?.id.toString())
 //                    transactionRealm.insertOrUpdate(oldProf)
 //                }
 //
 //            }
-//            profileRealm.executeTransactionAsync{
-//                Log.i("checkerProf", user?.id.toString())
-//                val oldProf = it.where(Profile::class.java).findFirst()
-//                //equalTo("id", userData.profile?.id).findFirst()
-//                Log.i("checkerProf", oldProf?.id.toString())
-//
-//                if(oldProf == null){
-//                    val profile =  Profile(firstName.text.toString(),
-//                        lastName.text.toString(), bio.text.toString(),
-//                        address.text.toString(), zipcode.text.toString(),
-//                        phone.text.toString(), username.text.toString(),
-//                        false, user?.id.toString())
-//
-//                    it.insertOrUpdate(profile)
-//                }else {
-//                    oldProf?.firstName = firstName.text.toString()
-//                    oldProf?.lastName = lastName.text.toString()
-//                    oldProf?.bio = bio.text.toString()
-//                    oldProf?.address = address.text.toString()
-//                    oldProf?.zipcode = zipcode.text.toString()
-//                    oldProf?.phoneNumber = phone.text.toString()
-//                    oldProf?.username = username.text.toString()
-////                    oldProf?.userid = user?.id.toString()
-//                    Log.i("checkerProf", oldProf?.id.toString())
-//                    it.insertOrUpdate(oldProf)
-//                }
-//            }
-//            dialog?.dismiss()
-//        }
+            profileRealm.executeTransactionAsync{
+                Log.i("checkerProf", user?.id.toString())
+
+                val oldProf = it.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+
+                Log.i("checkerProf", oldProf?.id.toString())
+
+                if(oldProf == null){
+                    val profile =  Profile(firstName.text.toString(),
+                        lastName.text.toString(), bio.text.toString(),
+                        address.text.toString(), zipcode.text.toString(),
+                        phone.text.toString(), username.text.toString(),
+                        false, user?.id.toString())
+
+                    it.insertOrUpdate(profile)
+                }else {
+                    oldProf?.firstName = firstName.text.toString()
+                    oldProf?.lastName = lastName.text.toString()
+                    oldProf?.bio = bio.text.toString()
+                    oldProf?.address = address.text.toString()
+                    oldProf?.zipcode = zipcode.text.toString()
+                    oldProf?.phoneNumber = phone.text.toString()
+                    oldProf?.username = username.text.toString()
+                    oldProf?.userid = user?.id.toString()
+                    Log.i("checkerProf", oldProf?.id.toString())
+                    it.insertOrUpdate(oldProf)
+                }
+            }
+            dialog?.dismiss()
+        }
         return view
     }
 
