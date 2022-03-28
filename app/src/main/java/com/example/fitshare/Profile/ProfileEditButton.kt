@@ -57,6 +57,17 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ProfileEditButton.profileRealm = realm
+                val oldProf = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+                if(oldProf != null) {
+                    firstName.setText(oldProf?.firstName)
+                    lastName.setText(oldProf?.lastName)
+                    username.setText(oldProf?.username)
+                    phone.setText(oldProf?.phoneNumber)
+                    address.setText(oldProf?.address)
+                    zipcode.setText(oldProf?.zipcode)
+                    bio.setText(oldProf?.bio)
+                }
             }
         })
 
