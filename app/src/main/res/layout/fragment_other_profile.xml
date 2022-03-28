@@ -133,12 +133,13 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-                <TextView
+                <CheckBox
                     android:id="@+id/meetUp"
                     android:layout_width="10sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:text="Meet-up Status: " />
+                    android:text="Meet-up Status"
+                    android:clickable="false"/>
 
                 <Button
                     android:id="@+id/messageButton"

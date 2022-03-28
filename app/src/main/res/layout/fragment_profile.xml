@@ -119,11 +119,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text="Meet-up Status" />
+
+                <Button
+                    android:id="@+id/other_profile_button"
+                    android:layout_width="10sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:text="View Other Profile">
+                </Button>
+
             </LinearLayout>
         </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnEditProfile"
@@ -134,6 +144,6 @@
         android:backgroundTint="@color/white"
         android:layout_gravity="right"
         android:layout_marginBottom="100dp"
-    />
+        />
 
 </FrameLayout>
