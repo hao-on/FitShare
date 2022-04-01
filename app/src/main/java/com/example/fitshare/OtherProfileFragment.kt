@@ -63,7 +63,7 @@ class OtherProfileFragment: Fragment() {
 
         meetUp = view.findViewById(R.id.meetUp)
 
-        var profileArray = arguments?.getStringArrayList("profArray")
+        var profileArray = arguments?.getStringArrayList("profileArray")
         var first = profileArray?.get(0)
         Log.i("array", first.toString())
 

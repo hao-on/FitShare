@@ -124,6 +124,7 @@ class ProfileFragment : Fragment() {
                 profArray.add(oldProf?.meetUp.toString())
                 profArray.add(oldProf?.userid.toString())
 
+
                 var otherProfileFragment : Fragment = OtherProfileFragment()
                 val bundle = Bundle()
                 bundle.putStringArrayList("profileArray", profArray)
