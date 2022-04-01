@@ -85,17 +85,6 @@ class OtherProfileFragment: Fragment() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         return view
     }
 
