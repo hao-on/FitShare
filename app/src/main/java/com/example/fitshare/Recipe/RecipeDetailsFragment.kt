@@ -2,6 +2,7 @@ package com.example.fitshare.Recipe
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,26 +32,33 @@ class RecipeDetailsFragment : Fragment() {
         user = fitApp.currentUser()
         partition = "recipe"
 
-//        val config = SyncConfiguration.Builder(user!!, partition)
-//            .build()
-//        Realm.getInstanceAsync(config, object: Realm.Callback() {
-//            override fun onSuccess(realm: Realm) {
-//                this@RecipeDetailsFragment.recipeRealm = realm
-//            }
-//        })
+        val config = SyncConfiguration.Builder(user!!, partition)
+            .build()
+        Realm.getInstanceAsync(config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                this@RecipeDetailsFragment.recipeRealm = realm
+
+                var recipeName = arguments?.getString("recipeName")
+                var recipeID = arguments?.getString("recipeID")
+
+                Log.i("recipe", recipeID.toString())
+                Log.i("recipe", recipeName.toString())
+
+                view.tvName.text = recipeName
+                val id = ObjectId(recipeID)
+
+                var recName = recipeRealm.where<Recipe>().equalTo("_id", id).findFirst()
+                Log.i("recipe", recName?.id.toString())
+
+                if (recName != null) {
+                    Toast.makeText(requireActivity().applicationContext,
+                        "Name: " + recName.recipeName, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
 
-        var recipeName = arguments?.getString("recipeName")
-        var recipeID = arguments?.getString("recipeID")
-        view.tvName.text = recipeName
 
-//        val id = ObjectId(recipeID)
-//        var recName = recipeRealm.where<Recipe>().contains("_id", recipeID).findFirst()
-//
-//        if (recName != null) {
-//            Toast.makeText(requireActivity().applicationContext,
-//                "Name: " + recName.recipeName, Toast.LENGTH_SHORT).show()
-//        }
 
         val rBar: RatingBar = view.findViewById(R.id.rBar)
         if (rBar != null) {
