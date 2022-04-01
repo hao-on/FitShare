@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/sd"
+                android:id="@+id/addFriend"
                 android:layout_width="15sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"

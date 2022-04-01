@@ -107,7 +107,29 @@ class ProfileFragment : Fragment() {
         //Test Viewing Other Profile Activity **DELETE LATER**
         otherProfileButton = view.findViewById(R.id.other_profile_button)
         otherProfileButton.setOnClickListener{
-            //openFragment(OtherProfileFragment)
+
+            profileRealm.executeTransactionAsync{
+
+                val oldProf = it.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+
+                val profArray = ArrayList<String>()
+                profArray.add(oldProf?.firstName.toString())
+                profArray.add(oldProf?.lastName.toString())
+                profArray.add(oldProf?.bio.toString())
+                profArray.add(oldProf?.address.toString())
+                profArray.add(oldProf?.zipcode.toString())
+                profArray.add(oldProf?.phoneNumber.toString())
+                profArray.add(oldProf?.username.toString())
+                profArray.add(oldProf?.meetUp.toString())
+                profArray.add(oldProf?.userid.toString())
+
+                var otherProfileFragment : Fragment = OtherProfileFragment()
+                val bundle = Bundle()
+                bundle.putStringArrayList("profileArray", profArray)
+                otherProfileFragment.arguments = bundle
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, otherProfileFragment).commit()
+            }
         }
 
         return view
@@ -120,14 +142,7 @@ class ProfileFragment : Fragment() {
         profileRealm.close()
     }
 
-//    private fun openFragment(fragment: Fragment) {
-//        Log.d(ContentValues.TAG, "openFragment: ")
-//        val transaction: FragmentTransaction = FragmentManager::beginTransaction()
-//        //this is a helper class that replaces the container with the fragment. You can replace or add fragments.
-//        transaction.replace(R.id.frameLayout, fragment)
-//        transaction.addToBackStack(null) //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
-//        transaction.commit() // commit() performs the action
-//    }
+
 
     companion object {
         /**

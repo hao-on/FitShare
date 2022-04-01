@@ -3,6 +3,7 @@ package com.example.fitshare
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +50,6 @@ class OtherProfileFragment: Fragment() {
                     meetUp.isChecked = true
                 }else{meetUp.isChecked = false}
             }
-
         })
 
         val user_config: SyncConfiguration =
@@ -60,8 +60,27 @@ class OtherProfileFragment: Fragment() {
                 this@OtherProfileFragment.userRealm = realm
             }
         })
+
+        meetUp = view.findViewById(R.id.meetUp)
+
+        var profileArray = arguments?.getStringArrayList("profArray")
+        var first = profileArray?.get(0)
+        Log.i("array", first.toString())
+
+
+
+
+
+
+
+
+
+
+
         return view
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
