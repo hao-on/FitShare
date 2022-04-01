@@ -13,17 +13,16 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
+import com.example.fitshare.Profile.ProfileFragment
+import com.example.fitshare.Recipe.BottomDialog
+import com.example.fitshare.Recipe.RecipeFragment
+import com.example.fitshare.WorkOutPlan.WorkOutPlanActivity
 
 
-
-
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
     private var user: io.realm.mongodb.User? = null
     private lateinit var fab: FloatingActionButton
     private lateinit var workoutFab: FloatingActionButton
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     return@OnItemSelectedListener true
                 }
                 R.id.recipe -> {
-                    openFragment(RecipeFragment.newInstance("",""))
+                    openFragment(RecipeFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.profile -> {
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         workoutFab = findViewById(R.id.workoutBtn)
         workoutFab.setOnClickListener{
             //Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, WorkoutPlanActivity::class.java))
+            startActivity(Intent(this, WorkOutPlanActivity::class.java))
         }
 
         nutritionFab = findViewById(R.id.nutritionBtn)

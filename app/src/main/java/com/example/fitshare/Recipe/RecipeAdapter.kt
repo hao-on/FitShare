@@ -4,22 +4,9 @@ import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.R
-import com.example.fitshare.User.User
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
-import io.realm.RealmResults
-import io.realm.kotlin.where
-import io.realm.mongodb.sync.SyncConfiguration
-import org.bson.types.ObjectId
-import androidx.appcompat.app.AppCompatActivity
 
-
-
-
-/*
-* TaskAdapter: extends the Realm-provided RealmRecyclerViewAdapter to provide data for a RecyclerView to display
-* Realm objects on screen to a user.
-*/
 class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
                     val user: io.realm.mongodb.User,
                     private val partition: String
@@ -33,6 +20,7 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
         val itemView: View = LayoutInflater.from(parent.context).
         inflate(R.layout.layout_recipe, parent, false)
         return RecipeViewHolder(itemView, mListener)
+        //return RecipeViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
@@ -43,6 +31,13 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
         holder.prepTime.text = obj?.prepTime
 
     }
+//
+//    inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+//        var recipeName: TextView = view.findViewById(R.id.tvRecipeName)
+//        var description: TextView = view.findViewById(R.id.tvDescription)
+//        var prepTime: TextView = view.findViewById(R.id.tvPrepTime)
+//        var data: Recipe? = null
+//    }
 
     inner class RecipeViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view) {
         var recipeName: TextView = view.findViewById(R.id.tvRecipeName)
@@ -56,13 +51,11 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
             }
         }
     }
+        interface onItemClickListener{
+            fun onItemClick(position: Int)
+        }
 
-
-    interface onItemClickListener{
-        fun onItemClick(position: Int)
-    }
-
-    fun setOnItemClickListener(listener: onItemClickListener){
-        mListener = listener
-    }
+        fun setOnItemClickListener(listener: onItemClickListener){
+            mListener = listener
+        }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvHello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:fontFamily="@font/dancing_script"
+        android:paddingTop="20sp"
+        android:text="hello there,"
+        android:textColor="#116530"
+        android:textFontWeight="600"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/tvHello2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:fontFamily="@font/roboto_light"
+        android:textStyle="bold"
+        android:text="what is your plan today?"
+        android:textColor="#C0C0C0"
+        android:letterSpacing="0.05"
+        android:textSize="18sp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable"
+        android:layout_marginTop="20dp"
+        app:tabSelectedTextColor="@color/dark_blue"
+        app:tabIndicatorColor="@color/dark_blue"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

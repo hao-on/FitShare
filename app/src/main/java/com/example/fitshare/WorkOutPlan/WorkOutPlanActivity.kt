@@ -1,31 +1,32 @@
-package com.example.fitshare
+package com.example.fitshare.WorkOutPlan
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fitshare.Exercise.kt.Exercise
-import com.example.fitshare.Exercise.kt.ExerciseAdapter
-import com.example.fitshare.Recipe.Recipe
-import com.example.fitshare.Recipe.RecipeAdapter
-import com.example.fitshare.User.User
-import com.mongodb.tasktracker.model.Plan_Core
-import kotlinx.android.synthetic.main.activity_add_recipe.*
-import io.realm.Realm
-import io.realm.kotlin.where
-import io.realm.mongodb.sync.SyncConfiguration
-import kotlinx.android.synthetic.main.fragment_recipe.*
-import kotlinx.android.synthetic.main.layout_add_recipe.*
-import kotlinx.android.synthetic.main.workoutplan_main.*
+import androidx.viewpager2.widget.ViewPager2
+import com.example.fitshare.R
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
-class WorkoutPlanActivity : AppCompatActivity() {
-    private lateinit var exerciseRealm: Realm
-    private lateinit var planRealm: Realm
-    private lateinit var userRealm: Realm
-    private lateinit var partition: String
-    private lateinit var adapter: ExerciseAdapter
-    private var user: io.realm.mongodb.User? = null
+class WorkOutPlanActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_work_out_plan)
 
-    override fun onCreate (savedInstanceState: Bundle?){
+        val tabLayout: TabLayout = findViewById(R.id.tab_layout)
+        val viewPage: ViewPager2 = findViewById(R.id.pager)
+        val adapter = PlanCollectionAdapter(supportFragmentManager, lifecycle)
+        viewPage.adapter = adapter
+
+        var plans = arrayOf("Plan Core", "Plan Pull", "Plan Push", "PLan Leg")
+        TabLayoutMediator(tabLayout, viewPage) { tab, position ->
+            tab.text = "${plans[position]}"
+        }.attach()
+
+    }
+}
+
+/*
+override fun onCreate (savedInstanceState: Bundle?){
         super.onCreate (savedInstanceState)
         setContentView(R.layout.workoutplan_main)
 
@@ -37,7 +38,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         Realm.getInstanceAsync(config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@WorkoutPlanActivity.exerciseRealm = realm
+                this@workout.exerciseRealm = realm
             }
         })
 
@@ -47,7 +48,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
         Realm.getInstanceAsync(user_config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@WorkoutPlanActivity.userRealm = realm
+                this@workout.userRealm = realm
             }
         })
 
@@ -76,4 +77,4 @@ class WorkoutPlanActivity : AppCompatActivity() {
             rvCore.adapter = adapter
         }
     }
-}
+ */

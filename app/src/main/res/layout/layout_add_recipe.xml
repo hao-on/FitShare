@@ -99,7 +99,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <!--button for dismissing our dialog-->
     <Button
         android:id="@+id/btnSubmitRecipe"
