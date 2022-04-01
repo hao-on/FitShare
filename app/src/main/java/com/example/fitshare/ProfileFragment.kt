@@ -41,6 +41,11 @@ class ProfileFragment : Fragment() {
     private lateinit var partition: String
     private lateinit var meetUp: CheckBox
     private lateinit var otherProfileButton: Button
+    private lateinit var profileName : TextView
+    private lateinit var username : TextView
+    private lateinit var phone : TextView
+    private lateinit var address : TextView
+    private lateinit var bio : TextView
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //
@@ -60,11 +65,25 @@ class ProfileFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@ProfileFragment.profileRealm = realm
-                    val oldProf = profileRealm.where(Profile::class.java).
+
+                val oldProf = profileRealm.where(Profile::class.java).
                     equalTo("userid", user?.id.toString()).findFirst()
-                    if(oldProf?.meetUp == true){
+
+                if(oldProf?.meetUp == true){
                         meetUp.isChecked = true
                     }else{meetUp.isChecked = false}
+
+                profileName = view.findViewById(R.id.profileName)
+                username = view.findViewById(R.id.username)
+                phone = view.findViewById(R.id.phone)
+                address = view.findViewById(R.id.address)
+                bio = view.findViewById(R.id.bio)
+
+                username.setText(oldProf?.username)
+                profileName.setText(oldProf?.firstName + ", " + oldProf?.lastName)
+                phone.setText(oldProf?.phoneNumber)
+                address.setText(oldProf?.address + ", " + oldProf?.zipcode)
+                bio.setText(oldProf?.bio)
                 }
 
         })
@@ -113,21 +132,12 @@ class ProfileFragment : Fragment() {
                 val oldProf = it.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
 
-                val profArray = ArrayList<String>()
-                profArray.add(oldProf?.firstName.toString())
-                profArray.add(oldProf?.lastName.toString())
-                profArray.add(oldProf?.bio.toString())
-                profArray.add(oldProf?.address.toString())
-                profArray.add(oldProf?.zipcode.toString())
-                profArray.add(oldProf?.phoneNumber.toString())
-                profArray.add(oldProf?.username.toString())
-                profArray.add(oldProf?.meetUp.toString())
-                profArray.add(oldProf?.userid.toString())
+                val profUserId = oldProf?.userid.toString()
 
 
                 var otherProfileFragment : Fragment = OtherProfileFragment()
                 val bundle = Bundle()
-                bundle.putStringArrayList("profileArray", profArray)
+                bundle.putString("profileUserId", profUserId)
                 otherProfileFragment.arguments = bundle
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, otherProfileFragment).commit()
             }

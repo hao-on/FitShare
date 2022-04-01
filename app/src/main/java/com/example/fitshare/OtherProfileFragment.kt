@@ -28,7 +28,11 @@ class OtherProfileFragment: Fragment() {
     private lateinit var partition: String
     private lateinit var messaging: AppCompatButton
     private lateinit var meetUp: CheckBox
-
+    private lateinit var profileName : TextView
+    private lateinit var username : TextView
+    private lateinit var phone : TextView
+    private lateinit var address : TextView
+    private lateinit var bio : TextView
 
 
     override fun onCreateView(
@@ -44,11 +48,28 @@ class OtherProfileFragment: Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@OtherProfileFragment.profileRealm = realm
+                //get passed profile userid data
+                var profileUserId = arguments?.getString("profileUserId")
+
                 val oldProf = profileRealm.where(Profile::class.java).
-                equalTo("userid", user?.id.toString()).findFirst()
+                equalTo("userid", profileUserId).findFirst()
+
+                profileName = view.findViewById(R.id.profileName)
+                username = view.findViewById(R.id.username)
+                phone = view.findViewById(R.id.phone)
+                address = view.findViewById(R.id.address)
+                bio = view.findViewById(R.id.bio)
+                meetUp = view.findViewById(R.id.meetUp)
+
                 if(oldProf?.meetUp == true){
                     meetUp.isChecked = true
                 }else{meetUp.isChecked = false}
+
+                username.setText(oldProf?.username)
+                profileName.setText(oldProf?.firstName + ", " + oldProf?.lastName)
+                phone.setText(oldProf?.phoneNumber)
+                address.setText(oldProf?.address + ", " + oldProf?.zipcode)
+                bio.setText(oldProf?.bio)
             }
         })
 
@@ -61,11 +82,9 @@ class OtherProfileFragment: Fragment() {
             }
         })
 
-        meetUp = view.findViewById(R.id.meetUp)
 
-        var profileArray = arguments?.getStringArrayList("profileArray")
-        var first = profileArray?.get(0)
-        Log.i("array", first.toString())
+
+
 
 
 
