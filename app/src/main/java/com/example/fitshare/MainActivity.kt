@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(){
                     return@OnItemSelectedListener true
                 }
                 R.id.profile -> {
-                    openFragment(ProfileFragment.newInstance("",""))
+                    openFragment(ProfileFragment())
                     return@OnItemSelectedListener true
                 }
             }

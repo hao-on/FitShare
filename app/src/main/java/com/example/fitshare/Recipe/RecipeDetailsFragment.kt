@@ -37,18 +37,8 @@ class RecipeDetailsFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
                 this@RecipeDetailsFragment.recipeRealm = realm
-
-                var recipeName = arguments?.getString("recipeName")
                 var recipeID = arguments?.getString("recipeID")
-
-                Log.i("recipe", recipeID.toString())
-                Log.i("recipe", recipeName.toString())
-
-                view.tvName.text = recipeName
-                val id = ObjectId(recipeID)
-
-                var recName = recipeRealm.where<Recipe>().equalTo("_id", id).findFirst()
-                Log.i("recipe", recName?.id.toString())
+                var recName = recipeRealm.where<Recipe>().equalTo("_id", ObjectId(recipeID)).findFirst()
 
                 if (recName != null) {
                     Toast.makeText(requireActivity().applicationContext,
@@ -57,6 +47,8 @@ class RecipeDetailsFragment : Fragment() {
             }
         })
 
+        var recipeName = arguments?.getString("recipeName")
+        view.tvName.text = recipeName
 
 
 

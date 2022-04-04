@@ -5,56 +5,71 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.content.res.ColorStateList
+import android.graphics.Color
 import com.example.fitshare.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    var def: ColorStateList? = null
+    var item1: TextView? = null
+    var item2: TextView? = null
+    var item3: TextView? = null
+    var select: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        var view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        item1 = view.findViewById(R.id.item1)
+        item2 = view.findViewById(R.id.item2)
+        item3 = view.findViewById(R.id.item3)
+        item1!!.setOnClickListener{
+            select!!.animate().x(0f).duration = 100
+            item1?.setTextColor(Color.WHITE)
+            item2!!.setTextColor(def)
+            item3!!.setTextColor(def)
+        }
+        item2!!.setOnClickListener{
+            item1!!.setTextColor(def)
+            item2?.setTextColor(Color.WHITE)
+            item3!!.setTextColor(def)
+            val size = item2!!.width
+            select!!.animate().x(size.toFloat()).duration = 100
+        }
+        item3!!.setOnClickListener {
+            item1!!.setTextColor(def)
+            item3?.setTextColor(Color.WHITE)
+            item2!!.setTextColor(def)
+            val size = item2!!.width * 2
+            select!!.animate().x(size.toFloat()).duration = 100
+        }
+        select = view.findViewById(R.id.select)
+        def = item2!!.textColors
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+//    fun onClick(view: View) {
+//        if (view.id == R.id.item1) {
+//            select!!.animate().x(0f).duration = 100
+//            item1?.setTextColor(Color.WHITE)
+//            item2!!.setTextColor(def)
+//            item3!!.setTextColor(def)
+//        } else if (view.id == R.id.item2) {
+//            item1!!.setTextColor(def)
+//            item2?.setTextColor(Color.WHITE)
+//            item3!!.setTextColor(def)
+//            val size = item2!!.width
+//            select!!.animate().x(size.toFloat()).duration = 100
+//        } else if (view.id == R.id.item3) {
+//            item1!!.setTextColor(def)
+//            item3?.setTextColor(Color.WHITE)
+//            item2!!.setTextColor(def)
+//            val size = item2!!.width * 2
+//            select!!.animate().x(size.toFloat()).duration = 100
+//        }
+//    }
 }
