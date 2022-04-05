@@ -2,6 +2,9 @@ package com.example.fitshare
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Exercise.kt.Exercise
 import com.example.fitshare.Exercise.kt.ExerciseAdapter
@@ -25,12 +28,15 @@ class WorkoutPlanActivity : AppCompatActivity() {
     private lateinit var partition1: String
     private lateinit var partition2: String
     private lateinit var partition3: String
+    //private lateinit var partition4: Int
     private lateinit var adapter: ExerciseAdapter
     private var user: io.realm.mongodb.User? = null
 
     override fun onCreate (savedInstanceState: Bundle?){
         super.onCreate (savedInstanceState)
         setContentView(R.layout.workoutplan_main)
+
+
 
         user = fitApp.currentUser()
         partition = "plan_core"
@@ -56,13 +62,14 @@ class WorkoutPlanActivity : AppCompatActivity() {
             }
         })
 
+
          //set on-click listener
         planCore.setOnClickListener {
 
             val exercise1 = Exercise(
                 "Crunches",
-                3,
-                15,
+                4,
+                20,
                 0.0)
             val exercise2 = Exercise(
                 "Russian Twist",
@@ -74,10 +81,22 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 3,
                 15,
                 0.0)
+            val exercise4 = Exercise(
+                "Mountain Climbers",
+                3,
+                15,
+                0.0)
+
+            ratingBar.rating = 0.0f
+            ratingBar.stepSize = 1.0f
+            ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                Toast.makeText(this, "You gave this plan a rating of: $rating", Toast.LENGTH_SHORT).show()
+            }
             planRealm.executeTransactionAsync { realm ->
                 realm.insert(exercise1)
                 realm.insert(exercise2)
                 realm.insert(exercise3)
+                realm.insert(exercise4)
             }
 
             rvPlan.layoutManager = LinearLayoutManager(this)
@@ -101,12 +120,31 @@ class WorkoutPlanActivity : AppCompatActivity() {
             val exercise3 = Exercise(
                 "Incline Bench Press",
                 3,
+                10,
+                0.0)
+            val exercise4 = Exercise(
+                "Decline Bench Press",
+                3,
                 15,
                 0.0)
+            val exercise5 = Exercise(
+                "Chest Press Machine",
+                3,
+                10,
+                0.0)
+
+            ratingBar.rating = 0.0f
+            ratingBar.stepSize = 1.0f
+            ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                Toast.makeText(this, "You gave this plan a rating of: $rating", Toast.LENGTH_SHORT).show()
+            }
+
             planRealm.executeTransactionAsync { realm ->
                 realm.insert(exercise1)
                 realm.insert(exercise2)
                 realm.insert(exercise3)
+                realm.insert(exercise4)
+                realm.insert(exercise5)
             }
 
             rvPlan.layoutManager = LinearLayoutManager(this)
@@ -132,6 +170,13 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 3,
                 15,
                 0.0)
+
+            ratingBar.rating = 0.0f
+            ratingBar.stepSize = 1.0f
+            ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                Toast.makeText(this, "You gave this plan a rating of: $rating", Toast.LENGTH_SHORT).show()
+            }
+
             planRealm.executeTransactionAsync { realm ->
                 realm.insert(exercise1)
                 realm.insert(exercise2)
@@ -143,6 +188,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
             adapter = ExerciseAdapter(exerciseRealm.where<Exercise>().sort("exerciseName").findAll(), user!!, partition)
             rvPlan.adapter = adapter
         }
+
         planPull.setOnClickListener {
 
             val exercise1 = Exercise(
@@ -161,7 +207,7 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 15,
                 0.0)
             val exercise4 = Exercise(
-                "Calf Raises",
+                "Hurdles",
                 3,
                 15,
                 0.0)
@@ -172,10 +218,63 @@ class WorkoutPlanActivity : AppCompatActivity() {
                 realm.insert(exercise4)
             }
 
+            ratingBar.rating = 0.0f
+            ratingBar.stepSize = 1.0f
+            ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                Toast.makeText(this, "You gave this plan a rating of: $rating", Toast.LENGTH_SHORT).show()
+            }
+
             rvPlan.layoutManager = LinearLayoutManager(this)
             rvPlan.setHasFixedSize(true)
             adapter = ExerciseAdapter(exerciseRealm.where<Exercise>().sort("exerciseName").findAll(), user!!, partition)
             rvPlan.adapter = adapter
         }
+
+
     }
 }
+
+/*
+@Override
+protected void onCreate(Bundle savedInstance){
+
+    Button rbutton;
+    RatingBar ratingBar;
+
+    rbutton = findViewByID(R.id.rbutton);
+    ratingBar = findViewById(R.id.ratingBar);
+
+    ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingChangeListener() {
+        @Override
+
+        public void OnRatingChanged(RatingBar ratingBar, float v, boolean b){
+
+            int rating = (int) v;
+            String message = null;
+
+            switch (rating) {
+                case 1:
+                message = "You gave this plan a 1 star rating"
+
+                case 2:
+                message = "You gave this plan a 2 star rating"
+
+                case 3:
+                message = "You gave this plan a 3 star rating"
+
+                case 4:
+                message = "You gave this plan a 4 star rating"
+
+                case 5:
+                message = "You gave this plan a 5 star rating"
+
+
+
+            }
+
+        }
+    }
+
+
+}
+*/
