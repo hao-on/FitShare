@@ -5,17 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
+import com.example.fitshare.Exercise.kt.Exercise
 import com.example.fitshare.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_work_out_plan.*
 
 class WorkOutPlanActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_out_plan)
-        Paper.init(this)
 
         val tabLayout: TabLayout = findViewById(R.id.tab_layout)
         val viewPage: ViewPager2 = findViewById(R.id.pager)
@@ -28,10 +28,14 @@ class WorkOutPlanActivity : AppCompatActivity() {
         }.attach()
 
         showBasket.setOnClickListener{
-//            startActivity(Intent(this, ShoppingCartActivity::class.java))
-            Toast.makeText(this, "Basket", Toast.LENGTH_SHORT)
+            goToCart()
         }
 
+    }
+
+    private fun goToCart() {
+        val intent = ShoppingCartActivity.newIntent(this)
+        startActivity(intent)
     }
 }
 

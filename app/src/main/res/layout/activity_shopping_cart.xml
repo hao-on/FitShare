@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:baselineAligned="false">
 
 
     <TextView
@@ -11,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20sp"
-        android:fontFamily="@font/dancing_script"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/grapenuts"
         android:paddingTop="20sp"
-        android:text="Shopping Cart"
-        android:textColor="#116530"
-        android:textFontWeight="600"
+        android:text="Your Basket"
+        android:textColor="@color/cadmium_blue"
+        android:textStyle="bold"
         android:textSize="35sp" />
 
 
@@ -23,5 +25,35 @@
         android:id="@+id/rvCart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
-</LinearLayout>
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tvHello"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Clear" />
+
+        <Button
+            android:id="@+id/btnAddToDiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Add to Diary" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

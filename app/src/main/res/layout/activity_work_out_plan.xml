@@ -5,32 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/tvHello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20sp"
-            android:fontFamily="@font/dancing_script"
-            android:paddingTop="20sp"
-            android:text="hello there,"
-            android:textColor="#116530"
-            android:textFontWeight="600"
-            android:textSize="35sp" />
-
-        <TextView
-            android:id="@+id/tvHello2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20sp"
-            android:fontFamily="@font/roboto_light"
-            android:textStyle="bold"
-            android:text="what is your plan today?"
-            android:textColor="#C0C0C0"
-            android:letterSpacing="0.05"
-            android:textSize="18sp" />
-
-
+    <TextView
+        android:id="@+id/tvHello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/grapenuts"
+        android:paddingTop="20sp"
+        android:text="Ready to Grind? "
+        android:textColor="@color/cadmium_blue"
+        android:textStyle="bold"
+        android:textSize="35sp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -38,8 +24,8 @@
         android:layout_height="wrap_content"
         app:tabMode="scrollable"
         android:layout_marginTop="20dp"
-        app:tabSelectedTextColor="@color/dark_blue"
-        app:tabIndicatorColor="@color/dark_blue"/>
+        app:tabSelectedTextColor="@color/cadmium_blue"
+        app:tabIndicatorColor="@color/cadmium_blue"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
@@ -57,7 +43,8 @@
         android:layout_toRightOf="@id/tvHello"
         android:src="@drawable/ic_basket"
         android:elevation="1dp"
-        android:backgroundTint="@color/neon_blue"
+        android:backgroundTint="@color/black"
+        app:tint="@color/mikado_yellow"
         app:fabSize="normal" />
 
 </LinearLayout>

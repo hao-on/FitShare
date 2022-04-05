@@ -13,14 +13,10 @@ class PlanCollectionAdapter(fragmentManager: FragmentManager, lifecycle: Lifecyc
 
     override fun createFragment(position: Int): Fragment {
         val fragment = PlanFragment()
-//        fragment.arguments = Bundle().apply {
-//            putInt("object", position + 1)
-//        }
         var plans = arrayOf("plan_core", "plan_pull", "plan_push", "plan_leg")
         val bundle = Bundle()
         bundle.putString("planName", plans[position])
         fragment.arguments = bundle
-
         return fragment
     }
 }

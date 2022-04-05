@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_plan.*
 import kotlinx.android.synthetic.main.fragment_plan.view.*
 import kotlinx.android.synthetic.main.fragment_recipe.*
 import kotlinx.android.synthetic.main.fragment_recipe_details.view.*
+import kotlinx.android.synthetic.main.layout_plan.*
 import org.bson.types.ObjectId
 import java.util.*
 
@@ -55,19 +56,13 @@ class PlanFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
                 this@PlanFragment.planRealm = realm
-
-                var exName = planRealm.where<Exercise>().findFirst()
-                    Toast.makeText(requireActivity().applicationContext,
-                        "Name: " + exName?.exerciseName, Toast.LENGTH_SHORT).show()
                 adapter = ExerciseAdapter(planRealm.where<Exercise>()
                     .sort("exerciseName").findAll(), user!!, partition)
                 rvPlan.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
                 rvPlan.adapter = adapter
                 rvPlan.setHasFixedSize(true)
-
             }
         })
-
     }
 
 }
