@@ -1,4 +1,4 @@
-package com.example.fitshare
+package com.example.fitshare.Recipe
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,10 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fitshare.Recipe.Recipe
-import com.example.fitshare.User.User
-import com.example.fitshare.Recipe.RecipeAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
@@ -22,35 +18,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.Helper.MyButton
 import com.example.fitshare.Helper.MySwipeHelper
 import com.example.fitshare.Listener.MyButtonClickListener
+import com.example.fitshare.R
+import com.example.fitshare.fitApp
 import io.realm.Case
-import io.realm.RealmList
-import io.realm.RealmResults
 import kotlinx.android.synthetic.main.layout_add_recipe.*
 import java.util.*
 
-
-
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RecipeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RecipeFragment : Fragment(){
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var recipeRealm: Realm
     private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var adapter: RecipeAdapter
-    private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     private lateinit var searchview: SearchView
     private lateinit var myRecipe: AppCompatButton
@@ -78,8 +56,13 @@ class RecipeFragment : Fragment(){
                 rvRecipe.adapter = adapter
                 adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(requireActivity().applicationContext,
-                            "You clicked on item at the position $position", Toast.LENGTH_SHORT).show()
+                        var detailsFragment: Fragment = RecipeDetailsFragment()
+                        val bundle = Bundle()
+                        bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
+                        bundle.putString("recipeName", adapter.getItem(position)?.recipeName)
+                        detailsFragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+                            detailsFragment).commit()
                     }
 
                 })
@@ -111,17 +94,14 @@ class RecipeFragment : Fragment(){
 
         myRecipe = view.findViewById(R.id.myRecipeFilter)
         myRecipe.setOnClickListener {
-            //val userData = userRealm.where<User>().findFirst()
-            //val recipeList: RealmList<Recipe>? = userData?.recipes
-            //val results: RealmResults<Recipe> = userData?.recipes?.where()!!.findAll()
-
             adapter = RecipeAdapter(recipeRealm.where<Recipe>().contains("user_id", user?.id.toString())
                 .findAll(), user!!, partition)
             rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
             rvRecipe.adapter = adapter
             rvRecipe.setHasFixedSize(true)
 
-            /*val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
+            /*
+            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
                 override fun instantiateMyButton(
                     viewHolder: RecyclerView.ViewHolder,
                     buffer: MutableList<MyButton>
@@ -131,7 +111,7 @@ class RecipeFragment : Fragment(){
                         30,
                         0,
                         Color.parseColor("#FF3C30"),
-                        object: MyButtonClickListener{
+                        object: MyButtonClickListener {
                             override fun onClick(pos: Int) {
                                 Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
                             }
@@ -172,7 +152,6 @@ class RecipeFragment : Fragment(){
         rvRecipe.setHasFixedSize(true)
     }
 
-
     override fun onStop() {
         super.onStop()
         user.run {
@@ -181,24 +160,5 @@ class RecipeFragment : Fragment(){
         }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecipeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RecipeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
 

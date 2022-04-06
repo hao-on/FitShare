@@ -6,18 +6,10 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.annotation.Nullable
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fitshare.BottomDialog
 import com.example.fitshare.R
-import com.example.fitshare.Profile.Profile
-import com.example.fitshare.Profile.ProfileAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
-import com.example.fitshare.User.User
 import com.example.fitshare.fitApp
 import com.google.android.material.textfield.TextInputEditText
 import io.realm.mongodb.sync.SyncConfiguration
@@ -86,7 +78,7 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         phone = view.findViewById(R.id.editProfile_phone)
         address = view.findViewById(R.id.editProfile_address)
         zipcode = view.findViewById(R.id.editProfile_zip)
-        bio = view.findViewById(R.id.editProfile_bio)
+        bio = view.findViewById(R.id.editProfileBio)
         submitButton = view.findViewById(R.id.btnSubmitProfile)
 
         submitButton.setOnClickListener{

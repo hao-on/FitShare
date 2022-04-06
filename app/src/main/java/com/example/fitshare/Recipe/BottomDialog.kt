@@ -1,4 +1,4 @@
-package com.example.fitshare
+package com.example.fitshare.Recipe
 
 import android.os.Bundle
 import android.view.ViewGroup
@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.annotation.Nullable
-import com.example.fitshare.Recipe.Recipe
+import com.example.fitshare.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.realm.Realm
 import com.example.fitshare.User.User
+import com.example.fitshare.fitApp
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_recipe.*
 import kotlinx.android.synthetic.main.layout_add_recipe.*

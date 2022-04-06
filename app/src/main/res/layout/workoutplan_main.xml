@@ -6,8 +6,7 @@
     android:id="@+id/core_button"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WorkoutPlanActivity"
-    android:background="@color/cream">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tvHello"

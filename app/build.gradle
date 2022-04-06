@@ -62,4 +62,7 @@ dependencies {
     implementation "io.realm:android-adapters:4.0.0"
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Circle ImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
