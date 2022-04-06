@@ -22,45 +22,47 @@
             android:id="@+id/txtFullName"
             style="@style/profileTextView"
             android:enabled="false"
-            android:text="Bob the Minion"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:hint="Enter your full name"/>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPhone"
             style="@style/profileTextView"
             android:enabled="false"
-            android:text="(123) - 456 - 7890"
+            android:hint="Enter your phone number"
             android:layout_below="@id/txtFullName" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtAddress"
             style="@style/profileTextView"
+            android:hint="Enter your address"
             android:layout_below="@id/txtPhone"
             android:enabled="false"
-            android:text="1250 Bellflower Blvd, Long Beach, CA 90840" />
+             />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtBio"
             style="@style/profileTextView"
             android:enabled="false"
-            android:text="I'm 5ft. I love Banana"
+            android:hint="Tell us about yourself"
             android:layout_below="@id/txtAddress"
             android:layout_marginBottom="10dp"/>
 
-
     </RelativeLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnEditProfile"
-        app:fabSize="mini"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        app:backgroundTint="@color/mikado_yellow"
-        app:srcCompat="@drawable/ic_edit_pencil"
-        app:borderWidth="3dp"
-        android:layout_gravity="end"
-        app:maxImageSize="18dp"
-        app:tint="@color/mikado_yellow"/>
+        <ToggleButton
+            android:id="@+id/toggleEdit"
+            android:layout_width="41dp"
+            android:layout_height="42dp"
+            android:drawableTop="@drawable/ic_edit_pencil"
+            android:textOff=""
+            android:textOn=""
+            android:backgroundTint="@color/black"
+            app:backgroundTint="@color/mikado_yellow"
+            app:tint="@color/mikado_yellow"
+            android:textSize="8dp"
+            android:layout_gravity="end"
+            >
+        </ToggleButton>
 
 </com.google.android.material.card.MaterialCardView>
