@@ -13,14 +13,13 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
-
-
-
+import com.example.fitshare.Profile.ProfileFragment
+import com.example.fitshare.Recipe.BottomDialog
+import com.example.fitshare.Recipe.RecipeFragment
+import com.example.fitshare.WorkOutPlan.WorkOutPlanActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,25 +45,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        openFragment(FeedsFragment.newInstance("",""))
+        openFragment(FeedsFragment())
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.newsFeed-> {
-                    openFragment(FeedsFragment.newInstance("",""))
+                    openFragment(FeedsFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.fitness-> {
-                    openFragment(FitnessFragment.newInstance("",""))
+                    openFragment(FitnessFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.recipe -> {
-                    openFragment(RecipeFragment.newInstance("",""))
+                    openFragment(RecipeFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.profile -> {
-                    openFragment(ProfileFragment.newInstance("",""))
+                    openFragment(ProfileFragment())
                     return@OnItemSelectedListener true
                 }
             }
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         workoutFab = findViewById(R.id.workoutBtn)
         workoutFab.setOnClickListener{
             //Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, WorkoutPlanActivity::class.java))
+            startActivity(Intent(this, WorkOutPlanActivity::class.java))
         }
 
         nutritionFab = findViewById(R.id.nutritionBtn)
@@ -109,10 +108,9 @@ class MainActivity : AppCompatActivity() {
     private fun openFragment(fragment: Fragment) {
         Log.d(TAG, "openFragment: ")
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        //this is a helper class that replaces the container with the fragment. You can replace or add fragments.
         transaction.replace(R.id.frameLayout, fragment)
-        transaction.addToBackStack(null) //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
-        transaction.commit() // commit() performs the action
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     private fun onAddButtonClicked() {
