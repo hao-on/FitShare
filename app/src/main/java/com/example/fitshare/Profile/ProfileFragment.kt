@@ -68,6 +68,13 @@ class ProfileFragment : Fragment() {
                     if(oldProf?.meetUp == true){
                         meetUp.isChecked = true
                     }else{meetUp.isChecked = false}
+
+                //username.setText(oldProf?.username.toString())
+                fullName.setText(oldProf?.firstName.toString())
+                phone.setText(oldProf?.phoneNumber.toString())
+                address.setText(oldProf?.address.toString())
+                bio.setText(oldProf?.bio.toString())
+
                 }
 
         })
