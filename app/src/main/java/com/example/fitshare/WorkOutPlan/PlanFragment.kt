@@ -61,6 +61,8 @@ class PlanFragment : Fragment() {
                 rvPlan.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
                 rvPlan.adapter = adapter
                 rvPlan.setHasFixedSize(true)
+
+
             }
         })
     }

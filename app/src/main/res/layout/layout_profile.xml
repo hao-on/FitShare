@@ -48,7 +48,6 @@
             android:layout_marginBottom="10dp"/>
 
 
-
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,4 +62,5 @@
         android:layout_gravity="end"
         app:maxImageSize="18dp"
         app:tint="@color/mikado_yellow"/>
+
 </com.google.android.material.card.MaterialCardView>
