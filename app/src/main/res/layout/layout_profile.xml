@@ -18,29 +18,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/txtFullName"
             style="@style/profileTextView"
             android:enabled="false"
             android:layout_marginTop="10dp"
             android:hint="Enter your full name"/>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/txtPhone"
             style="@style/profileTextView"
             android:enabled="false"
             android:hint="Enter your phone number"
             android:layout_below="@id/txtFullName" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/txtAddress"
             style="@style/profileTextView"
-            android:hint="Enter your address"
             android:layout_below="@id/txtPhone"
             android:enabled="false"
-             />
+            android:hint="Enter your address" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/txtBio"
             style="@style/profileTextView"
             android:enabled="false"
@@ -50,19 +49,17 @@
 
     </RelativeLayout>
 
-        <ToggleButton
-            android:id="@+id/toggleEdit"
-            android:layout_width="41dp"
-            android:layout_height="42dp"
-            android:drawableTop="@drawable/ic_edit_pencil"
-            android:textOff=""
-            android:textOn=""
-            android:backgroundTint="@color/black"
-            app:backgroundTint="@color/mikado_yellow"
-            app:tint="@color/mikado_yellow"
-            android:textSize="8dp"
-            android:layout_gravity="end"
-            >
-        </ToggleButton>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditProfile"
+        app:fabSize="mini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        app:backgroundTint="@color/mikado_yellow"
+        app:srcCompat="@drawable/ic_edit_pencil"
+        app:borderWidth="3dp"
+        android:layout_gravity="end"
+        app:maxImageSize="18dp"
+        app:tint="@color/mikado_yellow"/>
 
 </com.google.android.material.card.MaterialCardView>

@@ -32,7 +32,7 @@ class ProfileFragment : Fragment() {
     private lateinit var partition: String
     private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
-    private lateinit var editToggle: ToggleButton
+
 
     var def: ColorStateList? = null
     var item1: TextView? = null
@@ -40,13 +40,11 @@ class ProfileFragment : Fragment() {
     var item3: TextView? = null
     var select: TextView? = null
 
-    private lateinit var fullName : TextInputEditText
-    private lateinit var lastName : TextInputEditText
-    private lateinit var username : TextInputEditText
-    private lateinit var phone : TextInputEditText
-    private lateinit var address : TextInputEditText
-    private lateinit var zipcode : TextInputEditText
-    private lateinit var bio : TextInputEditText
+    private lateinit var fullName : TextView
+    private lateinit var username : TextView
+    private lateinit var phone : TextView
+    private lateinit var address : TextView
+    private lateinit var bio : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,15 +67,23 @@ class ProfileFragment : Fragment() {
                         meetUp.isChecked = true
                     }else{meetUp.isChecked = false}
 
-                //username.setText(oldProf?.username.toString())
-                fullName.setText(oldProf?.firstName.toString())
+                username = view.findViewById(R.id.tvUsername)
+                fullName = view.findViewById(R.id.txtFullName)
+                phone = view.findViewById(R.id.txtPhone)
+                address = view.findViewById(R.id.txtAddress)
+                bio = view.findViewById(R.id.txtBio)
+
+                username.setText(oldProf?.username.toString())
+                fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
                 phone.setText(oldProf?.phoneNumber.toString())
-                address.setText(oldProf?.address.toString())
+                address.setText(oldProf?.address.toString() + ", " + oldProf?.zipcode.toString())
                 bio.setText(oldProf?.bio.toString())
 
                 }
 
         })
+
+
 
         //Meet-up status functionality
         meetUp = view.findViewById(R.id.switchMeetUp)
@@ -97,67 +103,13 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        fullName = view.findViewById(R.id.txtFullName)
-        //lastName = view.findViewById(R.id.editProfile_last)
-        //username = view.findViewById(R.id.txtUsername)
-        phone = view.findViewById(R.id.txtPhone)
-        address = view.findViewById(R.id.txtAddress)
-        //zipcode = view.findViewById(R.id.editProfile_zip)
-        bio = view.findViewById(R.id.txtBio)
 
-        editToggle = view.findViewById(R.id.toggleEdit)
-        editToggle.setOnCheckedChangeListener{ _, isChecked ->
-            if(isChecked){
-                fullName.isEnabled = true
-                phone.isEnabled = true
-                address.isEnabled = true
-                bio.isEnabled = true
-
-            }else{
-
-                profileRealm.executeTransactionAsync{
-                    Log.i("checkerProf", user?.id.toString())
-
-                    val oldProf = it.where(Profile::class.java).
-                    equalTo("userid", user?.id.toString()).findFirst()
-
-                    Log.i("checkerProf", oldProf?.id.toString())
-
-                    if(oldProf == null){
-                        val profile =  Profile(fullName.text.toString(),
-                            "Last Name Unused", bio.text.toString(),
-                            address.text.toString(), "Zipcode Unused",
-                            phone.text.toString(), "Username Unused",
-                            false, user?.id.toString())
-
-                        it.insertOrUpdate(profile)
-                    }else {
-                        oldProf?.firstName = fullName.text.toString()
-                        oldProf?.lastName = "Last Name Unused"
-                        oldProf?.bio = bio.text.toString()
-                        oldProf?.address = address.text.toString()
-                        oldProf?.zipcode = "Zipcode Unused"
-                        oldProf?.phoneNumber = phone.text.toString()
-                        oldProf?.username = "Username Unused"
-                        oldProf?.userid = user?.id.toString()
-                        Log.i("checkerProf", oldProf?.id.toString())
-                        it.insertOrUpdate(oldProf)
-                    }
-                }
-                fullName.isEnabled = false
-                phone.isEnabled = false
-                address.isEnabled = false
-                bio.isEnabled = false
-            }
-
-        }
-//
         //Button for adding/editing a profile
-//        fab = view.findViewById(R.id.btnEditProfile)
-//        fab.setOnClickListener{
-//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
-//            editProfileButton.show(parentFragmentManager, null)
-//        }
+        fab = view.findViewById(R.id.btnEditProfile)
+        fab.setOnClickListener{
+            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+            editProfileButton.show(parentFragmentManager, null)
+        }
 
 //        //Test Viewing Other Profile Activity **DELETE LATER**
 //        otherProfileButton = view.findViewById(R.id.other_profile_button)

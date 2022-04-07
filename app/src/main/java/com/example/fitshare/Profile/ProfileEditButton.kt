@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import com.example.fitshare.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.realm.Realm
@@ -144,6 +145,11 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 }
             }
             dialog?.dismiss()
+
+            var profileFragment : Fragment = ProfileFragment()
+            val bundle = Bundle()
+            profileFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, profileFragment).commit()
         }
         return view
     }
