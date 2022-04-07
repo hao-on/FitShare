@@ -1,5 +1,6 @@
 package com.example.fitshare.Recipe
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import kotlinx.android.synthetic.main.fragment_recipe_details.view.*
@@ -63,4 +65,6 @@ class RecipeDetailsFragment : Fragment() {
         }
         return view
     }
+
+
 }

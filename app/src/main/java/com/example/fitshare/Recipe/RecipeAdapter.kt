@@ -7,19 +7,7 @@ import com.example.fitshare.R
 import com.example.fitshare.User.User
 import io.realm.OrderedRealmCollection
 import io.realm.RealmRecyclerViewAdapter
-import io.realm.RealmResults
-import io.realm.kotlin.where
-import io.realm.mongodb.sync.SyncConfiguration
-import org.bson.types.ObjectId
-import androidx.appcompat.app.AppCompatActivity
 
-
-
-
-/*
-* TaskAdapter: extends the Realm-provided RealmRecyclerViewAdapter to provide data for a RecyclerView to display
-* Realm objects on screen to a user.
-*/
 class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
                     val user: io.realm.mongodb.User,
                     private val partition: String

@@ -9,23 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.fitshare.R
+import com.example.fitshare.Recipe.BottomDialog
 import com.example.fitshare.fitApp
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment() {
-
     private var user: io.realm.mongodb.User? = null
     private lateinit var profileRealm: Realm
     private lateinit var userRealm: Realm
-    //private lateinit var adapter: ProfileAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     private lateinit var otherProfileButton: Button
+    private lateinit var editProfile: ImageButton
     var def: ColorStateList? = null
     var item1: TextView? = null
     var item2: TextView? = null
@@ -40,6 +43,12 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         onClick(view)
+
+        editProfile = view.findViewById(R.id.btnMenu)
+        editProfile.setOnClickListener {
+            val addBottomDialog : ProfileMenu = ProfileMenu.newInstance()
+            addBottomDialog.show(requireActivity().supportFragmentManager, null)
+        }
 //        user = fitApp.currentUser()
 //        partition = "Profile"
 //        val config = SyncConfiguration.Builder(user!!, partition).build()

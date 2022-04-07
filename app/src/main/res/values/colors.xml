@@ -11,7 +11,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cream">#F8F7F2</color>
+    <color name="red">#FF0000</color>
     <color name="gray_gainsboro">#DCDCDC</color>
+    <color name="dark_gray">#3D3D3D</color>
     <color name="dark_blue">#023a5f</color>
     <color name="cadmium_blue">#0a1195</color>
     <color name="mikado_yellow">#ffc40c</color>
