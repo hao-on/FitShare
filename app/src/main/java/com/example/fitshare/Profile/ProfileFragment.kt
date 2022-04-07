@@ -76,7 +76,8 @@ class ProfileFragment : Fragment() {
                 username.setText(oldProf?.username.toString())
                 fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
                 phone.setText(oldProf?.phoneNumber.toString())
-                address.setText(oldProf?.address.toString() + ", " + oldProf?.zipcode.toString())
+                address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
+                        +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
                 bio.setText(oldProf?.bio.toString())
 
                 }
