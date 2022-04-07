@@ -97,7 +97,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
 
-                map.addMarker(MarkerOptions().position(LatLng(33.8,-118.03)).title("TEST"))
+              //  map.addMarker(MarkerOptions().position(LatLng(33.8,-118.03)).title("TEST"))
 
                 for (loc in locationsQuery) {
                     map.addMarker(
