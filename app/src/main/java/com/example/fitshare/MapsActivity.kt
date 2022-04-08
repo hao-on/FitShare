@@ -48,6 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         user = fitApp.currentUser()
 
 
+
         partition = "location"
         val config = SyncConfiguration.Builder(user!!, partition)
             .build()
@@ -82,8 +83,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-                var currentLoc = UserLocation(user.toString(),location.latitude,location.longitude)
+
+                var currentLoc =
+                     UserLocation(user.toString(),location.latitude,location.longitude) 
                 mapRealm.executeTransactionAsync{realm -> realm.insert(currentLoc)}
+
+
+//                var currentLoc =
+//                    user?.profile?.firstName?.let { UserLocation(it,location.latitude,location.longitude) }
+//                mapRealm.executeTransactionAsync{realm -> realm.insert(currentLoc)}
 
 
                 val locationsQuery = mapRealm.where(UserLocation::class.java).findAll()
@@ -113,12 +121,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         // retrieve markers in db and add user profile name to object
 
 
-//        val sydney = LatLng(-33.852, 151.211)
-//        map.addMarker(
-//            MarkerOptions()
-//                .position(sydney)
-//                .title("Marker in Sydney")
-//        )
     }
 
 
