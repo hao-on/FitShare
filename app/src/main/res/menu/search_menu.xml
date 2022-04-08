@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CounterActivity">
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always"
+        android:orderInCategory="100"
+<<<<<<< HEAD:app/src/main/res/menu/activity_task_menu.xml
+        android:title="@string/logout"
+        android:text="@string/logout"
+        app:showAsAction="always"/>
+
+=======
+        />
+>>>>>>> jer_GM:app/src/main/res/menu/search_menu.xml
+</menu>
