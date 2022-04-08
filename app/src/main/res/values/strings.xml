@@ -1,5 +1,6 @@
 <resources>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <string name="app_name">FitShare App</string>
     <string name="username">Email</string>
     <string name="password">Password</string>
@@ -14,11 +15,16 @@
     <string name="recipe_ingred"> Enter ingredients </string>
     <string name="recipe_steps">Enter steps</string>
 =======
+=======
+>>>>>>> c84fc4429d1d0454bb2c33a9a0744de23263abdf
     <string name="app_name">FitShare</string>
     <string name="new_task">Create new task</string>
     <string name="more">\u22EE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<<<<<<< HEAD
     <string name="title_activity_maps">MapsActivity</string>
 >>>>>>> jer_GM
+=======
+>>>>>>> c84fc4429d1d0454bb2c33a9a0744de23263abdf
 </resources>

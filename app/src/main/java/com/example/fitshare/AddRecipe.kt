@@ -1,22 +1,13 @@
 package com.example.fitshare
 
-import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
-import android.widget.LinearLayout
 import com.example.fitshare.Recipe.Recipe
 import kotlinx.android.synthetic.main.activity_add_recipe.*
 import io.realm.Realm
-import io.realm.kotlin.createObject
 import io.realm.mongodb.User
-import io.realm.mongodb.mongo.MongoClient
-import io.realm.mongodb.mongo.MongoCollection
-import io.realm.mongodb.mongo.MongoDatabase
 import io.realm.mongodb.sync.SyncConfiguration
-import org.bson.Document
 import org.bson.types.ObjectId
 
 class AddRecipe : AppCompatActivity() {

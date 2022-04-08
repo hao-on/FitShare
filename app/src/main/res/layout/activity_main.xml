@@ -45,10 +45,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     -->
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+    </FrameLayout>
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -74,9 +77,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
-        app:maxImageSize="50dp"
+        app:maxImageSize="40dp"
         android:backgroundTint="@color/white"
         app:layout_anchor="@id/bottomAppBar" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/workoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_workout_plan"
+        app:fabCustomSize="65dp"
+        app:maxImageSize="45dp"
+        android:backgroundTint="@color/mikado_yellow"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="100dp"
+        android:visibility="invisible"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nutritionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_nutrition"
+        app:fabCustomSize="65dp"
+        app:maxImageSize="45dp"
+        android:backgroundTint="@color/mikado_yellow"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="100dp"
+        android:visibility="invisible"/>
 
 
 

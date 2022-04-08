@@ -1,4 +1,4 @@
-package com.example.fitshare
+package com.example.fitshare.Recipe
 
 import android.os.Bundle
 import android.view.ViewGroup
@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.annotation.Nullable
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fitshare.Recipe.Recipe
-import com.example.fitshare.Recipe.RecipeAdapter
+import com.example.fitshare.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import com.example.fitshare.User.User
+import com.example.fitshare.fitApp
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_recipe.*
 import kotlinx.android.synthetic.main.layout_add_recipe.*
@@ -65,15 +63,17 @@ class BottomDialog : BottomSheetDialogFragment() {
                 txtRec_Descr.text.toString(),
                 txtRec_Ingr.text.toString(),
                 txtRec_Steps.text.toString(),
-                txtRec_Time.text.toString())
-            recipeRealm.executeTransactionAsync { realm -> realm.insert(recipe) }
-
+                txtRec_Time.text.toString(),
+                user?.id.toString())
 
             userRealm.executeTransactionAsync { transactionRealm: Realm ->
-                // get a frog from the database to update
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.recipes?.add(recipe)
+                transactionRealm.insertOrUpdate(userData)
             }
+
+            recipeRealm.executeTransactionAsync { transactionRealm:Realm ->
+                transactionRealm.insert(recipe) }
 
             dialog?.dismiss()
         }

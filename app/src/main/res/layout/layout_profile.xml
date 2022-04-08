@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp"
+    app:cardMaxElevation="1dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/black"
+    app:strokeColor="@color/mikado_yellow"
+    app:strokeWidth="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtFullName"
+            style="@style/profileTextView"
+            android:enabled="false"
+            android:text="Bob the Minion"
+            android:layout_marginTop="10dp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPhone"
+            style="@style/profileTextView"
+            android:enabled="false"
+            android:text="(123) - 456 - 7890"
+            android:layout_below="@id/txtFullName" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtAddress"
+            style="@style/profileTextView"
+            android:layout_below="@id/txtPhone"
+            android:enabled="false"
+            android:text="1250 Bellflower Blvd, Long Beach, CA 90840" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtBio"
+            style="@style/profileTextView"
+            android:enabled="false"
+            android:text="I'm 5ft. I love Banana"
+            android:layout_below="@id/txtAddress"
+            android:layout_marginBottom="10dp"/>
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditProfile"
+        app:fabSize="mini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        app:backgroundTint="@color/mikado_yellow"
+        app:srcCompat="@drawable/ic_edit_pencil"
+        app:borderWidth="3dp"
+        android:layout_gravity="end"
+        app:maxImageSize="18dp"
+        app:tint="@color/mikado_yellow"/>
+
+</com.google.android.material.card.MaterialCardView>

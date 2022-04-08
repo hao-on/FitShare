@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cream"
-    tools:context=".RecipeFragment">
+    tools:context=".Recipe.RecipeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -96,15 +96,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        app:maxImageSize="50dp"
-        android:backgroundTint="@color/white"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="100dp"/>
 
 </FrameLayout>

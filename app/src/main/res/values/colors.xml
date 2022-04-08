@@ -13,5 +13,7 @@
     <color name="cream">#F8F7F2</color>
     <color name="gray_gainsboro">#DCDCDC</color>
     <color name="dark_blue">#023a5f</color>
+    <color name="cadmium_blue">#0a1195</color>
     <color name="mikado_yellow">#ffc40c</color>
+    <color name="neon_blue">#1F51FF</color>
 </resources>

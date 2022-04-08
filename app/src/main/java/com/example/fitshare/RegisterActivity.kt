@@ -17,23 +17,15 @@ import io.realm.mongodb.mongo.MongoDatabase
 import org.bson.Document
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var FName: EditText
-    private lateinit var LName: EditText
-    private lateinit var Reg_Username: EditText
     private lateinit var Reg_Email: EditText
     private lateinit var Reg_Password: EditText
-    private lateinit var Phone: EditText
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        FName = findViewById(R.id.txtFName)
-        LName = findViewById(R.id.txtLName)
-        Reg_Username = findViewById(R.id.txtReg_Username)
         Reg_Email = findViewById(R.id.txtReg_Email)
         Reg_Password = findViewById(R.id.txtReg_Password)
-        Phone = findViewById(R.id.txtPhone)
+
 
         /*
         ivLeft.setOnClickListener {
@@ -44,13 +36,6 @@ class RegisterActivity : AppCompatActivity() {
         btnRegister.setOnClickListener {
             Register()
         }
-    }
-
-    private fun onRegisterSuccess() {
-        // successful login ends this activity, bringing the user back to the project activity
-        //finish()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
     }
 
     /*
@@ -73,12 +58,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun Register() {
-        val FName = this.FName.text.toString()
-        val LName = this.LName.text.toString()
-        val Reg_Username = this.Reg_Username.text.toString()
         val Reg_Email = this.Reg_Email.text.toString()
         val Reg_Password = this.Reg_Password.text.toString()
-        val Phone = this.Phone.text.toString()
 
         // register a user using the Realm App we created in the TaskTracker class
         fitApp.emailPassword.registerUserAsync(Reg_Email, Reg_Password) {
@@ -88,8 +69,10 @@ class RegisterActivity : AppCompatActivity() {
             if (!it.isSuccess) {
                 onLoginFailed("Could not register user.")
                 Log.e("Register", "Error: ${it.error}")
+                btnRegister.isEnabled = true
             } else {
                 Log.i("Register", "Successfully registered user.")
+
                 // when the account has been created successfully, log in to the account
                 val creds = Credentials.emailPassword(Reg_Email, Reg_Password)
                 fitApp.loginAsync(creds) {
@@ -107,13 +90,13 @@ class RegisterActivity : AppCompatActivity() {
                             mongoClient.getDatabase("UserData")!!
                         val mongoCollection : MongoCollection<Document> =
                             mongoDatabase.getCollection("CustomUserData")!!
-<<<<<<< HEAD:app/src/main/java/com/mongodb/tasktracker/RegisterActivity.kt
+
                         mongoCollection.insertOne(Document("_id", user.id).append("FName", FName)
                             .append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email)
                             .append("Reg_Password", Reg_Password).append("Phone", Phone).append("_partition", "partition"))
-=======
+
                         mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Phone", Phone).append("_partition", "partition"))
->>>>>>> jer_GM:app/src/main/java/com/example/fitshare/RegisterActivity.kt
+
                             .getAsync { result ->
                                 if (result.isSuccess) {
                                     Log.v(
@@ -129,11 +112,11 @@ class RegisterActivity : AppCompatActivity() {
                             }
                         onRegisterSuccess()
                     }
+
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+
                 }
             }
-
         }
-
-
     }
-}
