@@ -156,6 +156,7 @@ class RecipeActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
     }
 
     private fun setUpRecyclerView(realm: Realm, user: User?, partition: String) {

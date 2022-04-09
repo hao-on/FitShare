@@ -43,9 +43,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
+
+     //   setContentView(R.layout.activity_maps)
+     //   startActivity(Intent(this,MapsActivity::class.java))
+
         setContentView(R.layout.activity_main)
+
         openFragment(FeedsFragment())
+
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
