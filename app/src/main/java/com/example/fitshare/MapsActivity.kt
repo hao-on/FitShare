@@ -83,7 +83,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-
+                var username=    user?.profile?.firstName;
                 var currentLoc =
                      UserLocation(user.toString(),location.latitude,location.longitude) 
                 mapRealm.executeTransactionAsync{realm -> realm.insert(currentLoc)}
