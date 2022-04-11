@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FeedsFragment"
+    tools:context=".Feeds.FeedsFragment"
     android:id="@+id/fragment_feeds"
     android:background="@color/black">
 
@@ -43,17 +43,6 @@
             android:textColor="@color/white"
             android:textFontWeight="600"
             android:textSize="35sp" />
-
-        <ImageButton
-            android:id="@+id/btnMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu"
-            android:backgroundTint = "@color/black"
-            android:background="@null"
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
-            android:clickable="true"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"

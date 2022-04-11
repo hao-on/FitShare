@@ -44,11 +44,6 @@ class ProfileFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         onClick(view)
 
-        editProfile = view.findViewById(R.id.btnMenu)
-        editProfile.setOnClickListener {
-            val addBottomDialog : ProfileMenu = ProfileMenu.newInstance()
-            addBottomDialog.show(requireActivity().supportFragmentManager, null)
-        }
 //        user = fitApp.currentUser()
 //        partition = "Profile"
 //        val config = SyncConfiguration.Builder(user!!, partition).build()

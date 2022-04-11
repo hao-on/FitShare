@@ -18,8 +18,7 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RecipeViewHolder {
-        val itemView: View = LayoutInflater.from(parent.context).
-        inflate(R.layout.layout_recipe, parent, false)
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_recipe, parent, false)
         return RecipeViewHolder(itemView, mListener)
     }
 
@@ -29,7 +28,6 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
         holder.recipeName.text = obj?.recipeName
         holder.description.text = obj?.description
         holder.prepTime.text = obj?.prepTime
-
     }
 
     inner class RecipeViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view) {
@@ -45,7 +43,6 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
         }
     }
 
-
     interface onItemClickListener{
         fun onItemClick(position: Int)
     }
@@ -53,4 +50,5 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
     fun setOnItemClickListener(listener: onItemClickListener){
         mListener = listener
     }
+
 }

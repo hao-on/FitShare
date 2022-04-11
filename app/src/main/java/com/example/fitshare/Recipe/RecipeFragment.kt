@@ -43,8 +43,7 @@ class RecipeFragment : Fragment(){
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@RecipeFragment.recipeRealm = realm
-                rvRecipe.layoutManager =
-                    LinearLayoutManager(requireActivity().applicationContext)
+                rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
                 rvRecipe.setHasFixedSize(true)
                 adapter = RecipeAdapter(realm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
                 rvRecipe.adapter = adapter
