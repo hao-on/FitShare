@@ -70,7 +70,8 @@ class RecipeFragment : Fragment(){
                 rvRecipe.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvRecipe.setHasFixedSize(true)
-                adapter = RecipeAdapter(realm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
+                val recipes=realm.where<Recipe>().sort("recipeName").findAll()
+                adapter = RecipeAdapter(recipes, user!!, partition)
                 rvRecipe.adapter = adapter
             }
         })

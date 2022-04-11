@@ -34,10 +34,10 @@ class FoodAdapter(data: OrderedRealmCollection<Food>,
         holder.data = obj
 
         holder.foodName.text = obj?.foodName
-        holder.calories.text = obj?.calories.toString()
-        holder.protein.text = obj?.protein.toString()
-        holder.carbs.text = obj?.carbs.toString()
-        holder.fats.text = obj?.fats.toString()
+        holder.calories.text = "Calories: "+obj?.calories.toString()+" kal"
+        holder.protein.text = "Protein: "+obj?.protein.toString()+" g"
+        holder.carbs.text = "Carbs: "+obj?.carbs.toString()+" g"
+        holder.fats.text = "Fats: "+obj?.fats.toString()+" g"
 
     }
 
@@ -48,5 +48,8 @@ class FoodAdapter(data: OrderedRealmCollection<Food>,
         var carbs: TextView = view.findViewById(R.id.tvCarbs)
         var fats: TextView = view.findViewById(R.id.tvFats)
         var data: Food? = null
+
+
+
     }
 }

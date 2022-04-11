@@ -34,7 +34,7 @@ class BottomDialogExercise : BottomSheetDialogFragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.layout_add_exercise, container, false)
         user = fitApp.currentUser()
-        partition = "exercise"
+        partition = "fitness"
 
         val config = SyncConfiguration.Builder(user!!, partition)
             .build()

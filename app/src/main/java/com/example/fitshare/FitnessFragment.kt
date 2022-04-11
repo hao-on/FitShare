@@ -8,20 +8,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Caloric.CaloricAdapter
 import com.example.fitshare.Exercise.Exercise
 import com.example.fitshare.Exercise.ExerciseAdapter
 import com.example.fitshare.Food.Food
 import com.example.fitshare.Food.FoodAdapter
+import com.example.fitshare.Recipe.Recipe
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Case
 import io.realm.Realm
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_fitness.*
-import kotlinx.android.synthetic.main.layout_addexercise_exercise.*
-import kotlinx.android.synthetic.main.layout_addfood_nutrition.*
+import kotlinx.android.synthetic.main.layout_caloric.*
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,7 +40,8 @@ class FitnessFragment : Fragment()  {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var exerciseRealm: Realm
+    private lateinit var fitnessRealm: Realm
+
     private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var exerciseAdapter: ExerciseAdapter
@@ -48,6 +51,9 @@ class FitnessFragment : Fragment()  {
     private lateinit var partition: String
     //private lateinit var todayView: TextView
    // private lateinit var monthDayText: TextView
+    private lateinit var tvRemaining: TextView
+    private lateinit var tvFood: TextView
+    private lateinit var tvGoal: TextView
 
 
     //private lateinit var myRecipe: AppCompatButton
@@ -66,6 +72,7 @@ class FitnessFragment : Fragment()  {
     ): View? {
         // Inflate the layout for this fragment
         val view: View =inflater.inflate(R.layout.fragment_fitness, container, false)
+        val calview: View =inflater.inflate(R.layout.layout_caloric, container, false)
         user = fitApp.currentUser()
         partition = "fitness"
         val config = SyncConfiguration.Builder(user!!, partition)
@@ -74,19 +81,34 @@ class FitnessFragment : Fragment()  {
         Realm.getInstanceAsync(config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@FitnessFragment.exerciseRealm = realm
+                this@FitnessFragment.fitnessRealm = realm
                 rvExercise.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvExercise.setHasFixedSize(true)
-                val data  = realm.where<Exercise>().sort("exerciseName").findAll()
-                exerciseAdapter = ExerciseAdapter(data, user!!, partition)
+                val exercises=realm.where<Exercise>().findAll()
+                exerciseAdapter = ExerciseAdapter(exercises, user!!, partition)
                 rvExercise.adapter = exerciseAdapter
+
 
                 rvNutrition.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvNutrition.setHasFixedSize(true)
-                foodAdapter = FoodAdapter(realm.where<Food>().sort("foodName").findAll(), user!!, partition)
+
+                tvRemaining=calview.findViewById(R.id.tvRemaining)
+                var remain= tvRemaining
+                tvFood=calview.findViewById(R.id.tvFood)
+                tvGoal=calview.findViewById(R.id.tvGoal)
+                val goal= tvGoal.text.toString().toInt()
+
+                val foods= realm.where<Food>().findAll()
+                val foodSum=foods.sum("calories")
+
+
+                remain.text=(goal-foodSum.toInt()).toString()
+
+                foodAdapter = FoodAdapter(foods, user!!, partition)
                 rvNutrition.adapter = foodAdapter
+
             }
         })
 

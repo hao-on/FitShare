@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Food.Food
@@ -16,6 +17,7 @@ import com.example.fitshare.User.User
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_fitness.*
 import kotlinx.android.synthetic.main.layout_add_food.*
+import kotlinx.android.synthetic.main.layout_caloric.*
 
 
 class BottomDialogFood : BottomSheetDialogFragment() {
@@ -23,6 +25,9 @@ class BottomDialogFood : BottomSheetDialogFragment() {
     private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var btnSubmit: Button
+    private lateinit var tvRemaining: TextView
+    private lateinit var tvFood: TextView
+    private lateinit var tvGoal: TextView
     private lateinit var partition: String
 
     @Nullable
@@ -33,6 +38,7 @@ class BottomDialogFood : BottomSheetDialogFragment() {
     ): View? {
 
         val view: View = inflater.inflate(R.layout.layout_add_food, container, false)
+        val mainview: View =inflater.inflate(R.layout.layout_caloric, container, false)
 
         user = fitApp.currentUser()
         partition = "fitness"
@@ -59,6 +65,11 @@ class BottomDialogFood : BottomSheetDialogFragment() {
 
         btnSubmit = view.findViewById(R.id.btnSubmitFood)
 
+
+        tvRemaining=mainview.findViewById(R.id.tvRemaining)
+        tvFood=mainview.findViewById(R.id.tvFood)
+        tvGoal=mainview.findViewById(R.id.tvGoal)
+
         // adding on click listener for our button.
         btnSubmit.setOnClickListener {
             val food = Food(txtFd_Name.text.toString(),
@@ -66,7 +77,16 @@ class BottomDialogFood : BottomSheetDialogFragment() {
                 txtFd_Protein.text.toString().toDouble(),
                 txtFd_Carbs.text.toString().toDouble(),
                 txtFd_Fats.text.toString().toDouble())
-            foodRealm.executeTransactionAsync { realm -> realm.insert(food) }
+
+            foodRealm.executeTransactionAsync { realm -> realm.insert(food)
+
+            }
+            val calFood=tvFood.text.toString().toInt()+txtFd_Calories.text.toString().toInt()
+            tvFood.text=calFood.toString()
+            val calRemaining=tvGoal.text.toString().toInt()-tvFood.text.toString().toInt() +tvRemaining.text.toString().toInt()
+            tvRemaining.text=calRemaining.toString()
+
+
 
 
             /*userRealm.executeTransactionAsync { transactionRealm: Realm ->

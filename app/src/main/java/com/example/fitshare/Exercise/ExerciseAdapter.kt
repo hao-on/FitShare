@@ -31,11 +31,11 @@ class ExerciseAdapter(data: OrderedRealmCollection<Exercise>,
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         val obj: Exercise? = getItem(position)
         holder.data = obj
-        holder.exerciseName.text = obj?.exerciseName
-        holder.sets.text = obj?.sets.toString()
-        holder.reps.text = obj?.reps.toString()
-        holder.weight.text = obj?.weight.toString()
-        holder.date.text = obj?.date.toString()
+        holder.exerciseName.text =obj?.exerciseName
+        holder.sets.text = "Sets: "+ obj?.sets.toString()
+        holder.reps.text = "Reps: "+obj?.reps.toString()
+        holder.weight.text = "Weight: "+ obj?.weight.toString()+" lbs"
+        //holder.date.text = obj?.date.toString()
     }
 
     inner class ExerciseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -43,7 +43,8 @@ class ExerciseAdapter(data: OrderedRealmCollection<Exercise>,
         var sets: TextView = view.findViewById(R.id.tvSets)
         var reps: TextView = view.findViewById(R.id.tvReps)
         var weight: TextView = view.findViewById(R.id.tvWeight)
-        var date: TextView = view.findViewById(R.id.tvDate)
+        //var date: TextView = view.findViewById(R.id.tvDate)
         var data: Exercise? = null
+
     }
 }

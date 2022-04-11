@@ -30,26 +30,69 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fitnessToolbar" />
 
-        <include
-            android:id="@+id/fitnessNutrition"
-            layout="@layout/layout_addfood_nutrition"
+        <TextView
+            android:id="@+id/titleNutrition"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="viewStart"
+            android:text="Nutrition"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginStart="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fitnessCaloric" />
+            app:layout_constraintTop_toBottomOf="@id/fitnessCaloric"
+            />
 
-        <include
-            android:id="@+id/fitnessExercises"
-            layout="@layout/layout_addexercise_exercise"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNutrition"
+            android:layout_width="402dp"
+            android:layout_height="122dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            app:layout_behavior="android.support.v4.widget.NestedScrollView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleNutrition"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/titleExercises"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="viewStart"
+            android:text="Exercises"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginStart="5dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fitnessNutrition" />
+            app:layout_constraintTop_toBottomOf="@id/rvNutrition"
+            />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvExercise"
+            android:layout_width="398dp"
+            android:layout_height="269dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            app:layout_behavior="android.support.v4.widget.NestedScrollView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleExercises"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
