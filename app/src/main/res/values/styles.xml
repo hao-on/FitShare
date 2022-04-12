@@ -100,4 +100,13 @@
         <item name="android:drawablePadding">7dp</item>
         <item name="android:fontFamily">@font/roboto_light</item>
     </style>
+
+    <style name="RoundDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/round_dialog</item>
+    </style>
 </resources>

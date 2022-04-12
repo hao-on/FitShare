@@ -46,20 +46,6 @@
             android:hint="Tell us about yourself"
             android:layout_below="@id/txtAddress"
             android:layout_marginBottom="10dp"/>
-
     </RelativeLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnEditProfile"
-        app:fabSize="mini"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        app:backgroundTint="@color/mikado_yellow"
-        app:srcCompat="@drawable/ic_edit_pencil"
-        app:borderWidth="3dp"
-        android:layout_gravity="end"
-        app:maxImageSize="18dp"
-        app:tint="@color/mikado_yellow"/>
 
 </com.google.android.material.card.MaterialCardView>

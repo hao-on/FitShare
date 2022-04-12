@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FeedsFragment"
-    android:id="@+id/fragment_feeds"
+    tools:context=".Profile.ProfileFragment"
+    android:id="@+id/fragment_profile"
     android:background="@color/black">
 
     <RelativeLayout
@@ -21,23 +21,23 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
             android:layout_below="@id/img_background"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/bob"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="2dp" />
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"/>
 
         <TextView
             android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/profile_image"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/dancing_script"
+            android:layout_centerHorizontal="true"
             android:text="Bob the Minion"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -53,6 +53,7 @@
             android:orientation="horizontal"
             android:gravity="center">
 
+            <!--
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,25 +72,27 @@
                     android:text="Followers"
                     android:layout_below="@id/tvFollowers" />
             </RelativeLayout>
+            -->
 
-            <RelativeLayout
+            <ImageButton
+                android:id="@+id/btnLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp">
-                <TextView
-                    android:id="@+id/tvFollowing"
-                    style="@style/modifiedTextView"
-                    android:text="1.2k"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_centerHorizontal="true" />
+                android:src="@drawable/ic_location"
+                android:backgroundTint = "@color/black"
+                android:background="@null"
+                android:layout_marginEnd="50dp"
+                android:padding="10dp"/>
 
-                <TextView
-                    style="@style/modifiedLightTextView"
-                    android:text="Following"
-                    android:layout_below="@id/tvFollowing" />
-            </RelativeLayout>
+            <ImageButton
+                android:id="@+id/btnChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_chat"
+                android:backgroundTint = "@color/black"
+                android:background="@null"
+                android:layout_marginEnd="50dp"
+                android:padding="10dp"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -117,12 +120,12 @@
         <include
             android:id="@+id/layoutProfile"
             layout="@layout/layout_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@id/linearLayout"
-            android:layout_marginStart="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
 
         <include
             layout="@layout/custom_tab_layout"

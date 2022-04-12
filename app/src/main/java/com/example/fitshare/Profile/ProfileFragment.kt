@@ -27,7 +27,6 @@ class ProfileFragment : Fragment() {
     private var user: io.realm.mongodb.User? = null
     private lateinit var profileRealm: Realm
     private lateinit var userRealm: Realm
-    //private lateinit var adapter: ProfileAdapter
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     private lateinit var otherProfileButton: Button
@@ -79,11 +78,8 @@ class ProfileFragment : Fragment() {
                 address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
                         +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
                 bio.setText(oldProf?.bio.toString())
-
                 }
-
         })
-
 
 
         //Meet-up status functionality
@@ -105,12 +101,12 @@ class ProfileFragment : Fragment() {
         }
 
 
-        //Button for adding/editing a profile
-        fab = view.findViewById(R.id.btnEditProfile)
-        fab.setOnClickListener{
-            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
-            editProfileButton.show(parentFragmentManager, null)
-        }
+//        //Button for adding/editing a profile
+//        fab = view.findViewById(R.id.btnEditProfile)
+//        fab.setOnClickListener{
+//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+//            editProfileButton.show(parentFragmentManager, null)
+//        }
 
 //        //Test Viewing Other Profile Activity **DELETE LATER**
 //        otherProfileButton = view.findViewById(R.id.other_profile_button)

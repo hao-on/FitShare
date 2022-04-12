@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
 import com.example.fitshare.Profile.ProfileFragment
+import com.example.fitshare.Profile.ProfileMenu
 import com.example.fitshare.Recipe.BottomDialog
 import com.example.fitshare.Recipe.RecipeFragment
 import com.example.fitshare.WorkOutPlan.WorkOutPlanActivity
@@ -81,6 +82,10 @@ class MainActivity : AppCompatActivity() {
             }
             if (currFragment is FitnessFragment) {
                 onAddButtonClicked()
+            }
+            if (currFragment is ProfileFragment) {
+                val openProfileMenu : ProfileMenu = ProfileMenu.newInstance()
+                openProfileMenu.show(supportFragmentManager, null)
             }
         })
 
