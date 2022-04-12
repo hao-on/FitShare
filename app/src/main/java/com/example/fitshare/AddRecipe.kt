@@ -14,6 +14,7 @@ class AddRecipe : AppCompatActivity() {
     private lateinit var recipeRealm: Realm
     private var user: User? = null
 
+    // test
     override fun onStart() {
         super.onStart()
         user = fitApp.currentUser()
