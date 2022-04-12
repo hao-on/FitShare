@@ -4,6 +4,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fitness_toolbar.*
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -72,7 +73,7 @@ class FitnessFragment : Fragment()  {
     ): View? {
         // Inflate the layout for this fragment
         val view: View =inflater.inflate(R.layout.fragment_fitness, container, false)
-        val calview: View =inflater.inflate(R.layout.layout_caloric, container, false)
+        //val calview: View =inflater.inflate(R.layout.layout_caloric, container, false)
         user = fitApp.currentUser()
         partition = "fitness"
         val config = SyncConfiguration.Builder(user!!, partition)
@@ -82,29 +83,39 @@ class FitnessFragment : Fragment()  {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@FitnessFragment.fitnessRealm = realm
+
+                val exercises = fitnessRealm.where<Exercise>().findAll()
+
+                tvRemaining = view.findViewById(R.id.tvRemaining)
+                tvFood = view.findViewById(R.id.tvFood)
+                tvGoal = view.findViewById(R.id.tvGoal)
+
+
+                val goal = tvGoal.text.toString().toInt()
+
+                val foods = fitnessRealm.where<Food>().findAll()
+                Log.i("fitness", foods.toString())
+
+                val foodSum = foods.sum("calories")
+                Log.i("fitness", foodSum.toString())
+
+                var remain = (goal-foodSum.toInt()).toString()
+                Log.i("fitness", "total: " + remain)
+
+                tvFood.setText(foodSum.toString())
+                Log.i("fitness", tvFood.text.toString())
+                tvRemaining.setText(remain.toString())
+
                 rvExercise.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvExercise.setHasFixedSize(true)
-                val exercises=realm.where<Exercise>().findAll()
-                exerciseAdapter = ExerciseAdapter(exercises, user!!, partition)
-                rvExercise.adapter = exerciseAdapter
-
 
                 rvNutrition.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvNutrition.setHasFixedSize(true)
 
-                tvRemaining=calview.findViewById(R.id.tvRemaining)
-                var remain= tvRemaining
-                tvFood=calview.findViewById(R.id.tvFood)
-                tvGoal=calview.findViewById(R.id.tvGoal)
-                val goal= tvGoal.text.toString().toInt()
-
-                val foods= realm.where<Food>().findAll()
-                val foodSum=foods.sum("calories")
-
-
-                remain.text=(goal-foodSum.toInt()).toString()
+                exerciseAdapter = ExerciseAdapter(exercises, user!!, partition)
+                rvExercise.adapter = exerciseAdapter
 
                 foodAdapter = FoodAdapter(foods, user!!, partition)
                 rvNutrition.adapter = foodAdapter

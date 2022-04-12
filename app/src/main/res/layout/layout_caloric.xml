@@ -34,11 +34,11 @@
         <TextView
             android:id="@+id/tvMinus"
             style="@style/modifiedTextView"
-            android:text="-"
-            android:layout_marginTop="2dp"
-            android:paddingHorizontal="10dp"
             android:layout_below="@id/tvTitle"
-            android:layout_toEndOf="@id/tvGoal"/>
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/tvGoal"
+            android:paddingHorizontal="10dp"
+            android:text="-" />
 
         <TextView
             android:id="@+id/tvFood"
