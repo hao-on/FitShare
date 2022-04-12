@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var loginButton: Button
+    private lateinit var partition: String
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +50,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onLoginSuccess() {
         // successful login ends this activity, bringing the user back to the project activity
-        //finish()
+        finish()
         val intent =Intent(this, MainActivity::class.java);
         startActivity(intent);
+
+//        val intent =Intent(this, MapsActivity::class.java);
+//        startActivity(intent);
+
     }
 
     private fun onLoginFailed(errorMsg: String) {

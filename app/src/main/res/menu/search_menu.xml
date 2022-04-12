@@ -9,5 +9,16 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always"
         android:orderInCategory="100"
+<<<<<<< HEAD
+<<<<<<< HEAD:app/src/main/res/menu/activity_task_menu.xml
+        android:title="@string/logout"
+        android:text="@string/logout"
+        app:showAsAction="always"/>
+
+=======
         />
+>>>>>>> jer_GM:app/src/main/res/menu/search_menu.xml
+=======
+        />
+>>>>>>> c84fc4429d1d0454bb2c33a9a0744de23263abdf
 </menu>

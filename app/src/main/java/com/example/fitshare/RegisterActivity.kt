@@ -72,8 +72,50 @@ class RegisterActivity : AppCompatActivity() {
                 btnRegister.isEnabled = true
             } else {
                 Log.i("Register", "Successfully registered user.")
+
+                // when the account has been created successfully, log in to the account
+                val creds = Credentials.emailPassword(Reg_Email, Reg_Password)
+                fitApp.loginAsync(creds) {
+                    // re-enable the buttons after user login returns a result
+
+                    //createUserButton.isEnabled = true
+                    if (!it.isSuccess) {
+                        onLoginFailed(it.error.message ?: "An error occurred.")
+                    } else {
+                        val user = fitApp.currentUser()
+                        //val customUserData : Document? = user?.customData
+                        val mongoClient : MongoClient =
+                            user?.getMongoClient("atlas-custom-user-data")!! // service for MongoDB Atlas cluster containing custom user data
+                        val mongoDatabase : MongoDatabase =
+                            mongoClient.getDatabase("UserData")!!
+                        val mongoCollection : MongoCollection<Document> =
+                            mongoDatabase.getCollection("CustomUserData")!!
+
+                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName)
+                            .append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email)
+                            .append("Reg_Password", Reg_Password).append("Phone", Phone).append("_partition", "partition"))
+
+                        mongoCollection.insertOne(Document("_id", user.id).append("FName", FName).append("LName", LName).append("Reg_Username", Reg_Username).append("Reg_Email", Reg_Email).append("Phone", Phone).append("_partition", "partition"))
+
+                            .getAsync { result ->
+                                if (result.isSuccess) {
+                                    Log.v(
+                                        "CustomData",
+                                        "Inserted custom user data document. _id of inserted document: ${result.get().insertedId}"
+                                    )
+                                } else {
+                                    Log.e(
+                                        "CustomData",
+                                        "Unable to insert custom user data. Error: ${result.error}"
+                                    )
+                                }
+                            }
+                        onRegisterSuccess()
+                    }
+
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+
                 }
             }
         }
