@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Food.Food
 import com.example.fitshare.Food.FoodAdapter
@@ -96,6 +97,11 @@ class BottomDialogFood : BottomSheetDialogFragment() {
             }*/
 
             dialog?.dismiss()
+            var fitnessFragment : Fragment = FitnessFragment()
+            val bundle = Bundle()
+            fitnessFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fitnessFragment).commit()
+
         }
 
         return view
