@@ -1,12 +1,18 @@
 package com.example.fitshare
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.core.app.ActivityCompat
+import com.example.fitshare.Profile.Profile
 import com.example.fitshare.User.User
 import com.example.fitshare.User.UserLocation
 
@@ -52,23 +58,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         partition = "location"
         val config = SyncConfiguration.Builder(user!!, partition)
             .build()
-       // this@MapsActivity.mapRealm = realm
+        // this@MapsActivity.mapRealm = realm
         // Sync all realm changes via a new instance, and when that instance has been successfully created connect it to an on-screen list (a recycler view)
-        Realm.getInstanceAsync(config, object: Realm.Callback() {
+        Realm.getInstanceAsync(config, object : Realm.Callback() {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@MapsActivity.mapRealm = realm
-               // setUpRecyclerView(realm, user, partition)
+                // setUpRecyclerView(realm, user, partition)
             }
         })
     }
 
 
     private fun setUpMap() {
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
 
@@ -83,10 +95,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
+                val name =
+                    mapRealm.where(Profile::class.java).equalTo("userid", user?.id.toString())
+                        .findFirst()
+
+//                val test = user?.profile?.firstName;
+
+
+                mapRealm.where(Profile::class.java).equalTo("userid", user?.id.toString())
+                    .findFirst()
+                    ?.let { Log.i("Maps", it.firstName) }
+
 
                 var currentLoc =
-                     UserLocation(user.toString(),location.latitude,location.longitude) 
-                mapRealm.executeTransactionAsync{realm -> realm.insert(currentLoc)}
+                    UserLocation(user.toString(), location.latitude, location.longitude)
+                mapRealm.executeTransactionAsync { realm -> realm.insert(currentLoc) }
 
 
 //                var currentLoc =
@@ -105,13 +128,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
 
-              //  map.addMarker(MarkerOptions().position(LatLng(33.8,-118.03)).title("TEST"))
+                //  map.addMarker(MarkerOptions().position(LatLng(33.8,-118.03)).title("TEST"))
 
                 for (loc in locationsQuery) {
                     map.addMarker(
                         MarkerOptions()
-                            .position(LatLng(loc.latitude,loc.longitude))
-                            .title("TEST MARKER")
+                            .position(LatLng(loc.latitude, loc.longitude))
+                            .title("USER MARKER")
                     )
                 }
 
@@ -121,6 +144,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         // retrieve markers in db and add user profile name to object
 
 
+    }
+
+
+    override fun onMarkerClick(marker: Marker): Boolean
+    {
+        val ok = 5
+
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        // set message of alert dialog
+        dialogBuilder.setMessage("Do you want to go to User's profile ?")
+            // if the dialog is cancelable
+            .setCancelable(false)
+            // positive button text and action
+            .setPositiveButton("Proceed", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+            // negative button text and action
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                    dialog, id -> dialog.cancel()
+            })
+
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+       // alert.setTitle("")
+        // show alert dialog
+        alert.show()
+
+        return false
     }
 
 
@@ -136,7 +189,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
 
 
     }
@@ -163,6 +215,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     }
 
-    override fun onMarkerClick(p0: Marker): Boolean = false
-
 }
+
