@@ -73,22 +73,6 @@
         app:layout_constraintTop_toBottomOf="@id/ivLogo">
 
         <EditText
-            android:id="@+id/txtFName"
-            android:layout_marginTop="40dp"
-            android:hint="First Name"
-            style="@style/modifiedEditText"/>
-
-        <EditText
-            android:id="@+id/txtLName"
-            android:hint="Last Name"
-            style="@style/modifiedEditText"/>
-
-        <EditText
-            android:id="@+id/txtReg_Username"
-            android:hint="Username"
-            style="@style/modifiedEditText"/>
-
-        <EditText
             android:id="@+id/txtReg_Email"
             android:hint="Email"
             style="@style/modifiedEditText"/>
@@ -97,12 +81,6 @@
             android:id="@+id/txtReg_Password"
             android:hint="Password"
             style="@style/modifiedEditText"/>
-
-        <EditText
-            android:id="@+id/txtPhone"
-            android:hint="Phone"
-            style="@style/modifiedEditText"/>
-
 
         <Button
             android:id="@+id/btnRegister"

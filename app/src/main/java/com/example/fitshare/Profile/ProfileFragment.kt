@@ -72,6 +72,13 @@ class ProfileFragment : Fragment() {
                 address = view.findViewById(R.id.txtAddress)
                 bio = view.findViewById(R.id.txtBio)
 
+                if(oldProf == null){
+                    username.setText("Username")
+                    fullName.setText("First Name, Last Name")
+                    phone.setText("Phone Number")
+                    address.setText("Address, City, State, Zipcode")
+                    bio.setText("My Bio")
+                }else{
                 username.setText(oldProf?.username.toString())
                 fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
                 phone.setText(oldProf?.phoneNumber.toString())
@@ -79,6 +86,7 @@ class ProfileFragment : Fragment() {
                         +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
                 bio.setText(oldProf?.bio.toString())
                 }
+            }
         })
 
 
