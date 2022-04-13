@@ -16,6 +16,8 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
+import com.example.fitshare.Feeds.FeedsFragment
+import com.example.fitshare.Feeds.UploadPostDialog
 import com.example.fitshare.Profile.ProfileFragment
 import com.example.fitshare.Profile.ProfileMenu
 import com.example.fitshare.Recipe.BottomDialog
@@ -86,6 +88,10 @@ class MainActivity : AppCompatActivity() {
             if (currFragment is ProfileFragment) {
                 val openProfileMenu : ProfileMenu = ProfileMenu.newInstance()
                 openProfileMenu.show(supportFragmentManager, null)
+            }
+            if (currFragment is FeedsFragment) {
+                val addBottomDialog : UploadPostDialog = UploadPostDialog.newInstance()
+                addBottomDialog.show(supportFragmentManager, null)
             }
         })
 

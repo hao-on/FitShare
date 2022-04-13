@@ -127,6 +127,17 @@
                     android:layout_below="@id/tvPrepTime" />
 
                 <TextView
+                    android:id="@+id/tvIngredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/courgette"
+                    android:text="Ingredients"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/tvTitle1" />
+
+                <TextView
                     android:id="@+id/tvTitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,6 +149,17 @@
                     android:layout_below="@id/tvTitle1" />
 
                 <TextView
+                    android:id="@+id/tvSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/courgette"
+                    android:text="Steps"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/tvTitle2" />
+
+                <TextView
                     android:id="@+id/tvTitle3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,7 +167,7 @@
                     android:text="Your Rating"
                     android:textColor="@color/mikado_yellow"
                     android:textSize="25sp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="80dp"
                     android:layout_below="@id/tvTitle2" />
 
                 <RatingBar
@@ -153,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvTitle2"
-                    android:layout_marginTop="53dp"
+                    android:layout_marginTop="83dp"
                     android:layout_toEndOf="@+id/tvTitle3"
                     style="?android:attr/ratingBarStyleIndicator"
                     android:isIndicator="false"

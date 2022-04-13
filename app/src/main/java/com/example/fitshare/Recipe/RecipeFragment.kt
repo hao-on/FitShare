@@ -52,7 +52,7 @@ class RecipeFragment : Fragment(){
                 rvRecipe.layoutManager =
                     LinearLayoutManager(requireActivity().applicationContext)
                 rvRecipe.setHasFixedSize(true)
-                adapter = RecipeAdapter(realm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
+                adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
                 rvRecipe.adapter = adapter
                 adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
@@ -150,6 +150,18 @@ class RecipeFragment : Fragment(){
         rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         rvRecipe.adapter = adapter
         rvRecipe.setHasFixedSize(true)
+        adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                var detailsFragment: Fragment = RecipeDetailsFragment()
+                val bundle = Bundle()
+                bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
+                bundle.putString("recipeName", adapter.getItem(position)?.recipeName)
+                detailsFragment.arguments = bundle
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+                    detailsFragment).commit()
+            }
+
+        })
     }
 
     override fun onStop() {

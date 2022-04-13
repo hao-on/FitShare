@@ -38,19 +38,20 @@ class RecipeDetailsFragment : Fragment() {
             override fun onSuccess(realm: Realm) {
                 this@RecipeDetailsFragment.recipeRealm = realm
                 var recipeID = arguments?.getString("recipeID")
-                var recName = recipeRealm.where<Recipe>().equalTo("_id", ObjectId(recipeID)).findFirst()
+                var recipe = recipeRealm.where<Recipe>().equalTo("_id", ObjectId(recipeID)).findFirst()
 
-                if (recName != null) {
-                    Toast.makeText(requireActivity().applicationContext,
-                        "Name: " + recName.recipeName, Toast.LENGTH_SHORT).show()
-                }
+                view.tvName.text = recipe?.recipeName
+                view.tvDescription.text = recipe?.description
+                view.tvPrepTime.text = recipe?.prepTime
+                view.tvIngredients.text = recipe?.ingredients
+                view.tvSteps.text = recipe?.steps
+
+//                if (recName != null) {
+//                    Toast.makeText(requireActivity().applicationContext,
+//                        "Name: " + recName.recipeName, Toast.LENGTH_SHORT).show()
+//                }
             }
         })
-
-        var recipeName = arguments?.getString("recipeName")
-        view.tvName.text = recipeName
-
-
 
         val rBar: RatingBar = view.findViewById(R.id.rBar)
         if (rBar != null) {
