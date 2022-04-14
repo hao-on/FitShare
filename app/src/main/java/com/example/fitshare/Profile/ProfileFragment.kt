@@ -1,6 +1,7 @@
 package com.example.fitshare.Profile
 
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -9,11 +10,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.ToggleButton
+import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import com.example.fitshare.MainActivity
+import com.example.fitshare.Messaging.MessageActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
     private lateinit var partition: String
     private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
-
+    private lateinit var messageBtn: ImageButton
 
     var def: ColorStateList? = null
     var item1: TextView? = null
@@ -108,7 +108,11 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
+        messageBtn = view.findViewById(R.id.btnChat)
+        messageBtn.setOnClickListener{
+            val intent = Intent(requireContext(), MessageActivity::class.java);
+            startActivity(intent);
+        }
 //        //Button for adding/editing a profile
 //        fab = view.findViewById(R.id.btnEditProfile)
 //        fab.setOnClickListener{
