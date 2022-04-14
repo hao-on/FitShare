@@ -41,7 +41,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var partition: String
 
     private lateinit var mapRealm: Realm
-
+    private lateinit var profileRealm: Realm
+    private lateinit var username: String
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -65,6 +66,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@MapsActivity.mapRealm = realm
                 // setUpRecyclerView(realm, user, partition)
+            }
+        })
+
+        val profile_config : SyncConfiguration =
+            SyncConfiguration.Builder(user!!, "Profile")
+                .build()
+
+        Realm.getInstanceAsync(profile_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@MapsActivity.profileRealm = realm
+                val profile = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+                username = profile?.username.toString()
+
             }
         })
     }
