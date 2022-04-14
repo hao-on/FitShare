@@ -161,8 +161,10 @@ class RecipeFragment : Fragment(){
                     detailsFragment).commit()
             }
 
+
         })
     }
+
 
     override fun onStop() {
         super.onStop()

@@ -62,6 +62,7 @@
         <item name="drawableStartCompat">@drawable/ic_smiley</item>
         <item name="android:drawablePadding">20dp</item>
         <item name="android:background">@null</item>
+<<<<<<< HEAD
         <item name = "android:textColorHint">@color/white</item>
     </style>
 
@@ -73,6 +74,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
+=======
+>>>>>>> tryingToMerge
     </style>
 
     <style name="modifiedNumberView" parent="parent">
@@ -110,6 +113,7 @@
         <item name="android:drawablePadding">7dp</item>
         <item name="android:fontFamily">@font/roboto_light</item>
     </style>
+<<<<<<< HEAD
 
     <style name="RoundDialogTheme"
         parent="Theme.Design.Light.BottomSheetDialog">
@@ -119,4 +123,6 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/round_dialog</item>
     </style>
+=======
+>>>>>>> tryingToMerge
 </resources>

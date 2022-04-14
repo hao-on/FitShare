@@ -31,6 +31,7 @@ open class User : RealmObject {
     var exercises: RealmList<Exercise> ?= null
     var posts: RealmList<Post> ?= null
 
+
     constructor(
         id: String,
         _partition: String,
@@ -40,6 +41,7 @@ open class User : RealmObject {
         exercises: RealmList<Exercise> ?= null,
         posts: RealmList<Post> ?= null
 
+
     ) {
         this.id = id
         this._partition = _partition
@@ -48,7 +50,14 @@ open class User : RealmObject {
         this.profile = profile
         this.exercises = exercises
         this.posts = posts
+
     }
 
     constructor() {} // RealmObject subclasses must provide an empty constructor
+
+
+     fun retrieveName(): String {
+        return this.name
+    }
 }
+

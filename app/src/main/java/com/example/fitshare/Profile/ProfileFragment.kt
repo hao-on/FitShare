@@ -60,11 +60,11 @@ class ProfileFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@ProfileFragment.profileRealm = realm
-                    val oldProf = profileRealm.where(Profile::class.java).
-                    equalTo("userid", user?.id.toString()).findFirst()
-                    if(oldProf?.meetUp == true){
-                        meetUp.isChecked = true
-                    }else{meetUp.isChecked = false}
+                val oldProf = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+                if(oldProf?.meetUp == true){
+                    meetUp.isChecked = true
+                }else{meetUp.isChecked = false}
 
                 username = view.findViewById(R.id.tvUsername)
                 fullName = view.findViewById(R.id.txtFullName)
@@ -79,12 +79,12 @@ class ProfileFragment : Fragment() {
                     address.setText("Address, City, State, Zipcode")
                     bio.setText("My Bio")
                 }else{
-                username.setText(oldProf?.username.toString())
-                fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
-                phone.setText(oldProf?.phoneNumber.toString())
-                address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
-                        +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
-                bio.setText(oldProf?.bio.toString())
+                    username.setText(oldProf?.username.toString())
+                    fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
+                    phone.setText(oldProf?.phoneNumber.toString())
+                    address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
+                            +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
+                    bio.setText(oldProf?.bio.toString())
                 }
             }
         })
@@ -99,11 +99,11 @@ class ProfileFragment : Fragment() {
                 val oldProf = it.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
                 if(meetUp.isChecked()){
-                        oldProf?.meetUp = true
-                    }
+                    oldProf?.meetUp = true
+                }
                 else if(!meetUp.isChecked()){
-                        oldProf?.meetUp = false
-                    }
+                    oldProf?.meetUp = false
+                }
                 Log.i("profile", oldProf?.meetUp.toString())
             }
         }
