@@ -13,6 +13,5 @@ open class Message(
     var username: String = "",
     @Required
     var message: String = "",
-    @Required
-    var time: Date? = Date()
+    //var time: Date? = Date()
 ) : RealmObject() {}
