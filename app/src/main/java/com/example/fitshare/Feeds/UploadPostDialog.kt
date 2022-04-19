@@ -21,6 +21,7 @@ class UploadPostDialog: BottomSheetDialogFragment() {
     private lateinit var userRealm: Realm
     private lateinit var profileRealm: Realm
     private lateinit var username: String
+    private var profile: Profile ?= null
     private var user: io.realm.mongodb.User? = null
     private lateinit var btnPost: Button
     private lateinit var partition: String
@@ -63,15 +64,15 @@ class UploadPostDialog: BottomSheetDialogFragment() {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@UploadPostDialog.profileRealm = realm
-                val profile = profileRealm.where(Profile::class.java).
+                profile = profileRealm.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
-                username = profile?.username.toString()
+//                username = profile?.username.toString()
             }
         })
 
         btnPost = view.findViewById(R.id.btnUploadPost)
         btnPost.setOnClickListener {
-            val post = Post(txtPostContent.text.toString(), 0, null, username)
+            val post = Post(txtPostContent.text.toString(), 0, null, profile!!)
 
             userRealm.executeTransactionAsync { transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()

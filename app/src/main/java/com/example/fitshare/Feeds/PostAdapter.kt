@@ -28,7 +28,7 @@ class PostAdapter(data: OrderedRealmCollection<Post>,
         val obj: Post? = getItem(position)
         holder.data = obj
         holder.postText.text = obj?.content.toString()
-        holder.username.text = obj?.username
+        holder.username.text = obj?.profile?.username.toString()
     }
 
     inner class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {

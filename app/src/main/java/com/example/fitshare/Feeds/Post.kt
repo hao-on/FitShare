@@ -15,7 +15,8 @@ open class Post: RealmObject{
     var likes: Int = 0
     var ratings: RealmList<PostRating> ?= null
     var date: Date = Date()
-    var username: String = ""
+    //var username: String = ""
+    var profile: Profile ?= null
 //    var userID: String = ""
 
 
@@ -23,13 +24,15 @@ open class Post: RealmObject{
         content: String,
         likes: Int,
         ratings: RealmList<PostRating>?,
-        username: String
+//        username: String
+        profile: Profile
 //        userID: String
     ) {
         this.content = content
         this.likes = likes
         this.ratings = ratings
-        this.username = username
+//        this.username = username
+        this.profile = profile
 //        this.userID = userID
     }
 
