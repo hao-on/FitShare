@@ -57,7 +57,7 @@ class UploadPostDialog: BottomSheetDialogFragment() {
         })
 
         val profile_config : SyncConfiguration =
-            SyncConfiguration.Builder(user!!, "profile")
+            SyncConfiguration.Builder(user!!, "Profile")
                 .build()
 
         Realm.getInstanceAsync(profile_config, object: Realm.Callback() {
