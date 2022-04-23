@@ -3,14 +3,9 @@ package com.example.fitshare.Messaging
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fitshare.Profile.Profile
 import com.example.fitshare.R
-import io.realm.Realm
-import io.realm.mongodb.sync.SyncConfiguration
-import com.example.fitshare.fitApp
 
 class MessagesAdapter(private val uid: String) : RecyclerView.Adapter<MessagesAdapter.MessageViewHolder>(){
     companion object {
@@ -31,14 +26,14 @@ class MessagesAdapter(private val uid: String) : RecyclerView.Adapter<MessagesAd
         return MessageViewHolder(view)
     }
 
-    override fun getItemCount() = ChatManager.msgEntries.size
+    override fun getItemCount(): Int = ChatManager.msgEntries!!.size
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.bind(ChatManager.msgEntries[position]!!)
+        holder.bind(ChatManager.msgEntries?.get(position)!!)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (ChatManager.msgEntries[position]!!.username == ChatManager.profile.username) {
+        return if (ChatManager.msgEntries?.get(position)!!.username == ChatManager.username) {
             SENT
         } else {
             RECEIVED

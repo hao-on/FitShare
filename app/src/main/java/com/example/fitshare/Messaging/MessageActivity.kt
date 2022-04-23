@@ -1,24 +1,20 @@
 package com.example.fitshare.Messaging
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.R
-import com.example.fitshare.Recipe.Recipe
-import com.example.fitshare.Recipe.RecipeAdapter
-import com.example.fitshare.User.User
 import com.example.fitshare.fitApp
 import io.realm.Realm
-import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import org.bson.types.ObjectId
-import java.sql.Time
-import java.time.LocalDateTime.now
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 class MessageActivity : AppCompatActivity() {
@@ -72,10 +68,13 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val date = sdf.format(Date())
+        Log.i("date", date.toString())
 
-        val message = Message(ObjectId(), ChatManager.profile.username,
-            enterMessage.text.toString())
-        messageRealm.executeTransaction(){ transactionRealm ->
+        val message = Message(ObjectId(), ChatManager.username,
+            enterMessage.text.toString(), date.toString())
+        messageRealm.executeTransactionAsync{ transactionRealm ->
             transactionRealm.insert(message)
         }
         enterMessage.setText("")
@@ -85,7 +84,7 @@ class MessageActivity : AppCompatActivity() {
     fun initializeListeners() {
         ChatManager.AddProfileListener {
             val textMe: TextView = findViewById(R.id.text_me)
-            textMe.text = ChatManager.profile.username
+            textMe.text = ChatManager.username
         }
 
         ChatManager.AddChatListener {
