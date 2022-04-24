@@ -6,11 +6,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import io.realm.Realm
+import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import org.bson.types.ObjectId
 import java.text.SimpleDateFormat
@@ -21,11 +23,10 @@ class MessageActivity : AppCompatActivity() {
     private var user : io.realm.mongodb.User? = null
     private lateinit var partition: String
     private lateinit var messageRealm: Realm
-
+    private lateinit var recyclerView: RecyclerView
     private lateinit var enterMessage: EditText
     private lateinit var send: Button
     private lateinit var logout: Button
-    private lateinit var messagesList: RecyclerView
     private lateinit var messagesAdapter: MessagesAdapter
 
     override fun onStart() {
@@ -51,13 +52,13 @@ class MessageActivity : AppCompatActivity() {
 
         enterMessage = findViewById(R.id.enter_message)
         send = findViewById(R.id.send_message)
-        messagesList = findViewById(R.id.messages)
+        recyclerView = findViewById(R.id.messages)
         val layoutMgr = LinearLayoutManager(this)
         layoutMgr.stackFromEnd = true
-        messagesList.layoutManager = layoutMgr
+        recyclerView.layoutManager = layoutMgr
 
-        messagesAdapter = MessagesAdapter("foo")
-        messagesList.adapter = messagesAdapter
+        //messagesAdapter = MessagesAdapter(user?.id.toString())
+        //messagesList.adapter = messagesAdapter
 
         send.setOnClickListener {
             sendMessage()
@@ -68,7 +69,7 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun sendMessage() {
-        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val sdf = SimpleDateFormat("M/dd/yyyy hh:mm:ss")
         val date = sdf.format(Date())
         Log.i("date", date.toString())
 
@@ -94,22 +95,22 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun scrollToBottom() {
-        messagesList.scrollToPosition(messagesAdapter.itemCount - 1)
+        recyclerView.scrollToPosition(messagesAdapter.itemCount - 1)
     }
 
     override fun onStop() {
         super.onStop()
+        recyclerView.adapter = null
         user.run {
             messageRealm.close()
         }
     }
 
     private fun setUpRecyclerView(realm: Realm, user: io.realm.mongodb.User?, partition: String) {
-//        adapter = RecipeAdapter(realm.where<Recipe>().contains("_partition", partition).
-//        sort("recipeName").findAll(), user!!, partition)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = adapter
-//        recyclerView.setHasFixedSize(true)
-//        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        messagesAdapter = MessagesAdapter(realm.where(Message::class.java).contains("_partition", partition).findAll(), user!!, partition)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = messagesAdapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 }

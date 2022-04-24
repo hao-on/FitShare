@@ -6,8 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.R
+import com.example.fitshare.Recipe.Recipe
+import io.realm.OrderedRealmCollection
 
-class MessagesAdapter(private val uid: String) : RecyclerView.Adapter<MessagesAdapter.MessageViewHolder>(){
+class MessagesAdapter(data: OrderedRealmCollection<Message>,
+                      val user: io.realm.mongodb.User,
+                      private val partition: String
+) : RecyclerView.Adapter<MessagesAdapter.MessageViewHolder>(){
     companion object {
         private const val SENT = 0
         private const val RECEIVED = 1
