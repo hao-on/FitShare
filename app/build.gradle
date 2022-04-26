@@ -65,4 +65,7 @@ dependencies {
 
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Animation
+    implementation 'pub.hanks:smallbang:1.2.2'
 }
