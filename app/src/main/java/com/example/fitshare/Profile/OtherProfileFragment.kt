@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.fitshare.Messaging.MessageActivity
 import com.example.fitshare.R
@@ -30,6 +31,7 @@ class OtherProfileFragment : Fragment(){
     private lateinit var partition: String
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
+    private lateinit var btnLocation: ImageButton
 
     var def: ColorStateList? = null
     var item1: TextView? = null
@@ -50,6 +52,9 @@ class OtherProfileFragment : Fragment(){
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         onClick(view)
+
+
+        //***SET USER EQUAL TO PASSED USER***
         user = fitApp.currentUser()
         partition = "Profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()
@@ -60,6 +65,10 @@ class OtherProfileFragment : Fragment(){
                 this@OtherProfileFragment.profileRealm = realm
                 val oldProf = profileRealm.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
+
+                btnLocation.isVisible = false
+                meetUp.isClickable = false
+
                 if(oldProf?.meetUp == true){
                     meetUp.isChecked = true
                 }else{meetUp.isChecked = false}
@@ -87,6 +96,7 @@ class OtherProfileFragment : Fragment(){
             }
         })
 
+        btnLocation = view.findViewById(R.id.btnLocation)
 
         //Meet-up status init
         meetUp = view.findViewById(R.id.switchMeetUp)
