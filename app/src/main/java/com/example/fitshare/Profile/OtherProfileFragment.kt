@@ -88,23 +88,8 @@ class OtherProfileFragment : Fragment(){
         })
 
 
-        //Meet-up status functionality
+        //Meet-up status init
         meetUp = view.findViewById(R.id.switchMeetUp)
-        meetUp.setOnClickListener{
-
-            //Check box functionality
-            profileRealm.executeTransactionAsync{
-                val oldProf = it.where(Profile::class.java).
-                equalTo("userid", user?.id.toString()).findFirst()
-                if(meetUp.isChecked()){
-                    oldProf?.meetUp = true
-                }
-                else if(!meetUp.isChecked()){
-                    oldProf?.meetUp = false
-                }
-                Log.i("profile", oldProf?.meetUp.toString())
-            }
-        }
 
         messageBtn = view.findViewById(R.id.btnChat)
         messageBtn.setOnClickListener{

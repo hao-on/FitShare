@@ -32,6 +32,7 @@ class ProfileFragment : Fragment() {
     private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
+    private lateinit var btnLocation: ImageButton
 
     var def: ColorStateList? = null
     var item1: TextView? = null
@@ -64,7 +65,11 @@ class ProfileFragment : Fragment() {
                     equalTo("userid", user?.id.toString()).findFirst()
                     if(oldProf?.meetUp == true){
                         meetUp.isChecked = true
-                    }else{meetUp.isChecked = false}
+                        btnLocation.isClickable = true
+                    }else{
+                        meetUp.isChecked = false
+                        btnLocation.isClickable = false
+                    }
 
                 username = view.findViewById(R.id.tvUsername)
                 fullName = view.findViewById(R.id.txtFullName)
@@ -89,6 +94,10 @@ class ProfileFragment : Fragment() {
             }
         })
 
+        btnLocation = view.findViewById(R.id.btnLocation)
+        btnLocation.setOnClickListener{
+            Log.i("loc", "ping location")
+        }
 
         //Meet-up status functionality
         meetUp = view.findViewById(R.id.switchMeetUp)
@@ -100,9 +109,11 @@ class ProfileFragment : Fragment() {
                 equalTo("userid", user?.id.toString()).findFirst()
                 if(meetUp.isChecked()){
                         oldProf?.meetUp = true
-                    }
+                    btnLocation.isClickable = true
+                }
                 else if(!meetUp.isChecked()){
                         oldProf?.meetUp = false
+                    btnLocation.isClickable = false
                     }
                 Log.i("profile", oldProf?.meetUp.toString())
             }
