@@ -1,35 +1,33 @@
 package com.example.fitshare.Profile
 
-
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import com.example.fitshare.MainActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
 import com.example.fitshare.Messaging.MessageActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
 
-
-class ProfileFragment : Fragment() {
-
+class OtherProfileFragment : Fragment(){
     private var user: io.realm.mongodb.User? = null
     private lateinit var profileRealm: Realm
     private lateinit var userRealm: Realm
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
-    private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
 
@@ -59,12 +57,12 @@ class ProfileFragment : Fragment() {
         //Profile Realm sync config
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
-                this@ProfileFragment.profileRealm = realm
-                    val oldProf = profileRealm.where(Profile::class.java).
-                    equalTo("userid", user?.id.toString()).findFirst()
-                    if(oldProf?.meetUp == true){
-                        meetUp.isChecked = true
-                    }else{meetUp.isChecked = false}
+                this@OtherProfileFragment.profileRealm = realm
+                val oldProf = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+                if(oldProf?.meetUp == true){
+                    meetUp.isChecked = true
+                }else{meetUp.isChecked = false}
 
                 username = view.findViewById(R.id.tvUsername)
                 fullName = view.findViewById(R.id.txtFullName)
@@ -79,12 +77,12 @@ class ProfileFragment : Fragment() {
                     address.setText("Address, City, State, Zipcode")
                     bio.setText("My Bio")
                 }else{
-                username.setText(oldProf?.username.toString())
-                fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
-                phone.setText(oldProf?.phoneNumber.toString())
-                address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
-                        +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
-                bio.setText(oldProf?.bio.toString())
+                    username.setText(oldProf?.username.toString())
+                    fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
+                    phone.setText("(***)***-" + oldProf?.phoneNumber?.get(6)?.toString() + oldProf?.phoneNumber?.get(7)?.toString() +
+                            oldProf?.phoneNumber?.get(8)?.toString() + oldProf?.phoneNumber?.get(9)?.toString())
+                    address.setText(oldProf?.city.toString() +", "+ oldProf?.state.toString() )
+                    bio.setText(oldProf?.bio.toString())
                 }
             }
         })
@@ -99,11 +97,11 @@ class ProfileFragment : Fragment() {
                 val oldProf = it.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
                 if(meetUp.isChecked()){
-                        oldProf?.meetUp = true
-                    }
+                    oldProf?.meetUp = true
+                }
                 else if(!meetUp.isChecked()){
-                        oldProf?.meetUp = false
-                    }
+                    oldProf?.meetUp = false
+                }
                 Log.i("profile", oldProf?.meetUp.toString())
             }
         }
@@ -113,15 +111,18 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireContext(), MessageActivity::class.java);
             startActivity(intent);
         }
+//        //Button for adding/editing a profile
+//        fab = view.findViewById(R.id.btnEditProfile)
+//        fab.setOnClickListener{
+//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+//            editProfileButton.show(parentFragmentManager, null)
+//        }
 
-        //Test Viewing Other Profile Activity **DELETE LATER**
-        otherProfileButton = view.findViewById(R.id.otherProfileBtn)
-        otherProfileButton.setOnClickListener{
-            var otherProfileFragment : Fragment = OtherProfileFragment()
-            val bundle = Bundle()
-            otherProfileFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, otherProfileFragment).commit()
-        }
+//        //Test Viewing Other Profile Activity **DELETE LATER**
+//        otherProfileButton = view.findViewById(R.id.other_profile_button)
+//        otherProfileButton.setOnClickListener{
+//            //openFragment(OtherProfileFragment)
+//        }
 
         return view
     }
@@ -159,5 +160,10 @@ class ProfileFragment : Fragment() {
         super.onDestroy()
         userRealm.close()
         profileRealm.close()
+    }
+    companion object{
+        fun newInstance(): OtherProfileFragment{
+            return OtherProfileFragment()
+        }
     }
 }
