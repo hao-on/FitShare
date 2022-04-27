@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import com.example.fitshare.MainActivity
+import com.example.fitshare.MessageForum.ForumPostFragment
 import com.example.fitshare.Messaging.MessageActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
@@ -61,15 +62,19 @@ class ProfileFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@ProfileFragment.profileRealm = realm
-                    val oldProf = profileRealm.where(Profile::class.java).
-                    equalTo("userid", user?.id.toString()).findFirst()
-                    if(oldProf?.meetUp == true){
-                        meetUp.isChecked = true
-                        btnLocation.isClickable = true
-                    }else{
-                        meetUp.isChecked = false
-                        btnLocation.isClickable = false
-                    }
+
+                //Find the profile of a user
+                val oldProf = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+
+                //Set the status of the meet-up and location buttons
+                if(oldProf?.meetUp == true){
+                    meetUp.isChecked = true
+                    btnLocation.isClickable = true
+                }else{
+                    meetUp.isChecked = false
+                    btnLocation.isClickable = false
+                }
 
                 username = view.findViewById(R.id.tvUsername)
                 fullName = view.findViewById(R.id.txtFullName)
@@ -84,16 +89,17 @@ class ProfileFragment : Fragment() {
                     address.setText("Address, City, State, Zipcode")
                     bio.setText("My Bio")
                 }else{
-                username.setText(oldProf?.username.toString())
-                fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
-                phone.setText(oldProf?.phoneNumber.toString())
-                address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
-                        +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
-                bio.setText(oldProf?.bio.toString())
+                    username.setText(oldProf?.username.toString())
+                    fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
+                    phone.setText(oldProf?.phoneNumber.toString())
+                    address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
+                            +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
+                    bio.setText(oldProf?.bio.toString())
                 }
             }
         })
 
+        //Add google map functionality here
         btnLocation = view.findViewById(R.id.btnLocation)
         btnLocation.setOnClickListener{
             Log.i("loc", "ping location")
@@ -121,8 +127,10 @@ class ProfileFragment : Fragment() {
 
         messageBtn = view.findViewById(R.id.btnChat)
         messageBtn.setOnClickListener{
-            val intent = Intent(requireContext(), MessageActivity::class.java);
-            startActivity(intent);
+            var forumFragment : Fragment = ForumPostFragment()
+            val bundle = Bundle()
+            forumFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, forumFragment).commit()
         }
 
         //Test Viewing Other Profile Activity **DELETE LATER**
