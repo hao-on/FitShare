@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.fitshare.Profile.Profile
+import com.example.fitshare.Profile.ProfileEditButton
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,7 +52,8 @@ class ForumPostFragment : Fragment() {
 
         addPost = view.findViewById(R.id.addPostBtn)
         addPost.setOnClickListener{
-
+            val addForumPost : ForumPostBtnDialog = ForumPostBtnDialog.newInstance()
+            addForumPost.show(parentFragmentManager, null)
         }
 
         return view

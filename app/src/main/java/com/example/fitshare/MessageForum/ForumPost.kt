@@ -12,7 +12,7 @@ open class ForumPost (
     @Required
     var title: String = "",
     @Required
-    var description: String = "",
+    var content: String = "",
     @Required
     var creator: String = "",
     @Required
