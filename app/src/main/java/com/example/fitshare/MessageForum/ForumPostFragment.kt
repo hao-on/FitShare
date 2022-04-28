@@ -40,7 +40,7 @@ class ForumPostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState : Bundle?
     ): View?{
-        val view: View = inflater.inflate(R.layout.forum_fragment, container, false)
+        val view: View = inflater.inflate(R.layout.forum_comment_fragment, container, false)
         user = fitApp.currentUser()
         partition = "Forum"
         recyclerView = view.findViewById(R.id.rvPost)
@@ -50,9 +50,12 @@ class ForumPostFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ForumPostFragment.forumRealm = realm
+
                 forumAdapter = ForumPostAdapter(realm.where<ForumPost>().sort("title").findAll(), user!!, partition)
                 rvPost.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
                 rvPost.adapter = forumAdapter
+
+                //On-click action for posts
                 forumAdapter.setOnItemClickListener(object : ForumPostAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
                         Toast.makeText(activity, "hello", Toast.LENGTH_SHORT).show()
