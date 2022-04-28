@@ -39,7 +39,6 @@ class RecipeDetailsFragment : Fragment() {
                 this@RecipeDetailsFragment.recipeRealm = realm
                 var recipeID = arguments?.getString("recipeID")
                 var recipe = recipeRealm.where<Recipe>().equalTo("_id", ObjectId(recipeID)).findFirst()
-
                 view.tvName.text = recipe?.recipeName
                 view.tvDescription.text = recipe?.description
                 view.tvPrepTime.text = recipe?.prepTime

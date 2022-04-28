@@ -33,9 +33,11 @@ class FeedsFragment : Fragment() {
     private lateinit var adapter: PostAdapter
     private var bottomAppBarVisibility = View.VISIBLE
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -104,7 +106,6 @@ class FeedsFragment : Fragment() {
                             .replace(R.id.frameLayout, commentFragment, "Comment")
                             .addToBackStack("Comment")
                             .commit()
-
                     }
                 })
                 rvFeeds.adapter = adapter

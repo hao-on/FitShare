@@ -61,8 +61,10 @@ class RecipeFragment : Fragment(){
                         bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
                         bundle.putString("recipeName", adapter.getItem(position)?.recipeName)
                         detailsFragment.arguments = bundle
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
-                            detailsFragment).commit()
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, detailsFragment, "RecipeDetails")
+                            .addToBackStack("RecipeDetails")
+                            .commit()
                     }
 
                 })

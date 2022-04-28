@@ -39,6 +39,7 @@ class CommentFragment : Fragment() {
     private lateinit var profileRealm: Realm
     private var profile: Profile ?= null
     private var post: Post ?= null
+
     private var bottomAppBarVisibility = View.GONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
