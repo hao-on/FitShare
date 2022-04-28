@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/fPostTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="1dp"
             android:textColor="#000000"
@@ -34,9 +34,10 @@
                 android:id="@+id/fPostCreator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="1dp"
+                android:padding="10dp"
                 android:textColor="#5d5d5d"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
             <TextView
                 android:id="@+id/dateCreated"
@@ -44,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:textColor="#5d5d5d"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
         </LinearLayout>
     </LinearLayout>

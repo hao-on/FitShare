@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvHello" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/searchBar"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
@@ -59,7 +59,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/searchBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_behavior="android.support.v4.widget.NestedScrollView"/>
 

@@ -65,7 +65,7 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
         btnCreatePost = view.findViewById(R.id.btnCreatePost)
 
         btnCreatePost.setOnClickListener{
-            val sdf = SimpleDateFormat("M/dd/yyyy hh:mm:ss")
+            val sdf = SimpleDateFormat("M/dd/yyyy")
             val date = sdf.format(Date())
 
             //this is not allowed FIX ME
