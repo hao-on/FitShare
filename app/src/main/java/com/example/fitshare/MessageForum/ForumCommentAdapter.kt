@@ -36,7 +36,7 @@ class ForumCommentAdapter (data: OrderedRealmCollection<ForumComment>,
     inner class ForumCommentViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view) {
         //var title: TextView = view.findViewById(R.id.fPostTitle)
         //var content: TextView
-        var message: TextView = view.findViewById(R.id.forumMessage)
+        var message: TextView = view.findViewById(R.id.commentMessage)
         var creator: TextView = view.findViewById(R.id.commentCreator)
         var time: TextView = view.findViewById(R.id.dateCreated)
         var data: ForumComment? = null

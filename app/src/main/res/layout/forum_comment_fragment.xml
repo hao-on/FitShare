@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvHello"
+            android:id="@+id/commentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
@@ -27,7 +27,37 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvHello2"
+            android:id="@+id/tvCreator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:fontFamily="@font/roboto_light"
+            android:textStyle="bold"
+            android:hint = "Creator Username"
+            android:textColor="@color/cadmium_blue"
+            android:letterSpacing="0.05"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commentTitle" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:fontFamily="@font/roboto_light"
+            android:textStyle="bold"
+            android:hint = "Content"
+            android:textColor="@color/black"
+            android:letterSpacing="0.05"
+            android:textSize="18sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCreator" />
+
+        <TextView
+            android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
@@ -39,18 +69,7 @@
             android:textSize="18sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHello" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvComment"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHello2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_behavior="android.support.v4.widget.NestedScrollView"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvContent" />
 
         <EditText
             android:id="@+id/enter_message"
@@ -60,7 +79,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:hint="Enter mesesage..."
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvHeader"
             app:layout_constraintEnd_toStartOf="@+id/msgBtn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
@@ -79,6 +98,19 @@
             app:layout_constraintStart_toEndOf="@+id/enter_message"
             app:layout_constraintTop_toTopOf="@+id/enter_message"
             app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvComment"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enter_message"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_behavior="android.support.v4.widget.NestedScrollView"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

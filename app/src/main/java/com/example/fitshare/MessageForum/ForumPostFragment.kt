@@ -40,7 +40,7 @@ class ForumPostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState : Bundle?
     ): View?{
-        val view: View = inflater.inflate(R.layout.forum_comment_fragment, container, false)
+        val view: View = inflater.inflate(R.layout.forum_fragment, container, false)
         user = fitApp.currentUser()
         partition = "Forum"
         recyclerView = view.findViewById(R.id.rvPost)
@@ -58,7 +58,16 @@ class ForumPostFragment : Fragment() {
                 //On-click action for posts
                 forumAdapter.setOnItemClickListener(object : ForumPostAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(activity, "hello", Toast.LENGTH_SHORT).show()
+                        var commentFragment: Fragment = ForumCommentFragment()
+                        val bundle = Bundle()
+
+                        bundle.putString("title", forumAdapter.getItem(position)?.title.toString())
+                        bundle.putString("content", forumAdapter.getItem(position)?.content.toString())
+                        bundle.putString("creator", forumAdapter.getItem(position)?.creator.toString())
+
+                        commentFragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction().
+                        replace(R.id.frameLayout, commentFragment).commit()
                     }
 
                 })

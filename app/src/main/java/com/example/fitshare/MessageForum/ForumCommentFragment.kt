@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,11 +43,23 @@ class ForumCommentFragment : Fragment(){
             override fun onSuccess(realm: Realm){
                 this@ForumCommentFragment.commentRealm = realm
 
+                var title = arguments?.getString("title")
+                var content = arguments?.getString("content")
+                var creator = arguments?.getString("creator")
+
+                var tvTitle: TextView = view.findViewById(R.id.commentTitle)
+                var tvContent: TextView = view.findViewById(R.id.tvContent)
+                var tvCreator: TextView = view.findViewById(R.id.tvCreator)
+
+                tvTitle.setText(title)
+                tvContent.setText(content)
+                tvCreator.setText("By " + creator)
+
                 commentAdapter = ForumCommentAdapter(commentRealm.where<ForumComment>().findAll(), user!!, partition)
                 rvComment.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
                 rvComment.adapter = commentAdapter
 
-                rvPost.setHasFixedSize(true)
+                rvComment.setHasFixedSize(true)
             }
         })
 
