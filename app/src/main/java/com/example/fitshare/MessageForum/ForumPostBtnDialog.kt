@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.example.fitshare.Messaging.ChatManager
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Profile.ProfileEditButton
 import com.example.fitshare.R
@@ -27,11 +28,13 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
     private lateinit var title: TextInputEditText
     private lateinit var content: TextInputEditText
     private lateinit var btnCreatePost: Button
+    private lateinit var username: String
 
     @Nullable
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState : Bundle?
+        inflater: LayoutInflater,
+        @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState : Bundle?
     ): View?{
         val view: View = inflater.inflate(R.layout.forum_post_dialog, container, false)
         user = fitApp.currentUser()
@@ -51,6 +54,9 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
         Realm.getInstanceAsync(config_prof, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ForumPostBtnDialog.profileRealm = realm
+                val profile = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+                username = profile!!.username
             }
         })
 
@@ -62,13 +68,14 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
             val sdf = SimpleDateFormat("M/dd/yyyy hh:mm:ss")
             val date = sdf.format(Date())
 
+            //this is not allowed FIX ME
+//            val profile = profileRealm.where(Profile::class.java).
+//            equalTo("userid", user?.id.toString()).findFirst()
+
+
             forumRealm.executeTransactionAsync{
-
-                val profile = profileRealm.where(Profile::class.java).
-                equalTo("userid", user?.id.toString()).findFirst()
-
                 val post = ForumPost(ObjectId() ,title.text.toString(), content.text.toString(),
-                    profile?.username.toString(), date.toString())
+                    username, date.toString())
 
                 it.insert(post)
             }
@@ -79,7 +86,6 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
             postFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, postFragment).commit()
         }
-
 
         return view
     }

@@ -34,7 +34,6 @@ class ForumPostFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ForumPostFragment.forumRealm = realm
-
             }
         })
 
