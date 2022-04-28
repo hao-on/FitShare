@@ -36,14 +36,15 @@ class ForumPostFragment : Fragment() {
     ): View?{
         val view: View = inflater.inflate(R.layout.forum_fragment, container, false)
         user = fitApp.currentUser()
-
         partition = "Forum"
+        recyclerView = view.findViewById(R.id.rvPost)
+
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ForumPostFragment.forumRealm = realm
-                setUpRecyclerView(realm, user, partition)
+                setUpRecyclerView(recyclerView, forumRealm, user, partition)
             }
         })
 
@@ -59,7 +60,6 @@ class ForumPostFragment : Fragment() {
             }
         })
 
-        recyclerView = view.findViewById(R.id.rvPost)
         addPost = view.findViewById(R.id.addPostBtn)
         addPost.setOnClickListener{
             val addForumPost : ForumPostBtnDialog = ForumPostBtnDialog.newInstance()
@@ -69,22 +69,21 @@ class ForumPostFragment : Fragment() {
         return view
     }
 
-    private fun recyclerSearch(realm: Realm, user: User?, partition: String, text: String){
-        forumAdapter = ForumPostAdapter(realm.where<ForumPost>().contains("title", text, Case.INSENSITIVE)
-            .findAll(), user!!, partition)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
-        recyclerView.adapter = forumAdapter
-        recyclerView.setHasFixedSize(true)
-        recyclerView.addItemDecoration(DividerItemDecoration(requireContext().applicationContext, DividerItemDecoration.VERTICAL))
-    }
+//    private fun recyclerSearch(realm: Realm, user: User?, partition: String, text: String){
+//        forumAdapter = ForumPostAdapter(realm.where<ForumPost>().contains("title", text, Case.INSENSITIVE)
+//            .findAll(), user!!, partition)
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+//        recyclerView.adapter = forumAdapter
+//        recyclerView.setHasFixedSize(true)
+//        recyclerView.addItemDecoration(DividerItemDecoration(requireContext().applicationContext, DividerItemDecoration.VERTICAL))
+//    }
 
-    private fun setUpRecyclerView(realm: Realm, user: User?, partition: String) {
+    private fun setUpRecyclerView(recyclerView: RecyclerView, realm: Realm, user: User?, partition: String) {
         forumAdapter = ForumPostAdapter(realm.where<ForumPost>().contains("_partition", partition).
         sort("title").findAll(), user!!, partition)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         recyclerView.adapter = forumAdapter
         recyclerView.setHasFixedSize(true)
-        recyclerView.addItemDecoration(DividerItemDecoration(requireContext().applicationContext, DividerItemDecoration.VERTICAL))
     }
 
     override fun onDestroy(){
