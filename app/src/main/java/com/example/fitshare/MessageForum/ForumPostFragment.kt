@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Profile.ProfileEditButton
 import com.example.fitshare.R
+import com.example.fitshare.Recipe.RecipeAdapter
+import com.example.fitshare.Recipe.RecipeDetailsFragment
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Case
@@ -19,6 +22,7 @@ import io.realm.Realm
 import io.realm.kotlin.where
 import io.realm.mongodb.User
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.forum_fragment.*
 
 class ForumPostFragment : Fragment() {
     private var user: io.realm.mongodb.User? = null
@@ -44,7 +48,17 @@ class ForumPostFragment : Fragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ForumPostFragment.forumRealm = realm
-                setUpRecyclerView(recyclerView, forumRealm, user, partition)
+//                setUpRecyclerView(recyclerView, forumRealm, user, partition)
+                forumAdapter = ForumPostAdapter(realm.where<ForumPost>().sort("title").findAll(), user!!, partition)
+                rvPost.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+                rvPost.adapter = forumAdapter
+                forumAdapter.setOnItemClickListener(object : ForumPostAdapter.onItemClickListener{
+                    override fun onItemClick(position: Int) {
+                        Toast.makeText(activity, "hello", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+                rvPost.setHasFixedSize(true)
             }
         })
 
