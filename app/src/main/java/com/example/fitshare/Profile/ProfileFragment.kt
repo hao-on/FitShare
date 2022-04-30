@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
     private lateinit var address : TextView
     private lateinit var bio : TextView
     private var removeNavBar = View.VISIBLE
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
