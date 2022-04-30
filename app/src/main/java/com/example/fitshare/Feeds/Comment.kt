@@ -11,6 +11,7 @@ import java.util.*
 open class Comment: RealmObject {
     @PrimaryKey @RealmField("_id") var id: ObjectId = ObjectId()
     var comment: String = ""
+    var username: String = ""
     var userID: String = ""
     var date: Date = Date()
     @LinkingObjects("comments")
@@ -19,9 +20,11 @@ open class Comment: RealmObject {
 
     constructor(
         comment: String,
+        username: String,
         userID: String = ""
     ) {
         this.comment = comment
+        this.username = username
         this.userID = userID
     }
 

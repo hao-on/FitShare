@@ -72,14 +72,12 @@ class UploadPostDialog: BottomSheetDialogFragment() {
 
         btnPost = view.findViewById(R.id.btnUploadPost)
         btnPost.setOnClickListener {
-            val post = Post(txtPostContent.text.toString(), null, null, profile!!)
-
+            val post = Post(txtPostContent.text.toString(), null, null, profile!!.id, profile!!.username)
             userRealm.executeTransactionAsync { transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.posts?.add(post)
                 transactionRealm.insertOrUpdate(userData)
             }
-
             feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
                 transactionRealm.insert(post) }
 

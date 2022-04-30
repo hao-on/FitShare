@@ -31,7 +31,7 @@ class PostAdapter(data: OrderedRealmCollection<Post>,
         val obj: Post? = getItem(position)
         holder.data = obj
         holder.postText.text = obj?.content.toString()
-        holder.username.text = obj?.profile?.username.toString()
+        holder.username.text = obj?.username.toString()
         holder.tvLike.text = obj?.likesList?.size.toString()
     }
 
@@ -44,7 +44,7 @@ class PostAdapter(data: OrderedRealmCollection<Post>,
         var tvLike: TextView = view.findViewById(R.id.tvLike)
 
         init{
-            listener.isLikeButtonSelected(btnLike, adapterPosition)
+            //listener.isLikeButtonSelected(btnLike, adapterPosition)
             btnLike.setOnClickListener{
                 listener.onLikeButtonClick(btnLike, adapterPosition)
             }
@@ -55,7 +55,7 @@ class PostAdapter(data: OrderedRealmCollection<Post>,
     }
 
     interface onClickListener{
-        fun isLikeButtonSelected(button: SmallBangView, position: Int)
+        //fun isLikeButtonSelected(button: SmallBangView, position: Int)
         fun onLikeButtonClick(button: SmallBangView, position: Int)
         fun onCommentButtonClick(button: ImageButton, position: Int)
     }

@@ -29,6 +29,7 @@ import xyz.hanks.library.bang.SmallBangView
 class FeedsFragment : Fragment() {
     private var user: io.realm.mongodb.User? = null
     private lateinit var feedsRealm: Realm
+    private lateinit var userRealm: Realm
     private lateinit var partition: String
     private lateinit var adapter: PostAdapter
     private var bottomAppBarVisibility = View.VISIBLE
@@ -54,7 +55,16 @@ class FeedsFragment : Fragment() {
         val view: View =  inflater.inflate(R.layout.fragment_feeds, container, false)
         user = fitApp.currentUser()
         partition = "Feeds"
+
         val config = SyncConfiguration.Builder(user!!, partition).build()
+
+        val user_config = SyncConfiguration.Builder(user!!, "user=${user!!.id}").build()
+
+        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                this@FeedsFragment.userRealm = realm
+            }
+        })
 
         //Profile Realm sync config
         Realm.getInstanceAsync(config, object: Realm.Callback(){
@@ -65,36 +75,37 @@ class FeedsFragment : Fragment() {
                 rvFeeds.setHasFixedSize(true)
                 adapter = PostAdapter(feedsRealm.where<Post>().sort("date").findAll(), user!!, partition)
                 adapter.setOnClickListener(object: PostAdapter.onClickListener{
-
-                    override fun isLikeButtonSelected(button: SmallBangView, position: Int) {
-                        val likeList = adapter.getItem(position)?.likesList
-                        if (likeList != null) {
-                            button.isSelected = likeList.contains(user)
-                        }
-                    }
+//                    override fun isLikeButtonSelected(button: SmallBangView, position: Int) {
+//                        val likeList = adapter.getItem(position)?.likesList
+//                        if (likeList != null) {
+//                            button.isSelected = likeList.contains(userData)
+//                        }
+//                    }
 
                     override fun onLikeButtonClick(button: SmallBangView, position: Int) {
+                        val userData = userRealm.where(User::class.java).findFirst()
                         if (button.isSelected) {
                             button.isSelected = false
-                            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
-                                val postData = transactionRealm.where(Post::class.java)
-                                    .equalTo("id", adapter.getItem(position)?.id)
-                                    .findFirst()
-                                postData?.likesList?.remove(user)
-                                transactionRealm.insertOrUpdate(postData)
-                            }
+//                            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
+//                                val postData = transactionRealm.where(Post::class.java)
+//                                    .equalTo("_id", adapter.getItem(position)?.id)
+//                                    .findFirst()
+//                                postData?.likesList?.remove(userData)
+//                                transactionRealm.insertOrUpdate(postData)
+//                                adapter.notifyDataSetChanged()
+//                            }
                         } else {
                             button.isSelected = true
-                            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
-                                val postData = transactionRealm.where(Post::class.java)
-                                    .equalTo("id", adapter.getItem(position)?.id)
-                                    .findFirst()
-                                postData?.likesList?.add(user)
-                                transactionRealm.insertOrUpdate(postData)
-                            }
+//                            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
+//                                val postData = transactionRealm.where(Post::class.java)
+//                                    .equalTo("_id", adapter.getItem(position)?.id)
+//                                    .findFirst()
+//                                postData?.likesList?.add(userData)
+//                                transactionRealm.insertOrUpdate(postData)
+//                                adapter.notifyDataSetChanged()
+//                            }
                             button.likeAnimation()
                         }
-                        adapter.notifyItemChanged(position)
                     }
 
                     override fun onCommentButtonClick(button: ImageButton, position: Int) {
@@ -119,6 +130,7 @@ class FeedsFragment : Fragment() {
         super.onStop()
         user.run {
             feedsRealm.close()
+//            userRealm.close()
         }
     }
 
