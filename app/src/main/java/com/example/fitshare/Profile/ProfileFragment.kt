@@ -46,7 +46,8 @@ class ProfileFragment : Fragment() {
     private lateinit var phone : TextView
     private lateinit var address : TextView
     private lateinit var bio : TextView
-
+    private var removeNavBar = View.VISIBLE
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +55,13 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         onClick(view)
+
+        //Return nav bar when going back to this fragment
+        if (activity is MainActivity){
+            var mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+
         user = fitApp.currentUser()
         partition = "Profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()

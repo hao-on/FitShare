@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fitshare.MainActivity
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Profile.ProfileEditButton
 import com.example.fitshare.R
@@ -35,6 +36,15 @@ class ForumPostFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var forumAdapter: ForumPostAdapter
     private lateinit var searchView: SearchView
+    private var removeNavBar = View.GONE
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        if (activity is MainActivity){
+            var mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -16,6 +16,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.fitshare.MainActivity
 import com.example.fitshare.Messaging.MessageActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
@@ -44,6 +45,15 @@ class OtherProfileFragment : Fragment(){
     private lateinit var phone : TextView
     private lateinit var address : TextView
     private lateinit var bio : TextView
+    private var removeNavBar = View.GONE
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        if (activity is MainActivity){
+            var mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -153,7 +163,6 @@ class OtherProfileFragment : Fragment(){
 
     override fun onDestroy() {
         super.onDestroy()
-        userRealm.close()
         profileRealm.close()
     }
     companion object{
