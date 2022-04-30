@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +17,9 @@ import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.forum_comment_fragment.*
 import kotlinx.android.synthetic.main.forum_fragment.*
 import kotlinx.android.synthetic.main.forum_fragment.rvPost
+import org.bson.types.ObjectId
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ForumCommentFragment : Fragment(){
     private lateinit var recyclerView: RecyclerView
@@ -62,6 +62,7 @@ class ForumCommentFragment : Fragment(){
                 var tvContent: TextView = view.findViewById(R.id.tvContent)
                 var tvCreator: TextView = view.findViewById(R.id.tvCreator)
 
+
                 tvTitle.setText(title)
                 tvContent.setText(content)
                 tvCreator.setText("By " + creator)
@@ -74,16 +75,47 @@ class ForumCommentFragment : Fragment(){
             }
         })
 
+        val user_config : SyncConfiguration =
+            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
+                .build()
+
+        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+                this@ForumCommentFragment.postRealm = realm
+            }
+        })
+
+        val message : TextView = view.findViewById(R.id.enter_message)
 
         sendButton = view.findViewById(R.id.msgBtn)
         sendButton.setOnClickListener{
+            val sdf = SimpleDateFormat("M/dd/yyyy")
+            val date = sdf.format(Date())
+            var creator = arguments?.getString("creator")
 
-            val comment = ForumComment()
+            //Create the ForumComment object
+            val comment = ForumComment(ObjectId(), message.text.toString(),
+                creator.toString(), date.toString())
+
+            postRealm.executeTransactionAsync{
+                var postID = arguments?.getString("postID")
+                val findPost = it.where(ForumPost::class.java).equalTo("_id", postID).findFirst()
+                findPost?.comments?.add(comment)
+                it.insertOrUpdate(findPost)
+            }
+
             commentRealm.executeTransactionAsync{
-
+                it.insert(comment)
             }
         }
 
         return view
+    }
+    
+    override fun onDestroy(){
+        super.onDestroy()
+        postRealm.close()
+        commentRealm.close()
     }
 }

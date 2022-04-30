@@ -71,6 +71,7 @@ class ForumPostFragment : Fragment() {
                         var commentFragment: Fragment = ForumCommentFragment()
                         val bundle = Bundle()
 
+                        bundle.putString("postID", forumAdapter.getItem(position)?.id.toString())
                         bundle.putString("title", forumAdapter.getItem(position)?.title.toString())
                         bundle.putString("content", forumAdapter.getItem(position)?.content.toString())
                         bundle.putString("creator", forumAdapter.getItem(position)?.creator.toString())
