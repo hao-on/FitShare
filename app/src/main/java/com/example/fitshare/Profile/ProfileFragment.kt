@@ -130,7 +130,8 @@ class ProfileFragment : Fragment() {
             var forumFragment : Fragment = ForumPostFragment()
             val bundle = Bundle()
             forumFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, forumFragment).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, forumFragment).addToBackStack(null).commit()
         }
 
         //Test Viewing Other Profile Activity **DELETE LATER**
@@ -139,7 +140,8 @@ class ProfileFragment : Fragment() {
             var otherProfileFragment : Fragment = OtherProfileFragment()
             val bundle = Bundle()
             otherProfileFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, otherProfileFragment).commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, otherProfileFragment).addToBackStack(null).commit()
         }
 
         return view

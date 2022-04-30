@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import io.realm.Realm
@@ -26,7 +27,17 @@ class ForumCommentFragment : Fragment(){
     private lateinit var partition: String
     private lateinit var commentAdapter: ForumCommentAdapter
     private lateinit var commentRealm: Realm
+    private lateinit var postRealm: Realm
     private lateinit var sendButton: Button
+    private var removeNavBar = View.GONE
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        if (activity is MainActivity){
+            var mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,9 +74,14 @@ class ForumCommentFragment : Fragment(){
             }
         })
 
+
         sendButton = view.findViewById(R.id.msgBtn)
         sendButton.setOnClickListener{
 
+            val comment = ForumComment()
+            commentRealm.executeTransactionAsync{
+
+            }
         }
 
         return view

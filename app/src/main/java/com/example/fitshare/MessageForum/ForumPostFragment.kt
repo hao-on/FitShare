@@ -67,7 +67,7 @@ class ForumPostFragment : Fragment() {
 
                         commentFragment.arguments = bundle
                         requireActivity().supportFragmentManager.beginTransaction().
-                        replace(R.id.frameLayout, commentFragment).commit()
+                        replace(R.id.frameLayout, commentFragment).addToBackStack(null).commit()
                     }
 
                 })

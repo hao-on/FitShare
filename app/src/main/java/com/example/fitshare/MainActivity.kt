@@ -165,4 +165,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun setBottomNavigationVisibility(visibility: Int) {
+        bottomAppBar.visibility = visibility
+        fab.visibility = visibility
+    }
 }
