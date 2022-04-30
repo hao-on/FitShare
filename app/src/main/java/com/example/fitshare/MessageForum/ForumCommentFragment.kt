@@ -100,7 +100,7 @@ class ForumCommentFragment : Fragment(){
 
             postRealm.executeTransactionAsync{
                 var postID = arguments?.getString("postID")
-                val findPost = it.where(ForumPost::class.java).equalTo("_id", postID).findFirst()
+                val findPost = it.where(ForumPost::class.java).equalTo("_id", ObjectId(postID)).findFirst()
                 findPost?.comments?.add(comment)
                 it.insertOrUpdate(findPost)
             }
@@ -112,7 +112,7 @@ class ForumCommentFragment : Fragment(){
 
         return view
     }
-    
+
     override fun onDestroy(){
         super.onDestroy()
         postRealm.close()
