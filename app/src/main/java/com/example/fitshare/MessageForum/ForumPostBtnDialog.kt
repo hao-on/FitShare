@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.fitshare.Messaging.ChatManager
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Profile.ProfileEditButton
 import com.example.fitshare.R

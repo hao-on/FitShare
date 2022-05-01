@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.fitshare.MainActivity
-import com.example.fitshare.Messaging.MessageActivity
+import com.example.fitshare.MessageForum.ForumPostFragment
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -113,8 +113,11 @@ class OtherProfileFragment : Fragment(){
 
         messageBtn = view.findViewById(R.id.btnChat)
         messageBtn.setOnClickListener{
-            val intent = Intent(requireContext(), MessageActivity::class.java);
-            startActivity(intent);
+            var forumFragment : Fragment = ForumPostFragment()
+            val bundle = Bundle()
+            forumFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, forumFragment).addToBackStack(null).commit()
         }
 //        //Button for adding/editing a profile
 //        fab = view.findViewById(R.id.btnEditProfile)

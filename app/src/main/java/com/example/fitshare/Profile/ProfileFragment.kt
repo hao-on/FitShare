@@ -14,7 +14,6 @@ import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import com.example.fitshare.MainActivity
 import com.example.fitshare.MessageForum.ForumPostFragment
-import com.example.fitshare.Messaging.MessageActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
