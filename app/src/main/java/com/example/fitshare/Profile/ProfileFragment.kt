@@ -1,6 +1,7 @@
 package com.example.fitshare.Profile
 
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -9,11 +10,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.ToggleButton
+import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.utils.widget.ImageFilterButton
+import com.example.fitshare.MapsActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,6 +31,7 @@ class ProfileFragment : Fragment() {
     private lateinit var partition: String
     private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
+    private lateinit var mapButton: ImageButton
 
 
     var def: ColorStateList? = null
@@ -108,6 +109,18 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        mapButton = view.findViewById(R.id.btnLocation)
+        mapButton.setOnClickListener{
+
+              val intent = Intent(this@ProfileFragment.context, MapsActivity::class.java);
+              startActivity(intent);
+
+
+        }
+
+
+
+
 
 //        //Button for adding/editing a profile
 //        fab = view.findViewById(R.id.btnEditProfile)
@@ -152,6 +165,17 @@ class ProfileFragment : Fragment() {
         }
         select = view.findViewById(R.id.select)
         def = item2!!.textColors
+
+
+
+//        mapButton = view.findViewById(R.id.btnLocation)
+//        mapButton.setOnClickListener{
+//
+//            val intent = Intent(this, MapsActivity::class.java);
+//            startActivity(intent);
+//
+//
+//        }
     }
 
     override fun onDestroy() {
