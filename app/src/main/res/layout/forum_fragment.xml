@@ -41,16 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentTitle" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchBar"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40sp"
-            android:background="@drawable/search_bar_background"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHeader"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPost"
@@ -59,7 +50,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchBar"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeader"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_behavior="android.support.v4.widget.NestedScrollView"/>
 

@@ -15,13 +15,11 @@ class ForumCommentAdapter (data: OrderedRealmCollection<ForumComment>,
     : RealmRecyclerViewAdapter<ForumComment,
         ForumCommentAdapter.ForumCommentViewHolder?>(data, true){
 
-    private lateinit var myListener: onItemClickListener
-
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ForumCommentViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).
         inflate(R.layout.layout_forum_comment, parent, false)
-        return ForumCommentViewHolder(itemView, myListener)
+        return ForumCommentViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ForumCommentViewHolder, position: Int) {
@@ -33,7 +31,7 @@ class ForumCommentAdapter (data: OrderedRealmCollection<ForumComment>,
 
     }
 
-    inner class ForumCommentViewHolder(view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view) {
+    inner class ForumCommentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //var title: TextView = view.findViewById(R.id.fPostTitle)
         //var content: TextView
         var message: TextView = view.findViewById(R.id.commentMessage)
@@ -41,19 +39,5 @@ class ForumCommentAdapter (data: OrderedRealmCollection<ForumComment>,
         var time: TextView = view.findViewById(R.id.dateCreated)
         var data: ForumComment? = null
 
-        init{
-            itemView.setOnClickListener {
-                listener.onItemClick(adapterPosition)
-            }
-        }
-    }
-
-
-    interface onItemClickListener{
-        fun onItemClick(position: Int)
-    }
-
-    fun setOnItemClickListener(listener: onItemClickListener){
-        myListener = listener
     }
 }

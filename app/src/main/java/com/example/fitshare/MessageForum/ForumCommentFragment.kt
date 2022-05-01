@@ -45,7 +45,7 @@ class ForumCommentFragment : Fragment(){
     ): View?{
         val view: View = inflater.inflate(R.layout.forum_comment_fragment, container, false)
         user = fitApp.currentUser()
-        partition = "Forum"
+        partition = arguments?.getString("postID").toString()
         recyclerView = view.findViewById(R.id.rvComment)
 
         val config = SyncConfiguration.Builder(user!!, partition).build()
@@ -97,13 +97,6 @@ class ForumCommentFragment : Fragment(){
             //Create the ForumComment object
             val comment = ForumComment(ObjectId(), message.text.toString(),
                 creator.toString(), date.toString())
-
-            postRealm.executeTransactionAsync{
-                var postID = arguments?.getString("postID")
-                val findPost = it.where(ForumPost::class.java).equalTo("_id", ObjectId(postID)).findFirst()
-                findPost?.comments?.add(comment)
-                it.insertOrUpdate(findPost)
-            }
 
             commentRealm.executeTransactionAsync{
                 it.insert(comment)
