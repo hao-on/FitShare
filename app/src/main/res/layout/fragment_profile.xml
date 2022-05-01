@@ -21,14 +21,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_below="@id/img_background"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-100dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
             android:src="@drawable/bob"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/white"/>
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/tvUsername"
@@ -50,8 +50,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvUsername"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/otherProfileBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="@null"
+                android:backgroundTint="@color/black"
+                android:padding="10dp"
+                android:text="Other">
+
+            </Button>
 
             <!--
             <RelativeLayout
@@ -78,21 +90,21 @@
                 android:id="@+id/btnLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_location"
-                android:backgroundTint = "@color/black"
-                android:background="@null"
                 android:layout_marginEnd="50dp"
-                android:padding="10dp"/>
+                android:background="@null"
+                android:backgroundTint="@color/black"
+                android:padding="10dp"
+                android:src="@drawable/ic_location" />
 
             <ImageButton
                 android:id="@+id/btnChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_chat"
-                android:backgroundTint = "@color/black"
-                android:background="@null"
                 android:layout_marginEnd="50dp"
-                android:padding="10dp"/>
+                android:background="@null"
+                android:backgroundTint="@color/black"
+                android:padding="10dp"
+                android:src="@drawable/ic_chat" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -110,8 +122,8 @@
 
                 <TextView
                     style="@style/modifiedLightTextView"
-                    android:text="Meet-Up"
-                    android:layout_below="@id/switchMeetUp" />
+                    android:layout_below="@id/switchMeetUp"
+                    android:text="Meet-Up" />
 
             </RelativeLayout>
 

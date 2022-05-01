@@ -1,35 +1,35 @@
 package com.example.fitshare.Profile
 
-
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.example.fitshare.MainActivity
 import com.example.fitshare.MessageForum.ForumPostFragment
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
 
-
-class ProfileFragment : Fragment() {
-
+class OtherProfileFragment : Fragment(){
     private var user: io.realm.mongodb.User? = null
     private lateinit var profileRealm: Realm
     private lateinit var userRealm: Realm
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
-    private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
     private lateinit var btnLocation: ImageButton
@@ -45,7 +45,15 @@ class ProfileFragment : Fragment() {
     private lateinit var phone : TextView
     private lateinit var address : TextView
     private lateinit var bio : TextView
-    private var removeNavBar = View.VISIBLE
+    private var removeNavBar = View.GONE
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        if (activity is MainActivity){
+            var mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,12 +63,8 @@ class ProfileFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
         onClick(view)
 
-        //Return nav bar when going back to this fragment
-        if (activity is MainActivity){
-            var mainActivity = activity as MainActivity
-            mainActivity.setBottomNavigationVisibility(removeNavBar)
-        }
 
+        //***SET USER EQUAL TO PASSED USER***
         user = fitApp.currentUser()
         partition = "Profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()
@@ -68,20 +72,16 @@ class ProfileFragment : Fragment() {
         //Profile Realm sync config
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
-                this@ProfileFragment.profileRealm = realm
-
-                //Find the profile of a user
+                this@OtherProfileFragment.profileRealm = realm
                 val oldProf = profileRealm.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
 
-                //Set the status of the meet-up and location buttons
+                btnLocation.isVisible = false
+                meetUp.isClickable = false
+
                 if(oldProf?.meetUp == true){
                     meetUp.isChecked = true
-                    btnLocation.isClickable = true
-                }else{
-                    meetUp.isChecked = false
-                    btnLocation.isClickable = false
-                }
+                }else{meetUp.isChecked = false}
 
                 username = view.findViewById(R.id.tvUsername)
                 fullName = view.findViewById(R.id.txtFullName)
@@ -98,39 +98,18 @@ class ProfileFragment : Fragment() {
                 }else{
                     username.setText(oldProf?.username.toString())
                     fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
-                    phone.setText(oldProf?.phoneNumber.toString())
-                    address.setText(oldProf?.address.toString() + ", " + oldProf?.city.toString()
-                            +", "+ oldProf?.state.toString() +", " + oldProf?.zipcode.toString())
+                    phone.setText("(***)***-" + oldProf?.phoneNumber?.get(6)?.toString() + oldProf?.phoneNumber?.get(7)?.toString() +
+                            oldProf?.phoneNumber?.get(8)?.toString() + oldProf?.phoneNumber?.get(9)?.toString())
+                    address.setText(oldProf?.city.toString() +", "+ oldProf?.state.toString() )
                     bio.setText(oldProf?.bio.toString())
                 }
             }
         })
 
-        //Add google map functionality here
         btnLocation = view.findViewById(R.id.btnLocation)
-        btnLocation.setOnClickListener{
-            Log.i("loc", "ping location")
-        }
 
-        //Meet-up status functionality
+        //Meet-up status init
         meetUp = view.findViewById(R.id.switchMeetUp)
-        meetUp.setOnClickListener{
-
-            //Check box functionality
-            profileRealm.executeTransactionAsync{
-                val oldProf = it.where(Profile::class.java).
-                equalTo("userid", user?.id.toString()).findFirst()
-                if(meetUp.isChecked()){
-                        oldProf?.meetUp = true
-                    btnLocation.isClickable = true
-                }
-                else if(!meetUp.isChecked()){
-                        oldProf?.meetUp = false
-                    btnLocation.isClickable = false
-                    }
-                Log.i("profile", oldProf?.meetUp.toString())
-            }
-        }
 
         messageBtn = view.findViewById(R.id.btnChat)
         messageBtn.setOnClickListener{
@@ -140,16 +119,18 @@ class ProfileFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, forumFragment).addToBackStack(null).commit()
         }
+//        //Button for adding/editing a profile
+//        fab = view.findViewById(R.id.btnEditProfile)
+//        fab.setOnClickListener{
+//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
+//            editProfileButton.show(parentFragmentManager, null)
+//        }
 
-        //Test Viewing Other Profile Activity **DELETE LATER**
-        otherProfileButton = view.findViewById(R.id.otherProfileBtn)
-        otherProfileButton.setOnClickListener{
-            var otherProfileFragment : Fragment = OtherProfileFragment()
-            val bundle = Bundle()
-            otherProfileFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, otherProfileFragment).addToBackStack(null).commit()
-        }
+//        //Test Viewing Other Profile Activity **DELETE LATER**
+//        otherProfileButton = view.findViewById(R.id.other_profile_button)
+//        otherProfileButton.setOnClickListener{
+//            //openFragment(OtherProfileFragment)
+//        }
 
         return view
     }
@@ -185,7 +166,11 @@ class ProfileFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        userRealm.close()
         profileRealm.close()
+    }
+    companion object{
+        fun newInstance(): OtherProfileFragment{
+            return OtherProfileFragment()
+        }
     }
 }
