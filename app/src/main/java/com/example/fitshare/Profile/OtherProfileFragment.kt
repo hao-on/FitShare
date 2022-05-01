@@ -23,6 +23,7 @@ import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
+import org.bson.types.ObjectId
 
 class OtherProfileFragment : Fragment(){
     private var user: io.realm.mongodb.User? = null
@@ -33,12 +34,7 @@ class OtherProfileFragment : Fragment(){
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
     private lateinit var btnLocation: ImageButton
-
-    var def: ColorStateList? = null
-    var item1: TextView? = null
-    var item2: TextView? = null
-    var item3: TextView? = null
-    var select: TextView? = null
+    private lateinit var profileDetails : TextView
 
     private lateinit var fullName : TextView
     private lateinit var username : TextView
@@ -61,7 +57,7 @@ class OtherProfileFragment : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
-        onClick(view)
+        var profileID = arguments?.getString("profileID")
 
 
         //***SET USER EQUAL TO PASSED USER***
@@ -73,8 +69,11 @@ class OtherProfileFragment : Fragment(){
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm) {
                 this@OtherProfileFragment.profileRealm = realm
+//                val oldProf = profileRealm.where(Profile::class.java).
+//                equalTo("userid", user?.id.toString()).findFirst()
                 val oldProf = profileRealm.where(Profile::class.java).
-                equalTo("userid", user?.id.toString()).findFirst()
+                equalTo("_id", ObjectId(profileID)).findFirst()
+                Log.i("Profile", oldProf?.username.toString())
 
                 btnLocation.isVisible = false
                 meetUp.isClickable = false
@@ -117,7 +116,9 @@ class OtherProfileFragment : Fragment(){
             val bundle = Bundle()
             forumFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, forumFragment).addToBackStack(null).commit()
+                .replace(R.id.frameLayout, forumFragment, "forum")
+                .addToBackStack("forum")
+                .commit()
         }
 //        //Button for adding/editing a profile
 //        fab = view.findViewById(R.id.btnEditProfile)
@@ -132,36 +133,20 @@ class OtherProfileFragment : Fragment(){
 //            //openFragment(OtherProfileFragment)
 //        }
 
+        //Profile Details Fragment
+        profileDetails = view.findViewById(R.id.linkProfileDetails)
+        profileDetails.setOnClickListener {
+            var profileDetailsFragment: Fragment = ProfileDetailsFragment()
+//            val bundle = Bundle()
+//            bundle.putString("postID", adapter.getItem(position)?.id.toString())
+//            commentFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, profileDetailsFragment, "profileDetails")
+                .addToBackStack("profileDetails")
+                .commit()
+        }
+
         return view
-    }
-
-
-    private fun onClick(view: View) {
-        item1 = view.findViewById(R.id.item1)
-        item2 = view.findViewById(R.id.item2)
-        item3 = view.findViewById(R.id.item3)
-        item1!!.setOnClickListener{
-            select!!.animate().x(0f).duration = 100
-            item1?.setTextColor(Color.WHITE)
-            item2!!.setTextColor(def)
-            item3!!.setTextColor(def)
-        }
-        item2!!.setOnClickListener{
-            item1!!.setTextColor(def)
-            item2?.setTextColor(Color.WHITE)
-            item3!!.setTextColor(def)
-            val size = item2!!.width
-            select!!.animate().x(size.toFloat()).duration = 100
-        }
-        item3!!.setOnClickListener {
-            item1!!.setTextColor(def)
-            item3?.setTextColor(Color.WHITE)
-            item2!!.setTextColor(def)
-            val size = item2!!.width * 2
-            select!!.animate().x(size.toFloat()).duration = 100
-        }
-        select = view.findViewById(R.id.select)
-        def = item2!!.textColors
     }
 
     override fun onDestroy() {

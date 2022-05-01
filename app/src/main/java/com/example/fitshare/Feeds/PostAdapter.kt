@@ -51,6 +51,9 @@ class PostAdapter(data: OrderedRealmCollection<Post>,
             btnComment.setOnClickListener{
                 listener.onCommentButtonClick(btnComment, adapterPosition)
             }
+            username.setOnClickListener {
+                listener.onUsernameTextViewClick(username, adapterPosition)
+            }
         }
     }
 
@@ -58,6 +61,7 @@ class PostAdapter(data: OrderedRealmCollection<Post>,
         //fun isLikeButtonSelected(button: SmallBangView, position: Int)
         fun onLikeButtonClick(button: SmallBangView, position: Int)
         fun onCommentButtonClick(button: ImageButton, position: Int)
+        fun onUsernameTextViewClick(textview: TextView, position: Int)
     }
 
     fun setOnClickListener(listener: onClickListener){

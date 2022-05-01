@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.MainActivity
+import com.example.fitshare.Profile.OtherProfileFragment
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.R
 import com.example.fitshare.Recipe.Recipe
@@ -37,7 +39,6 @@ class FeedsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -116,6 +117,17 @@ class FeedsFragment : Fragment() {
                         requireActivity().supportFragmentManager.beginTransaction()
                             .replace(R.id.frameLayout, commentFragment, "Comment")
                             .addToBackStack("Comment")
+                            .commit()
+                    }
+
+                    override fun onUsernameTextViewClick(textview: TextView, position: Int) {
+                        var otherProfileFragment: Fragment = OtherProfileFragment()
+                        val bundle = Bundle()
+                        bundle.putString("profileID", adapter.getItem(position)?.profileID.toString())
+                        otherProfileFragment.arguments = bundle
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, otherProfileFragment, "otherProfile")
+                            .addToBackStack("otherProfile")
                             .commit()
                     }
                 })

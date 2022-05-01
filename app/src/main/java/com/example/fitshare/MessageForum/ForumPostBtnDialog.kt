@@ -37,8 +37,8 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
     ): View?{
         val view: View = inflater.inflate(R.layout.forum_post_dialog, container, false)
         user = fitApp.currentUser()
-
         partition = "Forum"
+
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
         Realm.getInstanceAsync(config, object: Realm.Callback(){

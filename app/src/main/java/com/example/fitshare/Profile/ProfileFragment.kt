@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import com.example.fitshare.Feeds.CommentFragment
 import com.example.fitshare.MainActivity
 import com.example.fitshare.MessageForum.ForumPostFragment
 import com.example.fitshare.R
@@ -33,12 +34,7 @@ class ProfileFragment : Fragment() {
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
     private lateinit var btnLocation: ImageButton
-
-    var def: ColorStateList? = null
-    var item1: TextView? = null
-    var item2: TextView? = null
-    var item3: TextView? = null
-    var select: TextView? = null
+    private lateinit var profileDetails : TextView
 
     private lateinit var fullName : TextView
     private lateinit var username : TextView
@@ -47,19 +43,21 @@ class ProfileFragment : Fragment() {
     private lateinit var bio : TextView
     private var removeNavBar = View.VISIBLE
 
+
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            var  mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
-        onClick(view)
-
-        //Return nav bar when going back to this fragment
-        if (activity is MainActivity){
-            var mainActivity = activity as MainActivity
-            mainActivity.setBottomNavigationVisibility(removeNavBar)
-        }
 
         user = fitApp.currentUser()
         partition = "Profile"
@@ -151,36 +149,19 @@ class ProfileFragment : Fragment() {
                 .replace(R.id.frameLayout, otherProfileFragment).addToBackStack(null).commit()
         }
 
+        //Profile Details Fragment
+        profileDetails = view.findViewById(R.id.linkProfileDetails)
+        profileDetails.setOnClickListener {
+            var profileDetailsFragment: Fragment = ProfileDetailsFragment()
+//            val bundle = Bundle()
+//            bundle.putString("postID", adapter.getItem(position)?.id.toString())
+//            commentFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, profileDetailsFragment, "profileDetails")
+                .addToBackStack("profileDetails")
+                .commit()
+        }
         return view
-    }
-
-
-    private fun onClick(view: View) {
-        item1 = view.findViewById(R.id.item1)
-        item2 = view.findViewById(R.id.item2)
-        item3 = view.findViewById(R.id.item3)
-        item1!!.setOnClickListener{
-            select!!.animate().x(0f).duration = 100
-            item1?.setTextColor(Color.WHITE)
-            item2!!.setTextColor(def)
-            item3!!.setTextColor(def)
-        }
-        item2!!.setOnClickListener{
-            item1!!.setTextColor(def)
-            item2?.setTextColor(Color.WHITE)
-            item3!!.setTextColor(def)
-            val size = item2!!.width
-            select!!.animate().x(size.toFloat()).duration = 100
-        }
-        item3!!.setOnClickListener {
-            item1!!.setTextColor(def)
-            item3?.setTextColor(Color.WHITE)
-            item2!!.setTextColor(def)
-            val size = item2!!.width * 2
-            select!!.animate().x(size.toFloat()).duration = 100
-        }
-        select = view.findViewById(R.id.select)
-        def = item2!!.textColors
     }
 
     override fun onDestroy() {
