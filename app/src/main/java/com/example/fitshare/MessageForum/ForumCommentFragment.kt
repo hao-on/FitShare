@@ -119,6 +119,7 @@ class ForumCommentFragment : Fragment(){
             commentRealm.executeTransactionAsync{
                 it.insert(comment)
             }
+            txtMsg.text?.clear()
             commentAdapter.notifyDataSetChanged()
         }
 

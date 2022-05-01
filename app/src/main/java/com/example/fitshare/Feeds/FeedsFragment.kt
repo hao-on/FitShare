@@ -1,6 +1,7 @@
 package com.example.fitshare.Feeds
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,7 @@ class FeedsFragment : Fragment() {
     private lateinit var partition: String
     private lateinit var adapter: PostAdapter
     private var bottomAppBarVisibility = View.VISIBLE
+    private lateinit var userData: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,13 +61,15 @@ class FeedsFragment : Fragment() {
 
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
-//        val user_config = SyncConfiguration.Builder(user!!, "user=${user!!.id}").build()
-//
-//        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
-//            override fun onSuccess(realm: Realm) {
-//                this@FeedsFragment.userRealm = realm
-//            }
-//        })
+        val user_config = SyncConfiguration.Builder(user!!, "user=${user!!.id}").build()
+
+        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                this@FeedsFragment.userRealm = realm
+                val userDat = userRealm.where(User::class.java).findFirst()
+                userData = userDat?.id.toString()
+            }
+        })
 
         //Profile Realm sync config
         Realm.getInstanceAsync(config, object: Realm.Callback(){
@@ -87,24 +91,31 @@ class FeedsFragment : Fragment() {
                         val userData = userRealm.where(User::class.java).findFirst()
                         if (button.isSelected) {
                             button.isSelected = false
-//                            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
-//                                val postData = transactionRealm.where(Post::class.java)
-//                                    .equalTo("_id", adapter.getItem(position)?.id)
-//                                    .findFirst()
+
+                            val postData = feedsRealm.where(Post::class.java)
+                                .equalTo("_id", adapter.getItem(position)?.id)
+                                .findFirst()
 //                                postData?.likesList?.remove(userData)
-//                                transactionRealm.insertOrUpdate(postData)
-//                                adapter.notifyDataSetChanged()
-//                            }
+                            //feedsRealm.insertOrUpdate(postData)
+                            adapter.notifyDataSetChanged()
+
                         } else {
+                            Log.i("test", userData.toString())
+                            Log.i("test", adapter.getItem(position)?.id.toString())
                             button.isSelected = true
-//                            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
-//                                val postData = transactionRealm.where(Post::class.java)
-//                                    .equalTo("_id", adapter.getItem(position)?.id)
-//                                    .findFirst()
-//                                postData?.likesList?.add(userData)
-//                                transactionRealm.insertOrUpdate(postData)
-//                                adapter.notifyDataSetChanged()
-//                            }
+
+
+                            val postData = feedsRealm.where(Post::class.java)
+                                .equalTo("_id", adapter.getItem(position)?.id)
+                                .findFirst()
+                            Log.i("test", postData?.likesList?.size.toString())
+
+                            executeTrans(userData, position)
+
+                            //feedsRealm.insertOrUpdate(postData)
+                            Log.i("test", postData?.likesList?.size.toString())
+                            adapter.notifyDataSetChanged()
+
                             button.likeAnimation()
                         }
                     }
@@ -136,6 +147,15 @@ class FeedsFragment : Fragment() {
         })
 
         return view
+    }
+
+    fun executeTrans(userData: User?, position: Int){
+        val postData = feedsRealm.where(Post::class.java)
+            .equalTo("_id", adapter.getItem(position)?.id)
+            .findFirst()
+        feedsRealm.executeTransactionAsync{
+            postData?.likesList?.add(userData)
+        }
     }
 
     override fun onStop() {
