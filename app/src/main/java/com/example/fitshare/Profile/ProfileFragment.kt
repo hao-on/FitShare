@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.ToggleButton
+import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import com.example.fitshare.Feeds.CommentFragment
+import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,18 +31,21 @@ class ProfileFragment : Fragment() {
     private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
 
-
-    var def: ColorStateList? = null
-    var item1: TextView? = null
-    var item2: TextView? = null
-    var item3: TextView? = null
-    var select: TextView? = null
-
     private lateinit var fullName : TextView
     private lateinit var username : TextView
     private lateinit var phone : TextView
     private lateinit var address : TextView
     private lateinit var bio : TextView
+    private lateinit var profileDetails : TextView
+    private var bottomAppBarVisibility = View.VISIBLE
+
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            var  mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(bottomAppBarVisibility)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -121,12 +123,22 @@ class ProfileFragment : Fragment() {
 //        otherProfileButton.setOnClickListener{
 //            //openFragment(OtherProfileFragment)
 //        }
-
+        profileDetails = view.findViewById(R.id.linkProfileDetails)
+        profileDetails.setOnClickListener {
+            Toast.makeText(activity, "Hello", Toast.LENGTH_SHORT).show()
+            var profileDetailsFragment: Fragment = ProfileDetailsFragment()
+//            val bundle = Bundle()
+//            bundle.putString("postID", adapter.getItem(position)?.id.toString())
+//            profileDetailsFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, profileDetailsFragment, "profileDetails")
+                .addToBackStack("profileDetails")
+                .commit()
+        }
         return view
     }
 
-
-
+    
     override fun onDestroy() {
         super.onDestroy()
         userRealm.close()

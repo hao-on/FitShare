@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 
 class ProfileDetailsFragment : Fragment() {
@@ -16,9 +17,14 @@ class ProfileDetailsFragment : Fragment() {
     var item2: TextView? = null
     var item3: TextView? = null
     var select: TextView? = null
+    private var bottomAppBarVisibility = View.GONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (activity is MainActivity) {
+            var  mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(bottomAppBarVisibility)
+        }
     }
 
     override fun onCreateView(

@@ -145,7 +145,6 @@ class CommentFragment : Fragment() {
             Toast.makeText(activity, "Comment Posted", Toast.LENGTH_SHORT).show()
             txtComment.text?.clear()
         }
-
         return view
     }
 
