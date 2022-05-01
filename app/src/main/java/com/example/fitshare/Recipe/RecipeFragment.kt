@@ -166,12 +166,11 @@ class RecipeFragment : Fragment(){
         })
     }
 
-    override fun onStop() {
-        super.onStop()
-        user.run {
-            recipeRealm.close()
-            userRealm.close()
-        }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        userRealm.close()
+        recipeRealm.close()
     }
 
 }
