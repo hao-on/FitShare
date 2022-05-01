@@ -134,6 +134,7 @@ class ProfileFragment : Fragment() {
         messageBtn.setOnClickListener{
             var forumFragment : Fragment = ForumPostFragment()
             val bundle = Bundle()
+            bundle.putString("userID", user?.id.toString())
             forumFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, forumFragment).addToBackStack(null).commit()

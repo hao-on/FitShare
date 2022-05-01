@@ -8,15 +8,19 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fitshare.Feeds.Comment
 import com.example.fitshare.MainActivity
+import com.example.fitshare.Profile.Profile
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
+import com.google.android.material.textfield.TextInputLayout
 import io.realm.Realm
 import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.forum_comment_fragment.*
 import kotlinx.android.synthetic.main.forum_fragment.*
 import kotlinx.android.synthetic.main.forum_fragment.rvPost
+import kotlinx.android.synthetic.main.fragment_comment.*
 import org.bson.types.ObjectId
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,10 +29,13 @@ class ForumCommentFragment : Fragment(){
     private lateinit var recyclerView: RecyclerView
     private var user: io.realm.mongodb.User ?= null
     private lateinit var partition: String
+    private lateinit var username: String
     private lateinit var commentAdapter: ForumCommentAdapter
     private lateinit var commentRealm: Realm
     private lateinit var postRealm: Realm
+    private lateinit var profileRealm: Realm
     private lateinit var sendButton: Button
+    private lateinit var commentLayout: TextInputLayout
     private var removeNavBar = View.GONE
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -75,32 +82,44 @@ class ForumCommentFragment : Fragment(){
             }
         })
 
-        val user_config : SyncConfiguration =
-            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
-                .build()
+//        val user_config : SyncConfiguration =
+//            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
+//                .build()
+//
+//        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+//            override fun onSuccess(realm: Realm) {
+//                // since this realm should live exactly as long as this activity, assign the realm to a member variable
+//                this@ForumCommentFragment.postRealm = realm
+//            }
+//        })
 
-        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+        val profile_config = SyncConfiguration.Builder(user!!, "Profile").build()
+
+        //Profile Realm sync config
+        Realm.getInstanceAsync(profile_config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
-                // since this realm should live exactly as long as this activity, assign the realm to a member variable
-                this@ForumCommentFragment.postRealm = realm
+                this@ForumCommentFragment.profileRealm = realm
+                //Find the profile of a user
+                val oldProf =
+                    profileRealm.where(Profile::class.java).equalTo("userid", user?.id.toString())
+                        .findFirst()
+                username = oldProf?.username.toString()
             }
         })
 
-        val message : TextView = view.findViewById(R.id.enter_message)
-
-        sendButton = view.findViewById(R.id.msgBtn)
-        sendButton.setOnClickListener{
+        commentLayout = view.findViewById(R.id.enter_message)
+        commentLayout.setEndIconOnClickListener{
             val sdf = SimpleDateFormat("M/dd/yyyy")
             val date = sdf.format(Date())
-            var creator = arguments?.getString("creator")
+            var creator = username
 
             //Create the ForumComment object
-            val comment = ForumComment(ObjectId(), message.text.toString(),
-                creator.toString(), date.toString())
+            val comment = ForumComment(ObjectId(), txtMsg.text.toString(), creator, date.toString())
 
             commentRealm.executeTransactionAsync{
                 it.insert(comment)
             }
+            commentAdapter.notifyDataSetChanged()
         }
 
         return view
@@ -108,7 +127,8 @@ class ForumCommentFragment : Fragment(){
 
     override fun onDestroy(){
         super.onDestroy()
-        postRealm.close()
+//        postRealm.close()
         commentRealm.close()
+        profileRealm.close()
     }
 }

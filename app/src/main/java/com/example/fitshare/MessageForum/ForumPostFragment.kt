@@ -52,7 +52,7 @@ class ForumPostFragment : Fragment() {
     ): View?{
         val view: View = inflater.inflate(R.layout.forum_fragment, container, false)
         user = fitApp.currentUser()
-        partition = "Forum"
+        partition = arguments?.getString("userID").toString()
         recyclerView = view.findViewById(R.id.rvPost)
 
         val config = SyncConfiguration.Builder(user!!, partition).build()

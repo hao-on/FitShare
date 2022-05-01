@@ -43,6 +43,8 @@ class OtherProfileFragment : Fragment(){
     private lateinit var bio : TextView
     private var removeNavBar = View.GONE
 
+    private lateinit var userID: String
+
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         if (activity is MainActivity){
@@ -73,6 +75,8 @@ class OtherProfileFragment : Fragment(){
 //                equalTo("userid", user?.id.toString()).findFirst()
                 val oldProf = profileRealm.where(Profile::class.java).
                 equalTo("_id", ObjectId(profileID)).findFirst()
+
+                userID = oldProf?.userid.toString()
                 Log.i("Profile", oldProf?.username.toString())
 
                 btnLocation.isVisible = false
@@ -114,6 +118,7 @@ class OtherProfileFragment : Fragment(){
         messageBtn.setOnClickListener{
             var forumFragment : Fragment = ForumPostFragment()
             val bundle = Bundle()
+            bundle.putString("userID", userID)
             forumFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, forumFragment, "forum")

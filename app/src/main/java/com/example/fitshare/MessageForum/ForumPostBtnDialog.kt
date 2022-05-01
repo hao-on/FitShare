@@ -37,7 +37,7 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
     ): View?{
         val view: View = inflater.inflate(R.layout.forum_post_dialog, container, false)
         user = fitApp.currentUser()
-        partition = "Forum"
+        partition = user?.id.toString()
 
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
