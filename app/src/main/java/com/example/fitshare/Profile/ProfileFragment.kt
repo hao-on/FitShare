@@ -51,7 +51,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
-        onClick(view)
+//        onClick(view)
         user = fitApp.currentUser()
         partition = "Profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()
@@ -126,33 +126,6 @@ class ProfileFragment : Fragment() {
     }
 
 
-    private fun onClick(view: View) {
-        item1 = view.findViewById(R.id.item1)
-        item2 = view.findViewById(R.id.item2)
-        item3 = view.findViewById(R.id.item3)
-        item1!!.setOnClickListener{
-            select!!.animate().x(0f).duration = 100
-            item1?.setTextColor(Color.WHITE)
-            item2!!.setTextColor(def)
-            item3!!.setTextColor(def)
-        }
-        item2!!.setOnClickListener{
-            item1!!.setTextColor(def)
-            item2?.setTextColor(Color.WHITE)
-            item3!!.setTextColor(def)
-            val size = item2!!.width
-            select!!.animate().x(size.toFloat()).duration = 100
-        }
-        item3!!.setOnClickListener {
-            item1!!.setTextColor(def)
-            item3?.setTextColor(Color.WHITE)
-            item2!!.setTextColor(def)
-            val size = item2!!.width * 2
-            select!!.animate().x(size.toFloat()).duration = 100
-        }
-        select = view.findViewById(R.id.select)
-        def = item2!!.textColors
-    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -40,7 +40,6 @@ class UploadPostDialog: BottomSheetDialogFragment() {
 
         Realm.getInstanceAsync(config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
-                // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@UploadPostDialog.feedsRealm = realm
             }
         })
@@ -51,7 +50,6 @@ class UploadPostDialog: BottomSheetDialogFragment() {
 
         Realm.getInstanceAsync(user_config, object: Realm.Callback() {
             override fun onSuccess(realm: Realm) {
-                // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@UploadPostDialog.userRealm = realm
             }
         })
@@ -72,14 +70,16 @@ class UploadPostDialog: BottomSheetDialogFragment() {
 
         btnPost = view.findViewById(R.id.btnUploadPost)
         btnPost.setOnClickListener {
-            val post = Post(txtPostContent.text.toString(), null, null, profile!!.id, profile!!.username)
+            val post = Post(txtPostContent.text.toString(), profile!!.id, profile!!.username)
+
+            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
+                transactionRealm.insert(post) }
+
             userRealm.executeTransactionAsync { transactionRealm: Realm ->
                 val userData = transactionRealm.where(User::class.java).findFirst()
                 userData?.posts?.add(post)
                 transactionRealm.insertOrUpdate(userData)
             }
-            feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
-                transactionRealm.insert(post) }
 
             dialog?.dismiss()
         }

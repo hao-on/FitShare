@@ -135,11 +135,12 @@ class CommentFragment : Fragment() {
             commentRealm.executeTransactionAsync { transactionRealm: Realm ->
                 transactionRealm.insert(comment) }
 
-            postRealm.executeTransactionAsync { transactionRealm: Realm ->
-                val postData = transactionRealm.where(Post::class.java).findFirst()
-                postData?.comments?.add(comment)
-                transactionRealm.insertOrUpdate(postData)
-            }
+//            postRealm.executeTransactionAsync { transactionRealm: Realm ->
+//                val postData = transactionRealm.where(Post::class.java).findFirst()
+//                postData?.comments?.add(comment)
+//                transactionRealm.insertOrUpdate(postData)
+//            }
+
             adapter.notifyDataSetChanged()
             Toast.makeText(activity, "Comment Posted", Toast.LENGTH_SHORT).show()
             txtComment.text?.clear()

@@ -14,8 +14,6 @@ open class Comment: RealmObject {
     var username: String = ""
     var userID: String = ""
     var date: Date = Date()
-    @LinkingObjects("comments")
-    val post: RealmResults<Post>? = null
 
 
     constructor(

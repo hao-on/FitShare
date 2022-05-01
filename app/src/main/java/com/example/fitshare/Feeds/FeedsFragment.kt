@@ -34,7 +34,6 @@ class FeedsFragment : Fragment() {
     private lateinit var adapter: PostAdapter
     private var bottomAppBarVisibility = View.VISIBLE
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,6 +46,7 @@ class FeedsFragment : Fragment() {
             mainActivity.setBottomNavigationVisibility(bottomAppBarVisibility)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,13 +58,13 @@ class FeedsFragment : Fragment() {
 
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
-        val user_config = SyncConfiguration.Builder(user!!, "user=${user!!.id}").build()
-
-        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
-            override fun onSuccess(realm: Realm) {
-                this@FeedsFragment.userRealm = realm
-            }
-        })
+//        val user_config = SyncConfiguration.Builder(user!!, "user=${user!!.id}").build()
+//
+//        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
+//            override fun onSuccess(realm: Realm) {
+//                this@FeedsFragment.userRealm = realm
+//            }
+//        })
 
         //Profile Realm sync config
         Realm.getInstanceAsync(config, object: Realm.Callback(){

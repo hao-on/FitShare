@@ -37,8 +37,8 @@ open class User : RealmObject {
         recipes: RealmList<Recipe>?,
         name: String,
         profile: Profile?,
-        exercises: RealmList<Exercise> ?= null,
-        posts: RealmList<Post> ?= null
+        exercises: RealmList<Exercise> ?,
+        posts: RealmList<Post> ?
 
     ) {
         this.id = id
