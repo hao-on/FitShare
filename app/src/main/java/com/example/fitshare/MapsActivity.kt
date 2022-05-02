@@ -1,6 +1,7 @@
 package com.example.fitshare
 
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,7 +14,9 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fitshare.Profile.OtherProfileFragment
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Recipe.RecipeDetailsFragment
 import com.example.fitshare.User.User
@@ -252,19 +255,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 .setPositiveButton("Proceed", DialogInterface.OnClickListener {
                         dialog, id ->
 
-
-
                     var otherProfileFragment: Fragment = OtherProfileFragment()
+                    val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                     val bundle = Bundle()
-                    if (otherUser != null) {
-                        bundle.putString("profileID", otherUser.id.toString())
-                    }
-
+                    bundle.putString("profileID", otherUser?.id.toString())
                     otherProfileFragment.arguments = bundle
-                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
-                        otherProfileFragment,"otherProfile")
-                        .addToBackStack("otherProfile")
-                        .commit()
+                    transaction.replace(R.id.map, otherProfileFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+
+//                    var otherProfileFragment: Fragment = OtherProfileFragment()
+//                    val bundle = Bundle()
+//                    if (otherUser != null) {
+//                        bundle.putString("profileID", otherUser.id.toString())
+//                    }
+//
+//                    otherProfileFragment.arguments = bundle
+//                    supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+//                        otherProfileFragment,"otherProfile")
+//                        .addToBackStack("otherProfile")
+//                        .commit()
                 })
                 // negative button text and action
                 .setNegativeButton("Cancel", DialogInterface.OnClickListener {
@@ -281,6 +291,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         return false
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -101,8 +101,9 @@ class OtherProfileFragment : Fragment(){
                 }else{
                     username.setText(oldProf?.username.toString())
                     fullName.setText(oldProf?.firstName.toString() + ", " + oldProf?.lastName.toString())
-                    phone.setText("(***)***-" + oldProf?.phoneNumber?.get(6)?.toString() + oldProf?.phoneNumber?.get(7)?.toString() +
-                            oldProf?.phoneNumber?.get(8)?.toString() + oldProf?.phoneNumber?.get(9)?.toString())
+//                    phone.setText("(***)***-" + oldProf?.phoneNumber?.get(6)?.toString() + oldProf?.phoneNumber?.get(7)?.toString() +
+//                            oldProf?.phoneNumber?.get(8)?.toString() + oldProf?.phoneNumber?.get(9)?.toString())
+                    phone.setText(oldProf?.phoneNumber)
                     address.setText(oldProf?.city.toString() +", "+ oldProf?.state.toString() )
                     bio.setText(oldProf?.bio.toString())
                 }

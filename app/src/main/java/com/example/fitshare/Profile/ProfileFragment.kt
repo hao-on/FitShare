@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import com.example.fitshare.Feeds.CommentFragment
 import com.example.fitshare.MainActivity
+import com.example.fitshare.MapsActivity
 import com.example.fitshare.MessageForum.ForumPostFragment
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
@@ -110,7 +111,8 @@ class ProfileFragment : Fragment() {
         //Add google map functionality here
         btnLocation = view.findViewById(R.id.btnLocation)
         btnLocation.setOnClickListener{
-            Log.i("loc", "ping location")
+            val intent = Intent(this@ProfileFragment.context, MapsActivity::class.java);
+            startActivity(intent)
         }
 
         //Meet-up status functionality
