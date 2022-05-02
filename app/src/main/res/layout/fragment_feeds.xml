@@ -9,11 +9,23 @@
     android:id="@+id/fragment_feeds">
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        style="@style/postTextView"
-        app:title="FitShare"
-        app:titleTextColor="@color/white" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/postTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="FitShare"
+            android:textSize="25sp"
+            android:textColor="@color/white" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFeeds"

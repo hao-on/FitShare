@@ -6,25 +6,23 @@ import io.realm.annotations.LinkingObjects
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmField
 import org.bson.types.ObjectId
+import java.util.*
 
-open class PostRating: RealmObject {
+open class Comment: RealmObject {
     @PrimaryKey @RealmField("_id") var id: ObjectId = ObjectId()
-    var like: Boolean = false
     var comment: String = ""
+    var username: String = ""
     var userID: String = ""
-    @LinkingObjects("ratings")
-    val post: RealmResults<Post>? = null
+    var date: Date = Date()
 
 
     constructor(
-        id: ObjectId,
-        like: Boolean,
         comment: String,
+        username: String,
         userID: String = ""
     ) {
-        this.id = id
-        this.like= like
         this.comment = comment
+        this.username = username
         this.userID = userID
     }
 

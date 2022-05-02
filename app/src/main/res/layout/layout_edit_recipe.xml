@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:textAlignment="center"
-        android:text="Add Recipe"
+        android:text="Editing Recipe..."
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
         android:textSize="25sp" />

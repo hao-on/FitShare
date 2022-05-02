@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_login.*
 import com.google.android.material.navigation.NavigationBarView
 import android.content.ContentValues.TAG
+import android.content.Loader
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -16,6 +17,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
+import com.example.fitshare.Feeds.CommentFragment
 import com.example.fitshare.Feeds.FeedsFragment
 import com.example.fitshare.Feeds.UploadPostDialog
 import com.example.fitshare.Profile.ProfileFragment
@@ -23,6 +25,7 @@ import com.example.fitshare.Profile.ProfileMenu
 import com.example.fitshare.Recipe.BottomDialog
 import com.example.fitshare.Recipe.RecipeFragment
 import com.example.fitshare.WorkOutPlan.WorkOutPlanActivity
+import com.google.android.material.bottomappbar.BottomAppBar
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
     private lateinit var workoutFab: FloatingActionButton
     private lateinit var nutritionFab: FloatingActionButton
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var bottomAppbar: BottomAppBar
     private val rotateOpenAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation)}
     private val rotateCloseAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_animation)}
     private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation)}
@@ -49,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         openFragment(FeedsFragment())
-
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomAppbar = findViewById(R.id.bottomAppBar)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.newsFeed-> {
@@ -165,4 +170,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun setBottomNavigationVisibility(visibility: Int) {
+        bottomAppBar.visibility = visibility
+        fab.visibility = visibility
+    }
 }

@@ -28,7 +28,8 @@
             android:id="@+id/editProfile_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"/>
+            android:hint="Username"
+            android:maxLength="25"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +85,8 @@
             android:id="@+id/editProfile_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"/>
+            android:hint="Phone Number"
+            android:maxLength="10"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +115,8 @@
             android:id="@+id/editProfile_zip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Zipcode" />
+            android:hint="Zipcode"
+            android:maxLength="5"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

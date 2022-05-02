@@ -18,7 +18,7 @@
             android:layout_marginStart="20sp"
             android:fontFamily="@font/dancing_script"
             android:paddingTop="20sp"
-            android:text="hello there,"
+            android:text="Community Board"
             android:textColor="#116530"
             android:textFontWeight="600"
             android:textSize="35sp"
@@ -33,7 +33,7 @@
             android:layout_marginStart="20sp"
             android:fontFamily="@font/roboto_light"
             android:textStyle="bold"
-            android:text="what you want to cook today?"
+            android:text="Posts"
             android:textColor="#C0C0C0"
             android:letterSpacing="0.05"
             android:textSize="18sp"
@@ -41,61 +41,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentTitle" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40sp"
-            android:background="@drawable/search_bar_background"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
 
-        <!--
-        <LinearLayout
-            android:id="@+id/filter"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="40dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:id="@+id/allFilter"
-                android:background="@color/cream"
-                android:text="All"
-                />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:id="@+id/myRecipeFilter"
-                android:background="@color/cream"
-                android:text="MyRecipe"
-                />
-
-        </LinearLayout>
-        -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecipe"
+            android:id="@+id/rvPost"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeader"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_behavior="android.support.v4.widget.NestedScrollView"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addPostBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_add"
+        android:backgroundTint="@color/white">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </FrameLayout>

@@ -75,6 +75,13 @@
         <item name="android:background">@null</item>
     </style>
 
+    <style name="commentTextView" parent="parent">
+        <item name="fontFamily">@font/bona_nova_regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="modifiedNumberView" parent="parent">
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textColor">@color/dark_blue</item>
@@ -118,5 +125,15 @@
 
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/round_dialog</item>
+    </style>
+
+    <style name="CommentTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>
+
+    <style name="CommentTextInputLayout2" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/text_input_box_stroke_black</item>
+        <item name="boxStrokeWidth">1dp</item>
     </style>
 </resources>

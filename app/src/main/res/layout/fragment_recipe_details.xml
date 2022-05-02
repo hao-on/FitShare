@@ -52,16 +52,28 @@
             android:background="@drawable/recipe_details">
 
             <RelativeLayout
+                android:id="@+id/relLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="30dp">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/editRecipeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_edit_pencil"
+                    app:fabSize="mini"
+                    android:backgroundTint="@color/white">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/dancing_script"
-                    android:text="hello there,"
+                    android:hint="Recipe Name"
                     android:textColor="#116530"
                     android:textFontWeight="800"
                     android:textSize="35sp" />
@@ -71,33 +83,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/dancing_script"
-                    android:text="what you want to cook today?"
+                    android:hint="Recipe Description"
                     android:textColor="#C0C0C0"
                     android:textSize="25sp"
                     android:layout_below="@id/tvName" />
 
                 <TextView
                     android:id="@+id/tvPrepTime"
+                    style="@style/nomralDrawable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvDescription"
-                    android:layout_marginTop="30dp"
                     android:layout_marginStart="10dp"
-                    app:drawableStartCompat="@drawable/ic_clock2"
-                    android:text="45 mins"
-                    style="@style/nomralDrawable" />
+                    android:layout_marginTop="30dp"
+                    android:hint=" -- hrs"
+                    app:drawableStartCompat="@drawable/ic_clock2" />
 
                 <TextView
                     android:id="@+id/tvCalories"
+                    style="@style/nomralDrawable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvDescription"
-                    android:layout_toEndOf="@id/tvPrepTime"
-                    android:layout_marginTop="30dp"
                     android:layout_marginStart="50dp"
-                    app:drawableStartCompat="@drawable/ic_calories"
-                    android:text="100 kcal"
-                    style="@style/nomralDrawable" />
+                    android:layout_marginTop="30dp"
+                    android:layout_toEndOf="@id/tvPrepTime"
+                    android:hint="-- cals"
+                    app:drawableStartCompat="@drawable/ic_calories" />
 
                 <TextView
                     android:id="@+id/tvRating"
@@ -109,7 +121,7 @@
                     android:layout_toEndOf="@id/tvCalories"
                     android:drawablePadding="5dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="4.0"
+                    android:hint="Rating"
                     android:textColor="@color/mikado_yellow"
                     android:drawableRight="@drawable/ic_star"
                     style="@style/nomralDrawable"/>
@@ -130,30 +142,30 @@
                     android:id="@+id/tvIngredients"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/courgette"
-                    android:text="Ingredients"
-                    android:textColor="@color/dark_blue"
-                    android:textSize="20sp"
+                    android:layout_below="@id/tvTitle1"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/tvTitle1" />
+                    android:fontFamily="@font/courgette"
+                    android:hint="List ingredients..."
+                    android:textColor="@color/dark_blue"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tvTitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvIngredients"
+                    android:layout_marginTop="35dp"
                     android:fontFamily="@font/dancing_script"
                     android:text="Steps"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:layout_marginTop="50dp"
-                    android:layout_below="@id/tvTitle1" />
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/tvSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/courgette"
-                    android:text="Steps"
+                    android:hint="List steps..."
                     android:textColor="@color/dark_blue"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"
@@ -163,20 +175,20 @@
                     android:id="@+id/tvTitle3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSteps"
                     android:fontFamily="@font/dancing_script"
                     android:text="Your Rating"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/mikado_yellow"
-                    android:textSize="25sp"
-                    android:layout_marginTop="80dp"
-                    android:layout_below="@id/tvTitle2" />
+                    android:textSize="25sp" />
 
                 <RatingBar
                     android:id="@+id/rBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvTitle2"
-                    android:layout_marginTop="83dp"
+                    android:layout_below="@id/tvSteps"
                     android:layout_toEndOf="@+id/tvTitle3"
+                    android:layout_marginTop="20dp"
                     style="?android:attr/ratingBarStyleIndicator"
                     android:isIndicator="false"
                     android:progressTint="#FFCC01"

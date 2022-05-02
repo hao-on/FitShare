@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.Helper.MyButton
 import com.example.fitshare.Helper.MySwipeHelper
 import com.example.fitshare.Listener.MyButtonClickListener
+import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import io.realm.Case
@@ -33,6 +34,16 @@ class RecipeFragment : Fragment(){
     private lateinit var searchview: SearchView
     private lateinit var myRecipe: AppCompatButton
     private lateinit var allRecipe: AppCompatButton
+    private var removeNavBar = View.VISIBLE
+
+
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            var  mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,8 +72,10 @@ class RecipeFragment : Fragment(){
                         bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
                         bundle.putString("recipeName", adapter.getItem(position)?.recipeName)
                         detailsFragment.arguments = bundle
-                        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
-                            detailsFragment).commit()
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, detailsFragment, "RecipeDetails")
+                            .addToBackStack("RecipeDetails")
+                            .commit()
                     }
 
                 })
@@ -91,56 +104,56 @@ class RecipeFragment : Fragment(){
                 return false
             }
         })
-
-        myRecipe = view.findViewById(R.id.myRecipeFilter)
-        myRecipe.setOnClickListener {
-            adapter = RecipeAdapter(recipeRealm.where<Recipe>().contains("user_id", user?.id.toString())
-                .findAll(), user!!, partition)
-            rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
-            rvRecipe.adapter = adapter
-            rvRecipe.setHasFixedSize(true)
-
-            /*
-            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
-                override fun instantiateMyButton(
-                    viewHolder: RecyclerView.ViewHolder,
-                    buffer: MutableList<MyButton>
-                ) {
-                    buffer.add(MyButton(requireActivity().applicationContext,
-                        "Delete",
-                        30,
-                        0,
-                        Color.parseColor("#FF3C30"),
-                        object: MyButtonClickListener {
-                            override fun onClick(pos: Int) {
-                                Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    ))
-
-                    buffer.add(MyButton(requireActivity().applicationContext,
-                        "Modify",
-                        30,
-                        0,
-                        Color.parseColor("#FF9502"),
-                        object: MyButtonClickListener{
-                            override fun onClick(pos: Int) {
-                                Toast.makeText(requireActivity().applicationContext, "Modify Button Clicked", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    ))
-                }
-            }*/
-        }
-
-        allRecipe = view.findViewById(R.id.allFilter)
-        allRecipe.setOnClickListener {
-            rvRecipe.layoutManager =
-                LinearLayoutManager(requireActivity().applicationContext)
-            rvRecipe.setHasFixedSize(true)
-            adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
-            rvRecipe.adapter = adapter
-        }
+//
+//        myRecipe = view.findViewById(R.id.myRecipeFilter)
+//        myRecipe.setOnClickListener {
+//            adapter = RecipeAdapter(recipeRealm.where<Recipe>().contains("user_id", user?.id.toString())
+//                .findAll(), user!!, partition)
+//            rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+//            rvRecipe.adapter = adapter
+//            rvRecipe.setHasFixedSize(true)
+//
+//            /*
+//            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
+//                override fun instantiateMyButton(
+//                    viewHolder: RecyclerView.ViewHolder,
+//                    buffer: MutableList<MyButton>
+//                ) {
+//                    buffer.add(MyButton(requireActivity().applicationContext,
+//                        "Delete",
+//                        30,
+//                        0,
+//                        Color.parseColor("#FF3C30"),
+//                        object: MyButtonClickListener {
+//                            override fun onClick(pos: Int) {
+//                                Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//                    ))
+//
+//                    buffer.add(MyButton(requireActivity().applicationContext,
+//                        "Modify",
+//                        30,
+//                        0,
+//                        Color.parseColor("#FF9502"),
+//                        object: MyButtonClickListener{
+//                            override fun onClick(pos: Int) {
+//                                Toast.makeText(requireActivity().applicationContext, "Modify Button Clicked", Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//                    ))
+//                }
+//            }*/
+//        }
+//
+//        allRecipe = view.findViewById(R.id.allFilter)
+//        allRecipe.setOnClickListener {
+//            rvRecipe.layoutManager =
+//                LinearLayoutManager(requireActivity().applicationContext)
+//            rvRecipe.setHasFixedSize(true)
+//            adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
+//            rvRecipe.adapter = adapter
+//        }
         return view
     }
 
@@ -161,17 +174,14 @@ class RecipeFragment : Fragment(){
                     detailsFragment).commit()
             }
 
-
         })
     }
 
 
-    override fun onStop() {
-        super.onStop()
-        user.run {
-            recipeRealm.close()
-            userRealm.close()
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        userRealm.close()
+        recipeRealm.close()
     }
 
 }
