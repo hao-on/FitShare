@@ -40,7 +40,7 @@ class RecipeAdapter(data: OrderedRealmCollection<Recipe>,
         holder.data = obj
         holder.recipeName.text = obj?.recipeName
         holder.description.text = obj?.description
-        holder.prepTime.text = obj?.prepTime
+        holder.prepTime.text = obj?.prepTime + " hrs"
 
     }
 
