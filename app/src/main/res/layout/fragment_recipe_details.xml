@@ -52,9 +52,21 @@
             android:background="@drawable/recipe_details">
 
             <RelativeLayout
+                android:id="@+id/relLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="30dp">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/editRecipeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_edit_pencil"
+                    app:fabSize="mini"
+                    android:backgroundTint="@color/white">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <TextView
                     android:id="@+id/tvName"

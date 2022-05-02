@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fitshare.Helper.MyButton
 import com.example.fitshare.Helper.MySwipeHelper
 import com.example.fitshare.Listener.MyButtonClickListener
+import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import io.realm.Case
@@ -33,6 +34,16 @@ class RecipeFragment : Fragment(){
     private lateinit var searchview: SearchView
     private lateinit var myRecipe: AppCompatButton
     private lateinit var allRecipe: AppCompatButton
+    private var removeNavBar = View.VISIBLE
+
+
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            var  mainActivity = activity as MainActivity
+            mainActivity.setBottomNavigationVisibility(removeNavBar)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
