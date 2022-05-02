@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="@color/cream"
+    app:cardCornerRadius="10dp"
     app:cardElevation="1dp"
     app:cardMaxElevation="1dp"
     app:cardPreventCornerOverlap="true"
@@ -21,9 +21,12 @@
             android:id="@+id/ivRecipeImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:padding="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/login_edittext_background"
+            android:padding="5dp"
             android:src="@drawable/food2" />
 
         <!--Text View to display Recipe Name-->
@@ -36,11 +39,13 @@
             android:layout_toEndOf="@id/ivRecipeImage"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/black"
+            android:hint="Recipe Name"
             android:textSize="17sp" />
 
         <!--Text VIew to display Recipe Desccription-->
         <TextView
             android:id="@+id/tvDescription"
+            android:hint="Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvRecipeName"
@@ -59,7 +64,8 @@
             android:layout_toEndOf="@id/ivRecipeImage"
             android:drawablePadding="5dp"
             android:fontFamily="@font/roboto_light"
-            app:drawableStartCompat="@drawable/ic_clock" />
+            app:drawableStartCompat="@drawable/ic_clock"
+            android:hint="-- hrs"/>
 
         <TextView
             android:id="@+id/tvRating"
@@ -71,7 +77,7 @@
             android:layout_toEndOf="@id/tvPrepTime"
             android:drawablePadding="5dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="4.0"
+            android:hint="--"
             android:textColor="@color/mikado_yellow"
             android:drawableRight="@drawable/ic_star"/>
 

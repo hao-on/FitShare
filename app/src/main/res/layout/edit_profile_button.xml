@@ -16,10 +16,26 @@
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
         android:textSize="25sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editProfile_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:maxLength="25"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="57dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
@@ -33,7 +49,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
@@ -47,21 +63,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editProfile_username"
+            android:id="@+id/editProfileBio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"/>
+            android:hint="About you"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
@@ -69,12 +85,14 @@
             android:id="@+id/editProfile_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"/>
+            android:hint="Phone Number"
+            android:maxLength="10"/>
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
@@ -85,10 +103,11 @@
             android:hint="Address"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
@@ -96,7 +115,22 @@
             android:id="@+id/editProfile_zip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Zipcode" />
+            android:hint="Zipcode"
+            android:maxLength="5"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="57dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editProfile_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -106,12 +140,20 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editProfileBio"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="About you"/>
+            android:layout_height="match_parent"
+            android:text="Select a state"
+            android:textStyle="bold">
+        </TextView>
+        <Spinner
+            android:background="@color/gray_gainsboro"
+            android:id="@+id/editProfile_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </com.google.android.material.textfield.TextInputLayout>
+
     <!--button for dismissing our dialog-->
     <Button
         android:id="@+id/btnSubmitProfile"
