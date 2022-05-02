@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Recipe.RecipeDetailsFragment
 import com.example.fitshare.User.User
@@ -30,6 +31,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.Marker
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
+import kotlinx.android.synthetic.main.fragment_recipe.*
 import kotlinx.android.synthetic.main.recipe_view.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -223,13 +225,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         if (userMar != null) {
             Log.i("Maps", userMar.userName)
             Log.i("Maps",userMar.userID)
+
         }
 
         val otherUser = profileRealm.where(Profile::class.java).
         equalTo("userid", userMar?.userID.toString()).findFirst()
 
+
+
         if (otherUser != null) {
             Log.i("Maps", otherUser.firstName.toString())
+            Log.i("Maps",otherUser.id.toString())
         }
 
 
@@ -244,19 +250,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 .setCancelable(false)
                 // positive button text and action
                 .setPositiveButton("Proceed", DialogInterface.OnClickListener {
-                        dialog, id -> // otherprofilefragment, look at bundle in recipe fragment
+                        dialog, id ->
 
-                    var detailsFragment: Fragment = OtherProfileFragment()
-//                    val bundle = Bundle()
-//                    if (userMar != null) {
-//                        bundle.putString("userID", userMar.userID)
-//                    }
-//                    if (userMar != null) {
-//                        bundle.putString("userName", userMar.userID)
-//                    }
-//                    detailsFragment.arguments = bundle
+
+
+                    var otherProfileFragment: Fragment = OtherProfileFragment()
+                    val bundle = Bundle()
+                    if (otherUser != null) {
+                        bundle.putString("profileID", otherUser.id.toString())
+                    }
+
+                    otherProfileFragment.arguments = bundle
                     supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
-                        detailsFragment).commit()
+                        otherProfileFragment,"otherProfile")
+                        .addToBackStack("otherProfile")
+                        .commit()
                 })
                 // negative button text and action
                 .setNegativeButton("Cancel", DialogInterface.OnClickListener {
