@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/commentTitle"
+            android:id="@+id/tvHello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvHeader"
+            android:id="@+id/tvHello2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20sp"
@@ -39,7 +39,7 @@
             android:textSize="18sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/commentTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/tvHello" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
@@ -50,9 +50,8 @@
             android:background="@drawable/search_bar_background"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+            app:layout_constraintTop_toBottomOf="@+id/tvHello2" />
 
-        <!--
         <LinearLayout
             android:id="@+id/filter"
             android:layout_width="match_parent"
@@ -83,7 +82,7 @@
                 />
 
         </LinearLayout>
-        -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipe"
             android:layout_width="wrap_content"
@@ -91,7 +90,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/filter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_behavior="android.support.v4.widget.NestedScrollView"/>
 

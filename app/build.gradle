@@ -63,20 +63,12 @@ dependencies {
     implementation "io.realm:android-adapters:4.0.0"
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.gms:play-services-location:11.8.0'
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+
 
 
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
-
-    implementation 'com.google.android.gms:play-services-location:11.8.0'
-    implementation 'com.google.android.gms:play-services-maps:11.8.0'
-    implementation 'pub.hanks:smallbang:1.2.2'
 }
-
-
-
-
-
-
 

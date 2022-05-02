@@ -5,11 +5,8 @@ import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
 import androidx.annotation.Nullable
-import androidx.fragment.app.Fragment
 import com.example.fitshare.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.realm.Realm
@@ -32,9 +29,8 @@ class ProfileEditButton : BottomSheetDialogFragment() {
     private lateinit var phone :TextInputEditText
     private lateinit var address :TextInputEditText
     private lateinit var zipcode :TextInputEditText
-    private lateinit var city: TextInputEditText
     private lateinit var bio :TextInputEditText
-    private lateinit var stateSpinner: Spinner
+
 
 
     @Nullable
@@ -53,20 +49,8 @@ class ProfileEditButton : BottomSheetDialogFragment() {
         Realm.getInstanceAsync(config, object: Realm.Callback(){
             override fun onSuccess(realm: Realm){
                 this@ProfileEditButton.profileRealm = realm
-                //Find this current user's profile
                 val oldProf = profileRealm.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
-
-                //Spinner Adapter
-                stateSpinner = view.findViewById(R.id.editProfile_state)
-                ArrayAdapter.createFromResource(requireContext() , R.array.profile_states, android.R.layout.simple_spinner_item)
-                    .also{ adapter ->
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        stateSpinner.adapter = adapter
-                        val spinnerLocation = adapter.getPosition(oldProf?.state.toString())
-                        stateSpinner.setSelection(spinnerLocation)
-                    }
-
                 if(oldProf != null) {
                     firstName.setText(oldProf?.firstName)
                     lastName.setText(oldProf?.lastName)
@@ -74,7 +58,6 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                     phone.setText(oldProf?.phoneNumber)
                     address.setText(oldProf?.address)
                     zipcode.setText(oldProf?.zipcode)
-                    city.setText(oldProf?.city)
                     bio.setText(oldProf?.bio)
                 }
             }
@@ -88,21 +71,49 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 this@ProfileEditButton.userRealm = realm
             }
         })
+
         firstName = view.findViewById(R.id.editProfile_first)
         lastName = view.findViewById(R.id.editProfile_last)
         username = view.findViewById(R.id.editProfile_username)
         phone = view.findViewById(R.id.editProfile_phone)
         address = view.findViewById(R.id.editProfile_address)
         zipcode = view.findViewById(R.id.editProfile_zip)
-        city = view.findViewById(R.id.editProfile_city)
         bio = view.findViewById(R.id.editProfileBio)
-
-
-
-        //Submit profile changes
         submitButton = view.findViewById(R.id.btnSubmitProfile)
+
         submitButton.setOnClickListener{
 
+//            userRealm.executeTransactionAsync{transactionRealm: Realm ->
+//                //val userData = transactionRealm.where(User::class.java).findFirst()
+//                Log.i("checker", user?.id.toString())
+//
+//                //Find old profile data
+//                val oldProf = transactionRealm.where(Profile::class.java).findFirst()
+//                //equalTo("id", userData.profile?.id).findFirst()
+//                Log.i("checker", oldProf?.id.toString())
+//
+//                if(oldProf == null){
+//                    val profile =  Profile(firstName.text.toString(),
+//                        lastName.text.toString(), bio.text.toString(),
+//                        address.text.toString(), zipcode.text.toString(),
+//                        phone.text.toString(), username.text.toString(),
+//                        false, user?.id.toString())
+//
+//                    transactionRealm.insertOrUpdate(profile)
+//                }else {
+//                    oldProf?.firstName = firstName.text.toString()
+//                    oldProf?.lastName = lastName.text.toString()
+//                    oldProf?.bio = bio.text.toString()
+//                    oldProf?.address = address.text.toString()
+//                    oldProf?.zipcode = zipcode.text.toString()
+//                    oldProf?.phoneNumber = phone.text.toString()
+//                    oldProf?.username = username.text.toString()
+//                    oldProf?.userid = user?.id.toString()
+//                    Log.i("checker", oldProf?.id.toString())
+//                    transactionRealm.insertOrUpdate(oldProf)
+//                }
+//
+//            }
             profileRealm.executeTransactionAsync{
                 Log.i("checkerProf", user?.id.toString())
 
@@ -114,9 +125,9 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 if(oldProf == null){
                     val profile =  Profile(firstName.text.toString(),
                         lastName.text.toString(), bio.text.toString(),
-                        address.text.toString(), zipcode.text.toString(), city.text.toString(),
-                        stateSpinner.selectedItem.toString(), phone.text.toString(),
-                        username.text.toString(), false, user?.id.toString())
+                        address.text.toString(), zipcode.text.toString(),
+                        phone.text.toString(), username.text.toString(),
+                        false, user?.id.toString())
 
                     it.insertOrUpdate(profile)
                 }else {
@@ -125,8 +136,6 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                     oldProf?.bio = bio.text.toString()
                     oldProf?.address = address.text.toString()
                     oldProf?.zipcode = zipcode.text.toString()
-                    oldProf?.city = city.text.toString()
-                    oldProf?.state = stateSpinner.selectedItem.toString()
                     oldProf?.phoneNumber = phone.text.toString()
                     oldProf?.username = username.text.toString()
                     oldProf?.userid = user?.id.toString()
@@ -135,11 +144,6 @@ class ProfileEditButton : BottomSheetDialogFragment() {
                 }
             }
             dialog?.dismiss()
-            //Restart the fragment to update the recycler view
-            var profileFragment : Fragment = ProfileFragment()
-            val bundle = Bundle()
-            profileFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, profileFragment).commit()
         }
         return view
     }

@@ -11,7 +11,7 @@ import org.bson.types.ObjectId
 
 open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
                     _bio: String = "Bio", _addr: String = "Address",
-                    _zip: String = "Zipcode",_city: String = "City", _state: String = "State", _phone: String = "Phone Number",
+                    _zip: String = "Zipcode", _phone: String = "Phone Number",
                     _username: String = "Username" ,_meet: Boolean = false, _uid: String = "uid") : RealmObject(){
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
@@ -28,10 +28,6 @@ open class Profile (_fname: String = "First Name", _lname: String = "Last Name",
     var phoneNumber: String = _phone
     @Required
     var username: String = _username
-    @Required
-    var state: String = _state
-    @Required
-    var city: String = _city
     var meetUp: Boolean = _meet
     @Required
    var userid: String = _uid

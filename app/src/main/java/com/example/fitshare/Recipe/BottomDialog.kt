@@ -64,14 +64,13 @@ class BottomDialog : BottomSheetDialogFragment() {
                 txtRec_Ingr.text.toString(),
                 txtRec_Steps.text.toString(),
                 txtRec_Time.text.toString(),
-                user?.id.toString(),
-                txtRec_cal.text.toString())
+                user?.id.toString())
 
-//            userRealm.executeTransactionAsync { transactionRealm: Realm ->
-//                val userData = transactionRealm.where(User::class.java).findFirst()
-//                userData?.recipes?.add(recipe)
-//                transactionRealm.insertOrUpdate(userData)
-//            }
+            userRealm.executeTransactionAsync { transactionRealm: Realm ->
+                val userData = transactionRealm.where(User::class.java).findFirst()
+                userData?.recipes?.add(recipe)
+                transactionRealm.insertOrUpdate(userData)
+            }
 
             recipeRealm.executeTransactionAsync { transactionRealm:Realm ->
                 transactionRealm.insert(recipe) }

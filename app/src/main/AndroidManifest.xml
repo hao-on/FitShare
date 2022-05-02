@@ -30,15 +30,9 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <!--
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        -->
-        <meta-data
-            android:value="@string/bryan_maps_key"
-            android:name="com.google.android.geo.API_KEY">
-        </meta-data>
 
         <activity
             android:name=".MapsActivity"
@@ -68,6 +62,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

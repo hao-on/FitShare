@@ -11,12 +11,11 @@ import io.realm.annotations.Required
 import org.bson.types.ObjectId
 
 
-open class UserLocation(_userName: String ="UserName", _userID:String="UserID",_latitude:Double = 0.0,
+open class UserLocation(_userName: String ="UserName", _latitude:Double = 0.0,
                         _longitude:Double = 0.0)  : RealmObject(){
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()
     @Required
     var userName: String = _userName
-    var userID: String = _userID
 
     var latitude: Double = _latitude
 
