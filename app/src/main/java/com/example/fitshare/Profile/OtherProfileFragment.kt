@@ -125,18 +125,6 @@ class OtherProfileFragment : Fragment(){
                 .addToBackStack("forum")
                 .commit()
         }
-//        //Button for adding/editing a profile
-//        fab = view.findViewById(R.id.btnEditProfile)
-//        fab.setOnClickListener{
-//            val editProfileButton : ProfileEditButton = ProfileEditButton.newInstance()
-//            editProfileButton.show(parentFragmentManager, null)
-//        }
-
-//        //Test Viewing Other Profile Activity **DELETE LATER**
-//        otherProfileButton = view.findViewById(R.id.other_profile_button)
-//        otherProfileButton.setOnClickListener{
-//            //openFragment(OtherProfileFragment)
-//        }
 
         //Profile Details Fragment
         profileDetails = view.findViewById(R.id.linkProfileDetails)

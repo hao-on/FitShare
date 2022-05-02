@@ -53,18 +53,6 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/otherProfileBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:background="@null"
-                android:backgroundTint="@color/black"
-                android:padding="10dp"
-                android:text="Other">
-
-            </Button>
-
             <!--
             <RelativeLayout
                 android:layout_width="wrap_content"

@@ -139,15 +139,6 @@ class ProfileFragment : Fragment() {
                 .replace(R.id.frameLayout, forumFragment).addToBackStack(null).commit()
         }
 
-        //Test Viewing Other Profile Activity **DELETE LATER**
-        otherProfileButton = view.findViewById(R.id.otherProfileBtn)
-        otherProfileButton.setOnClickListener{
-            var otherProfileFragment : Fragment = OtherProfileFragment()
-            val bundle = Bundle()
-            otherProfileFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, otherProfileFragment).addToBackStack(null).commit()
-        }
 
         //Profile Details Fragment
         profileDetails = view.findViewById(R.id.linkProfileDetails)
