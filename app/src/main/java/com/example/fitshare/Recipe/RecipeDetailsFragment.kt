@@ -26,6 +26,7 @@ class RecipeDetailsFragment : Fragment() {
     private lateinit var recipeRealm: Realm
     private var removeNavBar = View.GONE
     private lateinit var editBtn: FloatingActionButton
+    private lateinit var recipeID2: String
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -50,6 +51,7 @@ class RecipeDetailsFragment : Fragment() {
                 this@RecipeDetailsFragment.recipeRealm = realm
                 var recipeID = arguments?.getString("recipeID")
                 var recipe = recipeRealm.where<Recipe>().equalTo("_id", ObjectId(recipeID)).findFirst()
+                recipeID2 = recipe?.id.toString()
                 view.tvName.text = recipe?.recipeName
                 view.tvDescription.text = recipe?.description
                 view.tvPrepTime.text = recipe?.prepTime
@@ -65,11 +67,11 @@ class RecipeDetailsFragment : Fragment() {
 
         editBtn = view.findViewById(R.id.editRecipeBtn)
         editBtn.setOnClickListener{
-            var editRecipeFragment : Fragment  = EditBottomDialog()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, editRecipeFragment, "EditRecipe")
-                .addToBackStack("EditRecipe")
-                .commit()
+            val editRecipeDialog : EditBottomDialog  = EditBottomDialog.newInstance()
+            val bundle = Bundle()
+            bundle.putString("recipeID2", recipeID2)
+            editRecipeDialog.arguments = bundle
+            editRecipeDialog.show(parentFragmentManager, null)
         }
 
         val rBar: RatingBar = view.findViewById(R.id.rBar)

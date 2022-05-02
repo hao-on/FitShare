@@ -1,6 +1,7 @@
 package com.example.fitshare.Recipe
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,25 +11,25 @@ import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.textfield.TextInputEditText
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.layout_add_recipe.*
+import org.bson.types.ObjectId
 
 class EditBottomDialog : BottomSheetDialogFragment() {
     private lateinit var recipeRealm: Realm
     private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var btnSubmit: Button
+    private lateinit var recipeName: TextInputEditText
+    private lateinit var description: TextInputEditText
+    private lateinit var prep: TextInputEditText
+    private lateinit var ingredients: TextInputEditText
+    private lateinit var steps: TextInputEditText
     private lateinit var partition: String
-    private var removeNavBar = View.GONE
+    private lateinit var recipeID2: String
 
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-        if (activity is MainActivity){
-            var mainActivity = activity as MainActivity
-            mainActivity.setBottomNavigationVisibility(removeNavBar)
-        }
-    }
     @Nullable
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,40 +48,40 @@ class EditBottomDialog : BottomSheetDialogFragment() {
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@EditBottomDialog.recipeRealm = realm
+                var recipeID2 = arguments?.getString("recipeID2")
+                val myRecipe = recipeRealm.where(Recipe::class.java).equalTo("_id", ObjectId(recipeID2)).findFirst()
+
+                recipeName.setText(myRecipe?.recipeName)
+                description.setText(myRecipe?.description)
+                prep.setText(myRecipe?.prepTime)
+                ingredients.setText(myRecipe?.ingredients)
+                steps.setText(myRecipe?.steps)
             }
         })
 
-//        val user_config : SyncConfiguration =
-//            SyncConfiguration.Builder(user!!, "user=${user!!.id}")
-//                .build()
 
-//        Realm.getInstanceAsync(user_config, object: Realm.Callback() {
-//            override fun onSuccess(realm: Realm) {
-//                // since this realm should live exactly as long as this activity, assign the realm to a member variable
-//                this@EditBottomDialog.userRealm = realm
-//            }
-//        })
-
+        recipeName =  view.findViewById(R.id.txtRec_Name)
+        description = view.findViewById(R.id.txtRec_Descr)
+        prep = view.findViewById(R.id.txtRec_Time)
+        ingredients = view.findViewById(R.id.txtRec_Ingr)
+        steps = view.findViewById(R.id.txtRec_Steps)
         btnSubmit = view.findViewById(R.id.btnSubmitRecipe)
 
         // adding on click listener for our button.
         btnSubmit.setOnClickListener {
-            val recipe = Recipe(txtRec_Name.text.toString(),
-                txtRec_Descr.text.toString(),
-                txtRec_Ingr.text.toString(),
-                txtRec_Steps.text.toString(),
-                txtRec_Time.text.toString(),
-                user?.id.toString())
-
-//            userRealm.executeTransactionAsync { transactionRealm: Realm ->
-//                val userData = transactionRealm.where(User::class.java).findFirst()
-//                userData?.recipes?.add(recipe)
-//                transactionRealm.insertOrUpdate(userData)
-//            }
 
             recipeRealm.executeTransactionAsync { transactionRealm: Realm ->
-                transactionRealm.insert(recipe) }
+                var recipeID2 = arguments?.getString("recipeID2")
+                val myRecipe = transactionRealm.where(Recipe::class.java).equalTo("_id", ObjectId(recipeID2)).findFirst()
 
+                myRecipe?.recipeName = txtRec_Name.text.toString()
+                myRecipe?.description = txtRec_Descr.text.toString()
+                myRecipe?.ingredients = txtRec_Ingr.text.toString()
+                myRecipe?.steps = txtRec_Steps.text.toString()
+                myRecipe?.prepTime = txtRec_Time.text.toString()
+
+                transactionRealm.insertOrUpdate(myRecipe)
+            }
             dialog?.dismiss()
         }
 
@@ -88,8 +89,8 @@ class EditBottomDialog : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(): BottomDialog {
-            return BottomDialog()
+        fun newInstance(): EditBottomDialog {
+            return EditBottomDialog()
         }
     }
 }
