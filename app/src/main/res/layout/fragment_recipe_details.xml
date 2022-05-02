@@ -101,15 +101,15 @@
 
                 <TextView
                     android:id="@+id/tvCalories"
+                    style="@style/nomralDrawable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvDescription"
-                    android:layout_toEndOf="@id/tvPrepTime"
-                    android:layout_marginTop="30dp"
                     android:layout_marginStart="50dp"
-                    app:drawableStartCompat="@drawable/ic_calories"
+                    android:layout_marginTop="30dp"
+                    android:layout_toEndOf="@id/tvPrepTime"
                     android:hint="-- cals"
-                    style="@style/nomralDrawable" />
+                    app:drawableStartCompat="@drawable/ic_calories" />
 
                 <TextView
                     android:id="@+id/tvRating"
@@ -142,23 +142,23 @@
                     android:id="@+id/tvIngredients"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvTitle1"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/courgette"
                     android:hint="List ingredients..."
                     android:textColor="@color/dark_blue"
-                    android:textSize="20sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/tvTitle1" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tvTitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvIngredients"
+                    android:layout_marginTop="35dp"
                     android:fontFamily="@font/dancing_script"
                     android:text="Steps"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:layout_marginTop="50dp"
-                    android:layout_below="@id/tvTitle1" />
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/tvSteps"
@@ -175,20 +175,20 @@
                     android:id="@+id/tvTitle3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSteps"
                     android:fontFamily="@font/dancing_script"
                     android:text="Your Rating"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/mikado_yellow"
-                    android:textSize="25sp"
-                    android:layout_marginTop="80dp"
-                    android:layout_below="@id/tvTitle2" />
+                    android:textSize="25sp" />
 
                 <RatingBar
                     android:id="@+id/rBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvTitle2"
-                    android:layout_marginTop="83dp"
+                    android:layout_below="@id/tvSteps"
                     android:layout_toEndOf="@+id/tvTitle3"
+                    android:layout_marginTop="20dp"
                     style="?android:attr/ratingBarStyleIndicator"
                     android:isIndicator="false"
                     android:progressTint="#FFCC01"

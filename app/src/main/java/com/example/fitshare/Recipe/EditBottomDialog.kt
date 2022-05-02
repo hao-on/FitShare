@@ -15,6 +15,13 @@ import com.google.android.material.textfield.TextInputEditText
 import io.realm.Realm
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.layout_add_recipe.*
+import kotlinx.android.synthetic.main.layout_add_recipe.txtRec_Descr
+import kotlinx.android.synthetic.main.layout_add_recipe.txtRec_Ingr
+import kotlinx.android.synthetic.main.layout_add_recipe.txtRec_Name
+import kotlinx.android.synthetic.main.layout_add_recipe.txtRec_Steps
+import kotlinx.android.synthetic.main.layout_add_recipe.txtRec_Time
+import kotlinx.android.synthetic.main.layout_add_recipe.txtRec_cal
+import kotlinx.android.synthetic.main.layout_edit_recipe.*
 import org.bson.types.ObjectId
 
 class EditBottomDialog : BottomSheetDialogFragment() {
@@ -27,6 +34,7 @@ class EditBottomDialog : BottomSheetDialogFragment() {
     private lateinit var prep: TextInputEditText
     private lateinit var ingredients: TextInputEditText
     private lateinit var steps: TextInputEditText
+    private lateinit var calories: TextInputEditText
     private lateinit var partition: String
     private lateinit var recipeID2: String
 
@@ -56,6 +64,7 @@ class EditBottomDialog : BottomSheetDialogFragment() {
                 prep.setText(myRecipe?.prepTime)
                 ingredients.setText(myRecipe?.ingredients)
                 steps.setText(myRecipe?.steps)
+                calories.setText(myRecipe?.calories)
             }
         })
 
@@ -65,6 +74,7 @@ class EditBottomDialog : BottomSheetDialogFragment() {
         prep = view.findViewById(R.id.txtRec_Time)
         ingredients = view.findViewById(R.id.txtRec_Ingr)
         steps = view.findViewById(R.id.txtRec_Steps)
+        calories = view.findViewById(R.id.txtRec_cal)
         btnSubmit = view.findViewById(R.id.btnSubmitRecipe)
 
         // adding on click listener for our button.
@@ -79,6 +89,7 @@ class EditBottomDialog : BottomSheetDialogFragment() {
                 myRecipe?.ingredients = txtRec_Ingr.text.toString()
                 myRecipe?.steps = txtRec_Steps.text.toString()
                 myRecipe?.prepTime = txtRec_Time.text.toString()
+                myRecipe?.calories = txtRec_cal.text.toString()
 
                 transactionRealm.insertOrUpdate(myRecipe)
             }

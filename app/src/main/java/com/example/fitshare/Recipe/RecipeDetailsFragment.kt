@@ -57,6 +57,7 @@ class RecipeDetailsFragment : Fragment() {
                 view.tvPrepTime.text = recipe?.prepTime + " hrs"
                 view.tvIngredients.text = recipe?.ingredients
                 view.tvSteps.text = recipe?.steps
+                view.tvCalories.text = recipe?.calories + " cals"
 
                 if(recipe?.user_id.toString() != user?.id.toString()){
                     editBtn.hide()

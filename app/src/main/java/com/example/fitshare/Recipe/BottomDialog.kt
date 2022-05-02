@@ -64,7 +64,8 @@ class BottomDialog : BottomSheetDialogFragment() {
                 txtRec_Ingr.text.toString(),
                 txtRec_Steps.text.toString(),
                 txtRec_Time.text.toString(),
-                user?.id.toString())
+                user?.id.toString(),
+                txtRec_cal.text.toString())
 
 //            userRealm.executeTransactionAsync { transactionRealm: Realm ->
 //                val userData = transactionRealm.where(User::class.java).findFirst()
