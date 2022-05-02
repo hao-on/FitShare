@@ -90,42 +90,12 @@ class ForumPostFragment : Fragment() {
         addPost.setOnClickListener{
             val addForumPost : ForumPostBtnDialog = ForumPostBtnDialog.newInstance()
             addForumPost.show(parentFragmentManager, null)
+            forumAdapter.notifyDataSetChanged()
         }
 
-//        searchView = view.findViewById(R.id.searchView)
-//        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-//            override fun onQueryTextSubmit(text: String): Boolean {
-//                recyclerSearch(forumRealm, user, partition, text)
-//                return false
-//            }
-//            override fun onQueryTextChange(text: String): Boolean {
-//                recyclerSearch(forumRealm, user, partition, text)
-//                return false
-//            }
-//        })
 
         return view
     }
-
-
-    private fun recyclerSearch(realm: Realm, user: io.realm.mongodb.User?, partition: String, text: String){
-        forumAdapter = ForumPostAdapter(realm.where<ForumPost>().sort("title").findAll(), user!!, partition)
-        rvPost.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
-        rvPost.adapter = forumAdapter
-        forumAdapter.setOnItemClickListener(object : ForumPostAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-//                var detailsFragment: Fragment = RecipeDetailsFragment()
-//                val bundle = Bundle()
-//                bundle.putString("recipeID", forumAdapter.getItem(position)?.id.toString())
-//                bundle.putString("recipeName", forumAdapter.getItem(position)?.recipeName)
-//                detailsFragment.arguments = bundle
-//                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
-//                    detailsFragment).commit()
-            }
-
-        })
-    }
-
 
     override fun onDestroy(){
         super.onDestroy()

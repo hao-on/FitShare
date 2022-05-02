@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import com.example.fitshare.MainActivity
+import com.example.fitshare.Profile.ProfileFragment
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -26,7 +28,6 @@ import org.bson.types.ObjectId
 
 class EditBottomDialog : BottomSheetDialogFragment() {
     private lateinit var recipeRealm: Realm
-    private lateinit var userRealm: Realm
     private var user: io.realm.mongodb.User? = null
     private lateinit var btnSubmit: Button
     private lateinit var recipeName: TextInputEditText
@@ -103,5 +104,10 @@ class EditBottomDialog : BottomSheetDialogFragment() {
         fun newInstance(): EditBottomDialog {
             return EditBottomDialog()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        recipeRealm.close()
     }
 }

@@ -27,7 +27,6 @@ class ProfileFragment : Fragment() {
 
     private var user: io.realm.mongodb.User? = null
     private lateinit var profileRealm: Realm
-    private lateinit var userRealm: Realm
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     private lateinit var otherProfileButton: Button
@@ -167,7 +166,6 @@ class ProfileFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        userRealm.close()
         profileRealm.close()
     }
 }
