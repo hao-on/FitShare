@@ -80,10 +80,10 @@ class ForumPostBtnDialog : BottomSheetDialogFragment() {
             }
             dialog?.dismiss()
 
-            var postFragment : Fragment = ForumPostFragment()
-            val bundle = Bundle()
-            postFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, postFragment).commit()
+//            var postFragment : Fragment = ForumPostFragment()
+//            val bundle = Bundle()
+//            postFragment.arguments = bundle
+//            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, postFragment).commit()
         }
 
         return view
