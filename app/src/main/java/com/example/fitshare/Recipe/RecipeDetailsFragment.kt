@@ -54,10 +54,15 @@ class RecipeDetailsFragment : Fragment() {
                 recipeID2 = recipe?.id.toString()
                 view.tvName.text = recipe?.recipeName
                 view.tvDescription.text = recipe?.description
-                view.tvPrepTime.text = recipe?.prepTime
+                view.tvPrepTime.text = recipe?.prepTime + " hrs"
                 view.tvIngredients.text = recipe?.ingredients
                 view.tvSteps.text = recipe?.steps
 
+                if(recipe?.user_id.toString() != user?.id.toString()){
+                    editBtn.hide()
+                }else{
+                    editBtn.show()
+                }
 //                if (recName != null) {
 //                    Toast.makeText(requireActivity().applicationContext,
 //                        "Name: " + recName.recipeName, Toast.LENGTH_SHORT).show()
