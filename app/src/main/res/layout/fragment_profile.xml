@@ -126,18 +126,18 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp" />
 
-        <TextView
-            android:id="@+id/linkProfileDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layoutProfile"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/grapenuts"
-            android:text="More about Me!!!"
-            android:textAlignment="center"
-            android:textColor="@color/gray_gainsboro"
-            android:textSize="25sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/linkProfileDetails"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/layoutProfile"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:fontFamily="@font/grapenuts"-->
+<!--            android:text="More about Me!!!"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/gray_gainsboro"-->
+<!--            android:textSize="25sp" />-->
 
 
     </RelativeLayout>

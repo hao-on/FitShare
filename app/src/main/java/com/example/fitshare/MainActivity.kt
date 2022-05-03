@@ -86,15 +86,21 @@ class MainActivity : AppCompatActivity() {
             if (currFragment is RecipeFragment) {
                 val addBottomDialog : BottomDialog = BottomDialog.newInstance()
                 addBottomDialog.show(supportFragmentManager, null)
+                setVisibility(clicked)
+                setClickable(clicked)
             }
             if (currFragment is FitnessFragment) {
                 onAddButtonClicked()
             }
             if (currFragment is ProfileFragment) {
+                setVisibility(clicked)
+                setClickable(clicked)
                 val openProfileMenu : ProfileMenu = ProfileMenu.newInstance()
                 openProfileMenu.show(supportFragmentManager, null)
             }
             if (currFragment is FeedsFragment) {
+                setVisibility(clicked)
+                setClickable(clicked)
                 val addBottomDialog : UploadPostDialog = UploadPostDialog.newInstance()
                 addBottomDialog.show(supportFragmentManager, null)
             }

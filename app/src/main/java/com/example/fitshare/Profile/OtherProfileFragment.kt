@@ -128,17 +128,17 @@ class OtherProfileFragment : Fragment(){
         }
 
         //Profile Details Fragment
-        profileDetails = view.findViewById(R.id.linkProfileDetails)
-        profileDetails.setOnClickListener {
-            var profileDetailsFragment: Fragment = ProfileDetailsFragment()
+//        profileDetails = view.findViewById(R.id.linkProfileDetails)
+//        profileDetails.setOnClickListener {
+//            var profileDetailsFragment: Fragment = ProfileDetailsFragment()
 //            val bundle = Bundle()
 //            bundle.putString("postID", adapter.getItem(position)?.id.toString())
 //            commentFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, profileDetailsFragment, "profileDetails")
-                .addToBackStack("profileDetails")
-                .commit()
-        }
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.frameLayout, profileDetailsFragment, "profileDetails")
+//                .addToBackStack("profileDetails")
+//                .commit()
+//        }
 
         return view
     }

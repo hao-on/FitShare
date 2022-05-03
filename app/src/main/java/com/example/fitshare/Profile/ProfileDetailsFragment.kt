@@ -8,8 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.fitshare.MainActivity
 import com.example.fitshare.R
+import com.example.fitshare.WorkOutPlan.PlanCollectionAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.activity_work_out_plan.*
 
 class ProfileDetailsFragment : Fragment() {
     var def: ColorStateList? = null
