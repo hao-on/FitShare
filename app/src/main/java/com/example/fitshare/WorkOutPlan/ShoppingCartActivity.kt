@@ -5,8 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fitshare.Exercise.kt.Exercise
-import com.example.fitshare.Exercise.kt.ExerciseAdapter
+import com.example.fitshare.Exercise.Exercise
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
 import io.realm.OrderedRealmCollection

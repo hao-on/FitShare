@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fitshare.Exercise.kt.Exercise
+import com.example.fitshare.Exercise.Exercise
 import com.example.fitshare.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_shopping_cart.view.*

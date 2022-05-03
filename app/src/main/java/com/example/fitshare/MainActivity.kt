@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
     private lateinit var workoutFab: FloatingActionButton
     private lateinit var nutritionFab: FloatingActionButton
+    private lateinit var exerciseFab: FloatingActionButton
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var bottomAppbar: BottomAppBar
     private val rotateOpenAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation)}
@@ -121,6 +122,19 @@ class MainActivity : AppCompatActivity() {
         nutritionFab = findViewById(R.id.nutritionBtn)
         nutritionFab.setOnClickListener{
             Toast.makeText(this, "Nutrition Button Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        exerciseFab = findViewById(R.id.nutritionBtn)
+        exerciseFab.setOnClickListener{
+            Toast.makeText(this, "Exercise Button Clicked", Toast.LENGTH_SHORT).show()
+            val currFragment: Fragment? =
+                supportFragmentManager.findFragmentById(R.id.frameLayout)
+
+            if (currFragment is FitnessFragment) {
+                val addBottomDialogExercise: BottomDialogExercise =
+                    BottomDialogExercise.newInstance()
+                addBottomDialogExercise.show(supportFragmentManager, null)
+            }
         }
 
         /*

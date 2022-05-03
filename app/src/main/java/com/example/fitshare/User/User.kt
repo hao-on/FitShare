@@ -1,6 +1,7 @@
 package com.example.fitshare.User
 
-import com.example.fitshare.Exercise.kt.Exercise
+
+import com.example.fitshare.Exercise.Exercise
 import com.example.fitshare.Feeds.Post
 import com.example.fitshare.Profile.Profile
 import com.example.fitshare.Recipe.Recipe

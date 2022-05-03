@@ -1,6 +1,6 @@
 package com.mongodb.tasktracker.model
 
-import com.example.fitshare.Exercise.kt.Exercise
+import com.example.fitshare.Exercise.Exercise
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey

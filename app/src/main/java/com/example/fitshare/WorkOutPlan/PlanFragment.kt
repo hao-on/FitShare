@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fitshare.Exercise.kt.Exercise
-import com.example.fitshare.Exercise.kt.ExerciseAdapter
+import com.example.fitshare.Exercise.Exercise
+import com.example.fitshare.Exercise.ExerciseAdapter
 import com.example.fitshare.R
 import com.example.fitshare.Recipe.Recipe
 import com.example.fitshare.fitApp

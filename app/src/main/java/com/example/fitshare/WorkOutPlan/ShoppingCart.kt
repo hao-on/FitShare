@@ -1,6 +1,6 @@
 package com.example.fitshare.WorkOutPlan
 
-import com.example.fitshare.Exercise.kt.Exercise
+import com.example.fitshare.Exercise.Exercise
 import java.lang.ref.WeakReference
 
 object ShoppingCart {
