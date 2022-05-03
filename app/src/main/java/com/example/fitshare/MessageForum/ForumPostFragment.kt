@@ -86,7 +86,13 @@ class ForumPostFragment : Fragment() {
             }
         })
 
+
         addPost = view.findViewById(R.id.addPostBtn)
+
+        val passedUser = arguments?.getString("userID").toString()
+        if(passedUser != user?.id.toString()){
+            addPost.hide()
+        }
         addPost.setOnClickListener{
             val addForumPost : ForumPostBtnDialog = ForumPostBtnDialog.newInstance()
             addForumPost.show(parentFragmentManager, null)

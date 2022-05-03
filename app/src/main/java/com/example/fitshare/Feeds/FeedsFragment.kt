@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.MainActivity
 import com.example.fitshare.Profile.OtherProfileFragment
 import com.example.fitshare.Profile.Profile
+import com.example.fitshare.Profile.ProfileFragment
 import com.example.fitshare.R
 import com.example.fitshare.Recipe.Recipe
 import com.example.fitshare.Recipe.RecipeAdapter
@@ -33,10 +34,12 @@ class FeedsFragment : Fragment() {
     private var user: io.realm.mongodb.User? = null
     private lateinit var feedsRealm: Realm
     private lateinit var userRealm: Realm
+    private lateinit var profileRealm: Realm
     private lateinit var partition: String
     private lateinit var adapter: PostAdapter
     private var bottomAppBarVisibility = View.VISIBLE
     private lateinit var userData: String
+    private lateinit var profileNum: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +71,17 @@ class FeedsFragment : Fragment() {
                 this@FeedsFragment.userRealm = realm
                 val userDat = userRealm.where(User::class.java).findFirst()
                 userData = userDat?.id.toString()
+            }
+        })
+
+        val prof_config = SyncConfiguration.Builder(user!!, "Profile").build()
+        Realm.getInstanceAsync(prof_config, object: Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                this@FeedsFragment.profileRealm = realm
+                val oldProf = profileRealm.where(Profile::class.java).
+                equalTo("userid", user?.id.toString()).findFirst()
+
+                profileNum = oldProf?.id.toString()
             }
         })
 
@@ -132,14 +146,25 @@ class FeedsFragment : Fragment() {
                     }
 
                     override fun onUsernameTextViewClick(textview: TextView, position: Int) {
-                        var otherProfileFragment: Fragment = OtherProfileFragment()
-                        val bundle = Bundle()
-                        bundle.putString("profileID", adapter.getItem(position)?.profileID.toString())
-                        otherProfileFragment.arguments = bundle
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, otherProfileFragment, "otherProfile")
-                            .addToBackStack("otherProfile")
-                            .commit()
+                        if(profileNum == adapter.getItem(position)?.profileID.toString()){
+                            var profileFragment: Fragment = ProfileFragment()
+                            val bundle = Bundle()
+                            bundle.putString("profileID", adapter.getItem(position)?.profileID.toString())
+                            profileFragment.arguments = bundle
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.frameLayout, profileFragment, "Profile")
+                                .addToBackStack("Profile")
+                                .commit()
+                        }else{
+                            var otherProfileFragment: Fragment = OtherProfileFragment()
+                            val bundle = Bundle()
+                            bundle.putString("profileID", adapter.getItem(position)?.profileID.toString())
+                            otherProfileFragment.arguments = bundle
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.frameLayout, otherProfileFragment, "otherProfile")
+                                .addToBackStack("otherProfile")
+                                .commit()
+                        }
                     }
                 })
                 rvFeeds.adapter = adapter
