@@ -67,10 +67,11 @@ class RegisterActivity : AppCompatActivity() {
             //createUserButton.isEnabled = true
 
             if (!it.isSuccess) {
-                onLoginFailed("Could not register user.")
+                onLoginFailed("Could not register user. Password must be between 6 and 128 characters")
                 Log.e("Register", "Error: ${it.error}")
                 btnRegister.isEnabled = true
             } else {
+                Toast.makeText(baseContext, "Successfully registered user.", Toast.LENGTH_LONG).show()
                 Log.i("Register", "Successfully registered user.")
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

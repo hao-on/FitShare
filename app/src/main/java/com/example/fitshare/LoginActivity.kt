@@ -88,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
             if (!it.isSuccess) {
                 Log.v("Login", "Failed")
                 onLoginFailed(it.error.message ?: "An error occurred.")
+                loginButton.isEnabled = true
 
             } else {
                 onLoginSuccess()

@@ -268,8 +268,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                     val bundle = Bundle()
                     bundle.putString("profileID", otherUser?.id.toString())
                     otherProfileFragment.arguments = bundle
-                    transaction.replace(R.id.map, otherProfileFragment)
-                    transaction.addToBackStack(null)
+                    transaction.replace(R.id.map, otherProfileFragment, "otherProfile")
+                    transaction.addToBackStack("otherProfile")
                     transaction.commit()
 
 //                    var otherProfileFragment: Fragment = OtherProfileFragment()
