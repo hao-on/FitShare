@@ -59,18 +59,30 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.newsFeed-> {
+                    workoutFab.clearAnimation()
+                    nutritionFab.clearAnimation()
+                    fab.clearAnimation()
                     openFragment(FeedsFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.fitness-> {
+                    workoutFab.clearAnimation()
+                    nutritionFab.clearAnimation()
+                    fab.clearAnimation()
                     openFragment(FitnessFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.recipe -> {
+                    workoutFab.clearAnimation()
+                    nutritionFab.clearAnimation()
+                    fab.clearAnimation()
                     openFragment(RecipeFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.profile -> {
+                    workoutFab.clearAnimation()
+                    nutritionFab.clearAnimation()
+                    fab.clearAnimation()
                     openFragment(ProfileFragment())
                     return@OnItemSelectedListener true
                 }
