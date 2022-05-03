@@ -1,5 +1,7 @@
 package com.example.fitshare
 
+import android.app.DatePickerDialog
+import android.os.Build
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fitness_toolbar.*
@@ -9,7 +11,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitshare.Caloric.CaloricAdapter
 import com.example.fitshare.Exercise.Exercise
@@ -24,7 +32,9 @@ import io.realm.kotlin.where
 import io.realm.mongodb.sync.SyncConfiguration
 import kotlinx.android.synthetic.main.fragment_fitness.*
 import kotlinx.android.synthetic.main.layout_caloric.*
-
+import java.time.LocalDate
+import java.time.Month
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -51,10 +61,14 @@ class FitnessFragment : Fragment()  {
     private lateinit var fab: FloatingActionButton
     private lateinit var partition: String
     //private lateinit var todayView: TextView
-   // private lateinit var monthDayText: TextView
+    private lateinit var monthDayText: TextView
     private lateinit var tvRemaining: TextView
     private lateinit var tvFood: TextView
     private lateinit var tvGoal: TextView
+
+    var button_date: Button? = null
+    var textview_date: TextView? = null
+    var cal = Calendar.getInstance()
 
 
     //private lateinit var myRecipe: AppCompatButton
@@ -73,16 +87,47 @@ class FitnessFragment : Fragment()  {
     ): View? {
         // Inflate the layout for this fragment
         val view: View =inflater.inflate(R.layout.fragment_fitness, container, false)
-        //val calview: View =inflater.inflate(R.layout.layout_caloric, container, false)
+
         user = fitApp.currentUser()
         partition = "fitness"
+
+
         val config = SyncConfiguration.Builder(user!!, partition)
             .build()
 
         Realm.getInstanceAsync(config, object: Realm.Callback() {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSuccess(realm: Realm) {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@FitnessFragment.fitnessRealm = realm
+
+                val cal = Calendar.getInstance()
+                val year = cal.get(Calendar.YEAR)
+                val month = cal.get(Calendar.MONTH)+1
+                val day = cal.get(Calendar.DAY_OF_MONTH)-1
+
+                monthDayText=view.findViewById(R.id.monthDayText)
+                monthDayText.setOnClickListener {
+                    val datePickerDialog = DatePickerDialog(requireContext(),
+                        { view, year, month, day ->
+
+                        }, year, month, day)
+                    datePickerDialog.show()
+                    rvExercise.layoutManager =
+                        LinearLayoutManager(requireActivity().applicationContext)
+                    rvExercise.setHasFixedSize(true)
+                    val someDate: LocalDate = LocalDate.of(year, month, day)
+                    val dateString: String = someDate.toString()
+                    Log.i("userid", user!!.id)
+                    val exercises = fitnessRealm.where<Exercise>()
+                        .equalTo("userid", user!!.id.toString())
+
+                        .findAll()
+                    exerciseAdapter = ExerciseAdapter(exercises, user!!, partition)
+                    rvExercise.adapter = exerciseAdapter
+
+                }
+
 
                 val exercises = fitnessRealm.where<Exercise>().findAll()
 
@@ -132,18 +177,16 @@ class FitnessFragment : Fragment()  {
                 // since this realm should live exactly as long as this activity, assign the realm to a member variable
                 this@FitnessFragment.userRealm = realm
             }
+
         })
 
 
 
-        // Set a click listener for button widget
 
-       /* monthDayText.setOnClickListener{
-            // Initialize a new DatePickerFragment
-            val newFragment = DatePickerFragment()
-            // Show the date picker dialog
-            newFragment.show(parentFragmentManager, "Date Picker")
-        }*/
+
+
+
+
 
     return view
     }

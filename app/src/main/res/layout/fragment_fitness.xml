@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="671dp">
 
+
         <include
             android:id="@+id/fitnessToolbar"
             layout="@layout/fitness_toolbar"

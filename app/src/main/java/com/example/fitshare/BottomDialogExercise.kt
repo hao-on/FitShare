@@ -65,7 +65,8 @@ class BottomDialogExercise : BottomSheetDialogFragment() {
                 txtEx_Name.text.toString(),
                 txtEx_Reps.text.toString().toLong(),
                 txtEx_Sets.text.toString().toLong(),
-                txtEx_Weight.text.toString().toDouble()
+                txtEx_Weight.text.toString().toDouble(),
+                user!!.id
             )
             exerciseRealm.executeTransactionAsync { realm ->
                 realm.insert(exercise) }

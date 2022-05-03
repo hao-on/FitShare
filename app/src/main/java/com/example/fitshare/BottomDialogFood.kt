@@ -77,16 +77,18 @@ class BottomDialogFood : BottomSheetDialogFragment() {
                 txtFd_Calories.text.toString().toDouble(),
                 txtFd_Protein.text.toString().toDouble(),
                 txtFd_Carbs.text.toString().toDouble(),
-                txtFd_Fats.text.toString().toDouble())
+                txtFd_Fats.text.toString().toDouble(),
+                user!!.id
+            )
 
             foodRealm.executeTransactionAsync { realm -> realm.insert(food)
 
             }
             val calFood=tvFood.text.toString().toInt()+txtFd_Calories.text.toString().toInt()
-            tvFood.text=calFood.toString()
+            tvFood.setText(calFood.toString())
             val calRemaining=tvGoal.text.toString().toInt()-tvFood.text.toString().toInt() +tvRemaining.text.toString().toInt()
-            tvRemaining.text=calRemaining.toString()
 
+            tvRemaining.setText(calRemaining.toString())
 
 
 

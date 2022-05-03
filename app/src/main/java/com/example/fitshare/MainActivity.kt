@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.fitshare.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.fitness_toolbar.*
 
 
@@ -26,12 +28,14 @@ class MainActivity : AppCompatActivity() {
     private var user: io.realm.mongodb.User? = null
     private lateinit var fab: FloatingActionButton
     private lateinit var workoutFab: FloatingActionButton
+    private lateinit var exerciseFab: FloatingActionButton
     private lateinit var nutritionFab: FloatingActionButton
     private val rotateOpenAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_animation)}
     private val rotateCloseAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_animation)}
     private val fromBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_animation)}
     private val toBottomAnimation: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_animation)}
     private var clicked: Boolean = false
+    private lateinit var monthDayText: TextView
 
 
     override fun onStart() {
@@ -86,8 +90,10 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        workoutFab = findViewById(R.id.workoutBtn)
-        workoutFab.setOnClickListener{
+
+
+        exerciseFab = findViewById(R.id.exerciseBtn)
+        exerciseFab.setOnClickListener{
             Toast.makeText(this, "WorkOut Button Clicked", Toast.LENGTH_SHORT).show()
             val currFragment: Fragment? =
                 supportFragmentManager.findFragmentById(R.id.frameLayout)
@@ -105,6 +111,11 @@ class MainActivity : AppCompatActivity() {
             val addBottomDialogFood : BottomDialogFood = BottomDialogFood.newInstance()
             addBottomDialogFood.show(supportFragmentManager, null)
 
+        }
+
+        workoutFab = findViewById(R.id.workoutBtn)
+        workoutFab.setOnClickListener{
+            Toast.makeText(this, "Workout Button Clicked", Toast.LENGTH_SHORT).show()
         }
 
         // Set a click listener for button widget
@@ -146,10 +157,12 @@ class MainActivity : AppCompatActivity() {
         if (!clicked) {
             workoutFab.visibility = View.INVISIBLE
             nutritionFab.visibility = View.INVISIBLE
+            exerciseFab.visibility = View.INVISIBLE
         }
         else{
             workoutFab.visibility = View.VISIBLE
             nutritionFab.visibility = View.VISIBLE
+            exerciseFab.visibility = View.VISIBLE
         }
     }
 
@@ -157,10 +170,12 @@ class MainActivity : AppCompatActivity() {
         if (!clicked){
             workoutFab.startAnimation(fromBottomAnimation)
             nutritionFab.startAnimation(fromBottomAnimation)
+            exerciseFab.startAnimation(fromBottomAnimation)
             fab.startAnimation(rotateOpenAnimation)
         }else{
             workoutFab.startAnimation(toBottomAnimation)
             nutritionFab.startAnimation(toBottomAnimation)
+            exerciseFab.startAnimation(toBottomAnimation)
             fab.startAnimation(rotateCloseAnimation)
         }
     }
@@ -169,10 +184,12 @@ class MainActivity : AppCompatActivity() {
         if (!clicked) {
             workoutFab.isClickable = true
             nutritionFab.isClickable = true
+            exerciseFab.isClickable = true
         }
         else{
             workoutFab.isClickable = false
             nutritionFab.isClickable = false
+            exerciseFab.isClickable = false
         }
     }
 

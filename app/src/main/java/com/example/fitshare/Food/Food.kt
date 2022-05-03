@@ -16,7 +16,8 @@ import java.util.*
 open class Food( _name: String = "Food", _calories: Double = 1.0,
                  _protein: Double = 1.0, _carbs: Double = 1.0,
                  _fats: Double = 1.0,
-                 _date: Date = Date(), _userid: String = ""
+                 _userid: String = "",
+                 _date: Date = Date()
 
 ) : RealmObject() {
     @PrimaryKey @RealmField ("_id") var id: ObjectId = ObjectId()

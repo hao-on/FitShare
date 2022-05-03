@@ -37,6 +37,7 @@ open class Exercise : RealmObject {
     var reps: Long = 0
     var weight: Double = 0.0
     var date: Date = Date()
+    var userid:String=""
     @LinkingObjects("exercises")
     val user: RealmResults<User>? = null
 
@@ -45,11 +46,14 @@ open class Exercise : RealmObject {
         sets: Long,
         reps: Long,
         weight: Double,
+        userid: String
     ) {
         this.exerciseName = exerciseName
         this.sets = sets
         this.reps = reps
         this.weight = weight
+        this.userid=userid
+
     }
 
     constructor() {} // RealmObject subclasses must provide an empty constructor
