@@ -92,8 +92,7 @@
                 android:backgroundTint="@color/black"
                 android:padding="10dp"
                 android:src="@drawable/ic_chat"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
+                />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
