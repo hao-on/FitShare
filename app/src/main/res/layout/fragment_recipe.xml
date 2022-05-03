@@ -52,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
 
-        <!--
+
         <LinearLayout
             android:id="@+id/filter"
             android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 />
 
         </LinearLayout>
-        -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipe"
             android:layout_width="wrap_content"

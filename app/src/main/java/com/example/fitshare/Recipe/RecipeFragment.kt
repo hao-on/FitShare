@@ -104,56 +104,73 @@ class RecipeFragment : Fragment(){
                 return false
             }
         })
-//
-//        myRecipe = view.findViewById(R.id.myRecipeFilter)
-//        myRecipe.setOnClickListener {
-//            adapter = RecipeAdapter(recipeRealm.where<Recipe>().contains("user_id", user?.id.toString())
-//                .findAll(), user!!, partition)
-//            rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
-//            rvRecipe.adapter = adapter
-//            rvRecipe.setHasFixedSize(true)
-//
-//            /*
-//            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
-//                override fun instantiateMyButton(
-//                    viewHolder: RecyclerView.ViewHolder,
-//                    buffer: MutableList<MyButton>
-//                ) {
-//                    buffer.add(MyButton(requireActivity().applicationContext,
-//                        "Delete",
-//                        30,
-//                        0,
-//                        Color.parseColor("#FF3C30"),
-//                        object: MyButtonClickListener {
-//                            override fun onClick(pos: Int) {
-//                                Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
-//                    ))
-//
-//                    buffer.add(MyButton(requireActivity().applicationContext,
-//                        "Modify",
-//                        30,
-//                        0,
-//                        Color.parseColor("#FF9502"),
-//                        object: MyButtonClickListener{
-//                            override fun onClick(pos: Int) {
-//                                Toast.makeText(requireActivity().applicationContext, "Modify Button Clicked", Toast.LENGTH_SHORT).show()
-//                            }
-//                        }
-//                    ))
-//                }
-//            }*/
-//        }
-//
-//        allRecipe = view.findViewById(R.id.allFilter)
-//        allRecipe.setOnClickListener {
-//            rvRecipe.layoutManager =
-//                LinearLayoutManager(requireActivity().applicationContext)
-//            rvRecipe.setHasFixedSize(true)
-//            adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
-//            rvRecipe.adapter = adapter
-//        }
+
+
+        myRecipe = view.findViewById(R.id.myRecipeFilter)
+        myRecipe.setOnClickListener {
+            adapter = RecipeAdapter(recipeRealm.where<Recipe>().contains("user_id", user?.id.toString())
+                .findAll(), user!!, partition)
+            rvRecipe.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+            rvRecipe.adapter = adapter
+            rvRecipe.setHasFixedSize(true)
+            adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
+                override fun onItemClick(position: Int) {
+                    var detailsFragment: Fragment = RecipeDetailsFragment()
+                    val bundle = Bundle()
+                    bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
+                    bundle.putString("recipeName", adapter.getItem(position)?.recipeName)
+                    detailsFragment.arguments = bundle
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, detailsFragment, "RecipeDetails")
+                        .addToBackStack("RecipeDetails")
+                        .commit()
+                }
+
+            })
+
+
+            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
+                override fun instantiateMyButton(
+                    viewHolder: RecyclerView.ViewHolder,
+                    buffer: MutableList<MyButton>
+                ) {
+                    buffer.add(MyButton(requireActivity().applicationContext,
+                        "Delete",
+                        30,
+                        0,
+                        Color.parseColor("#FF3C30"),
+                        object: MyButtonClickListener {
+                            override fun onClick(pos: Int) {
+                                Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    ))
+                }
+            }
+        }
+
+        allRecipe = view.findViewById(R.id.allFilter)
+        allRecipe.setOnClickListener {
+            rvRecipe.layoutManager =
+                LinearLayoutManager(requireActivity().applicationContext)
+            rvRecipe.setHasFixedSize(true)
+            adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
+            rvRecipe.adapter = adapter
+            adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
+                override fun onItemClick(position: Int) {
+                    var detailsFragment: Fragment = RecipeDetailsFragment()
+                    val bundle = Bundle()
+                    bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
+                    bundle.putString("recipeName", adapter.getItem(position)?.recipeName)
+                    detailsFragment.arguments = bundle
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, detailsFragment, "RecipeDetails")
+                        .addToBackStack("RecipeDetails")
+                        .commit()
+                }
+
+            })
+        }
         return view
     }
 
