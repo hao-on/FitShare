@@ -16,13 +16,13 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Calories Remaining"
-            android:fontFamily="@font/roboto_bold"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:padding="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginStart="5dp"/>
+            android:fontFamily="@font/roboto_bold"
+            android:padding="10dp"
+            android:text="Calories Remaining"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvGoal"
@@ -34,16 +34,16 @@
         <TextView
             android:id="@+id/tvMinus"
             style="@style/modifiedTextView"
-            android:text="-"
-            android:layout_marginTop="2dp"
-            android:paddingHorizontal="10dp"
             android:layout_below="@id/tvTitle"
-            android:layout_toEndOf="@id/tvGoal"/>
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/tvGoal"
+            android:paddingHorizontal="10dp"
+            android:text="-" />
 
         <TextView
             android:id="@+id/tvFood"
             style="@style/modifiedNumberView"
-            android:text="2000"
+            android:text="0"
             android:layout_below="@id/tvTitle"
             android:layout_toEndOf="@+id/tvMinus"
             />
@@ -62,7 +62,7 @@
             android:id="@+id/tvExercises"
             style="@style/modifiedNumberView"
             android:layout_marginStart="5dp"
-            android:text="2000"
+            android:text="0"
             android:layout_below="@id/tvTitle"
             android:layout_toEndOf="@+id/tvPlus"
             />
@@ -81,7 +81,7 @@
             android:id="@+id/tvRemaining"
             style="@style/modifiedNumberView"
             android:layout_marginStart="12dp"
-            android:text="2000"
+            android:text="0"
             android:textColor="@color/neon_blue"
             android:layout_below="@id/tvTitle"
             android:layout_toEndOf="@id/tvEqual"/>

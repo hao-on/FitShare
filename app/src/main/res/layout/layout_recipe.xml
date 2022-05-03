@@ -81,5 +81,6 @@
             android:textColor="@color/mikado_yellow"
             android:drawableRight="@drawable/ic_star"/>
 
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

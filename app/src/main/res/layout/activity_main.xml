@@ -83,20 +83,6 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/workoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_workout_plan"
-        app:fabCustomSize="65dp"
-        app:maxImageSize="45dp"
-        android:backgroundTint="@color/mikado_yellow"
-        android:layout_gravity="bottom|left"
-        android:layout_marginBottom="100dp"
-        android:layout_marginStart="100dp"
-        android:visibility="invisible"/>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/nutritionBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,6 +94,33 @@
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="100dp"
         android:visibility="invisible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/exerciseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_workout_plan"
+        app:fabCustomSize="65dp"
+        app:maxImageSize="45dp"
+        android:backgroundTint="@color/mikado_yellow"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/workoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/mikado_yellow"
+        android:src="@drawable/ic_workout_plan"
+        android:visibility="invisible"
+        app:fabCustomSize="65dp"
+        app:maxImageSize="45dp" />
 
 
 

@@ -18,7 +18,7 @@
 
         <!--ImageVIew to display our Course Image-->
         <ImageView
-            android:id="@+id/ivExerciseImage"
+            android:id="@+id/ivFoodImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
@@ -27,59 +27,58 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/login_edittext_background"
             android:padding="5dp"
-            android:src="@drawable/dumbbell" />
+            android:src="@drawable/food" />
 
         <!--Text View to display Recipe Name-->
         <TextView
-            android:id="@+id/tvExerciseName"
+            android:id="@+id/tvFoodName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/ivExerciseImage"
+            android:layout_toEndOf="@id/ivFoodImage"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/black"
             android:textSize="17sp" />
 
         <!--Text VIew to display Recipe Desccription-->
         <TextView
-            android:id="@+id/tvReps"
+            android:id="@+id/tvCalories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvExerciseName"
+            android:layout_below="@id/tvFoodName"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/ivExerciseImage"
+            android:layout_toEndOf="@id/ivFoodImage"
             android:drawablePadding="2dp"
             android:fontFamily="@font/roboto_light" />
 
         <TextView
-            android:id="@+id/tvSets"
+            android:id="@+id/tvProtein"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvReps"
+            android:layout_below="@id/tvCalories"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/ivExerciseImage"
+            android:layout_toEndOf="@id/ivFoodImage"
             android:drawablePadding="2dp"
             android:fontFamily="@font/roboto_light" />
         <TextView
-            android:id="@+id/tvWeight"
+            android:id="@+id/tvCarbs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvSets"
+            android:layout_below="@id/tvProtein"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/ivExerciseImage"
+            android:layout_toEndOf="@id/ivFoodImage"
             android:drawablePadding="2dp"
             android:fontFamily="@font/roboto_light" />
         <TextView
-            android:id="@+id/tvDate"
+            android:id="@+id/tvFats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvWeight"
+            android:layout_below="@id/tvCarbs"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/ivExerciseImage"
+            android:layout_toEndOf="@id/ivFoodImage"
             android:drawablePadding="2dp"
             android:fontFamily="@font/roboto_light" />
-
 
 
     </RelativeLayout>
