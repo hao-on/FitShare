@@ -95,6 +95,10 @@ class EditBottomDialog : BottomSheetDialogFragment() {
                 transactionRealm.insertOrUpdate(myRecipe)
             }
             dialog?.dismiss()
+
+            var detailsFragment: Fragment = RecipeFragment()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+                detailsFragment).commit()
         }
 
         return view
