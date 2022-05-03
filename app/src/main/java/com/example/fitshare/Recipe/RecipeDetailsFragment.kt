@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isGone
 import com.example.fitshare.MainActivity
 import com.example.fitshare.R
 import com.example.fitshare.fitApp
@@ -27,6 +28,7 @@ class RecipeDetailsFragment : Fragment() {
     private var removeNavBar = View.GONE
     private lateinit var editBtn: FloatingActionButton
     private lateinit var recipeID2: String
+    private lateinit var deleteBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -61,8 +63,10 @@ class RecipeDetailsFragment : Fragment() {
 
                 if(recipe?.user_id.toString() != user?.id.toString()){
                     editBtn.hide()
+                    deleteBtn.isGone = true
                 }else{
                     editBtn.show()
+                    deleteBtn.isGone = false
                 }
 //                if (recName != null) {
 //                    Toast.makeText(requireActivity().applicationContext,
@@ -70,6 +74,16 @@ class RecipeDetailsFragment : Fragment() {
 //                }
             }
         })
+
+        deleteBtn = view.findViewById(R.id.btnDelete)
+        deleteBtn.setOnClickListener {
+            recipeRealm.executeTransactionAsync{
+                val deleteRecipe = it.where(Recipe::class.java).equalTo("_id", ObjectId(arguments?.getString("recipeID"))).findFirst()
+                deleteRecipe?.deleteFromRealm()
+            }
+            val recipeFrag : Fragment = RecipeFragment()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameLayout, recipeFrag).commit()
+        }
 
         editBtn = view.findViewById(R.id.editRecipeBtn)
         editBtn.setOnClickListener{
@@ -80,15 +94,15 @@ class RecipeDetailsFragment : Fragment() {
             editRecipeDialog.show(parentFragmentManager, null)
         }
 
-        val rBar: RatingBar = view.findViewById(R.id.rBar)
-        if (rBar != null) {
-            val button: Button = view.findViewById(R.id.btnRating)
-            button?.setOnClickListener {
-                val star = rBar.rating.toString()
-                Toast.makeText(requireActivity().applicationContext,
-                    "Rating is: " + star, Toast.LENGTH_SHORT).show()
-            }
-        }
+//        val rBar: RatingBar = view.findViewById(R.id.rBar)
+//        if (rBar != null) {
+//            val button: Button = view.findViewById(R.id.btnRating)
+//            button?.setOnClickListener {
+//                val star = rBar.rating.toString()
+//                Toast.makeText(requireActivity().applicationContext,
+//                    "Rating is: " + star, Toast.LENGTH_SHORT).show()
+//            }
+//        }
         return view
     }
 }

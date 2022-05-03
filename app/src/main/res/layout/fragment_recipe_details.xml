@@ -171,60 +171,61 @@
                     android:layout_marginTop="10dp"
                     android:layout_below="@id/tvTitle2" />
 
-                <TextView
-                    android:id="@+id/tvTitle3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvSteps"
-                    android:fontFamily="@font/dancing_script"
-                    android:text="Your Rating"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/mikado_yellow"
-                    android:textSize="25sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvTitle3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/tvSteps"-->
+<!--                    android:fontFamily="@font/dancing_script"-->
+<!--                    android:text="Your Rating"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:textColor="@color/mikado_yellow"-->
+<!--                    android:textSize="25sp" />-->
 
-                <RatingBar
-                    android:id="@+id/rBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvSteps"
-                    android:layout_toEndOf="@+id/tvTitle3"
-                    android:layout_marginTop="20dp"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:isIndicator="false"
-                    android:progressTint="#FFCC01"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    android:numStars="5"
-                    android:stepSize="0.5" />
+<!--                <RatingBar-->
+<!--                    android:id="@+id/rBar"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/tvSteps"-->
+<!--                    android:layout_toEndOf="@+id/tvTitle3"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    style="?android:attr/ratingBarStyleIndicator"-->
+<!--                    android:isIndicator="false"-->
+<!--                    android:progressTint="#FFCC01"-->
+<!--                    android:scaleX="0.8"-->
+<!--                    android:scaleY="0.8"-->
+<!--                    android:numStars="5"-->
+<!--                    android:stepSize="0.5" />-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/commentLayout"
-                    android:layout_width="match_parent"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_below="@id/rBar">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/commentLayout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:layout_below="@id/rBar">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txtComment"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:hint="Comment"
-                        android:gravity="top"
-                        android:fontFamily="@font/roboto_light"/>
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/txtComment"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="100dp"-->
+<!--                        android:hint="Comment"-->
+<!--                        android:gravity="top"-->
+<!--                        android:fontFamily="@font/roboto_light"/>-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <Button
-                    android:id="@+id/btnRating"
+                    android:id="@+id/btnDelete"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/commentLayout"
+                    android:layout_below="@id/tvSteps"
+                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:backgroundTint="@color/black"
-                    android:text="Submit"
+                    android:layout_marginTop="100dp"
+                    android:backgroundTint="@color/red"
+                    android:text="Delete"
                     android:textAllCaps="false"
                     android:textColor="@color/cream"
                     android:textSize="16sp"

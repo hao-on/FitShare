@@ -2,6 +2,7 @@ package com.example.fitshare.Recipe
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class RecipeFragment : Fragment(){
     private lateinit var searchview: SearchView
     private lateinit var myRecipe: AppCompatButton
     private lateinit var allRecipe: AppCompatButton
+    //private lateinit var deleteRecipe: Recipe?
     private var removeNavBar = View.VISIBLE
 
 
@@ -65,8 +67,11 @@ class RecipeFragment : Fragment(){
                 rvRecipe.setHasFixedSize(true)
                 adapter = RecipeAdapter(recipeRealm.where<Recipe>().sort("recipeName").findAll(), user!!, partition)
                 rvRecipe.adapter = adapter
+
                 adapter.setOnItemClickListener(object : RecipeAdapter.onItemClickListener{
+
                     override fun onItemClick(position: Int) {
+
                         var detailsFragment: Fragment = RecipeDetailsFragment()
                         val bundle = Bundle()
                         bundle.putString("recipeID", adapter.getItem(position)?.id.toString())
@@ -79,6 +84,7 @@ class RecipeFragment : Fragment(){
                     }
 
                 })
+
             }
         })
 
@@ -129,24 +135,33 @@ class RecipeFragment : Fragment(){
             })
 
 
-            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 150){
-                override fun instantiateMyButton(
-                    viewHolder: RecyclerView.ViewHolder,
-                    buffer: MutableList<MyButton>
-                ) {
-                    buffer.add(MyButton(requireActivity().applicationContext,
-                        "Delete",
-                        30,
-                        0,
-                        Color.parseColor("#FF3C30"),
-                        object: MyButtonClickListener {
-                            override fun onClick(pos: Int) {
-                                Toast.makeText(requireActivity().applicationContext, "Delete Button Clicked", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    ))
-                }
-            }
+//            val swipe = object : MySwipeHelper(requireActivity().applicationContext, rvRecipe, 500){
+//                override fun instantiateMyButton(
+//                    viewHolder: RecyclerView.ViewHolder,
+//                    buffer: MutableList<MyButton>
+//                ) {
+//                    buffer.add(MyButton(requireActivity().applicationContext,
+//                        "Delete",
+//                        50,
+//                        0,
+//                        Color.parseColor("#FF3C30"),
+//                        object: MyButtonClickListener {
+//                            override fun onClick(pos: Int) {
+//                                recipeRealm.executeTransactionAsync{
+//                                    val deleteRecipe = it.where(Recipe::class.java).
+//                                    equalTo("_id", adapter.getItem(pos)?.id).findFirst()
+//                                    Log.i("test", deleteRecipe?.id.toString())
+//                                }
+
+                                    //adapter.getItem(pos)?.deleteFromRealm()
+//                                    deleteRecipe?.deleteFromRealm()
+//                                    //adapter.notifyDataSetChanged()
+//
+//                            }
+//                        }
+//                    ))
+//                }
+//            }
         }
 
         allRecipe = view.findViewById(R.id.allFilter)
