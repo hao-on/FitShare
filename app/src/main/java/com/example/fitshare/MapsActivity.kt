@@ -174,7 +174,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                 var currentLoc =
                     UserLocation(username, userID, location.latitude, location.longitude)
-                mapRealm.executeTransactionAsync { realm -> realm.insert(currentLoc) }
+                mapRealm.executeTransactionAsync { realm ->
+                    val locationList = realm.where(UserLocation::class.java).equalTo("userID", userID).findAll()
+                    if (locationList == null){
+                        realm.insert(currentLoc)
+                    }else{
+                        locationList.deleteAllFromRealm()
+                        realm.insert(currentLoc)
+                    }
+                }
 
 
 //                var currentLoc =

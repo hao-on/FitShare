@@ -17,6 +17,7 @@ import com.example.fitshare.MainActivity
 import com.example.fitshare.MapsActivity
 import com.example.fitshare.MessageForum.ForumPostFragment
 import com.example.fitshare.R
+import com.example.fitshare.User.UserLocation
 import com.example.fitshare.fitApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -28,9 +29,8 @@ class ProfileFragment : Fragment() {
 
     private var user: io.realm.mongodb.User? = null
     private lateinit var profileRealm: Realm
-    private lateinit var fab: FloatingActionButton
+    private lateinit var mapRealm: Realm
     private lateinit var partition: String
-    private lateinit var otherProfileButton: Button
     private lateinit var meetUp: SwitchCompat
     private lateinit var messageBtn: ImageButton
     private lateinit var btnLocation: ImageButton
@@ -60,6 +60,15 @@ class ProfileFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
 
         user = fitApp.currentUser()
+        partition = "location"
+        val map_config = SyncConfiguration.Builder(user!!, partition)
+            .build()
+
+        Realm.getInstanceAsync(map_config, object : Realm.Callback() {
+            override fun onSuccess(realm: Realm) {
+                this@ProfileFragment.mapRealm = realm
+            }
+        })
         partition = "Profile"
         val config = SyncConfiguration.Builder(user!!, partition).build()
 
@@ -119,19 +128,26 @@ class ProfileFragment : Fragment() {
         meetUp = view.findViewById(R.id.switchMeetUp)
         meetUp.setOnClickListener{
 
-            //Check box functionality
+        //Check box functionality
+        if(meetUp.isChecked()){
+                profileRealm.executeTransactionAsync{
+                    val oldProf = it.where(Profile::class.java).
+                    equalTo("userid", user?.id.toString()).findFirst()
+                    oldProf?.meetUp = true
+                }
+            btnLocation.isClickable = true
+        }
+        else if(!meetUp.isChecked()){
             profileRealm.executeTransactionAsync{
                 val oldProf = it.where(Profile::class.java).
                 equalTo("userid", user?.id.toString()).findFirst()
-                if(meetUp.isChecked()){
-                        oldProf?.meetUp = true
-                    btnLocation.isClickable = true
+                oldProf?.meetUp = false
+            }
+            mapRealm.executeTransactionAsync{
+                val locationList = it.where(UserLocation::class.java).equalTo("userID", user?.id.toString()).findAll()
+                locationList.deleteAllFromRealm()
                 }
-                else if(!meetUp.isChecked()){
-                        oldProf?.meetUp = false
-                    btnLocation.isClickable = false
-                    }
-                Log.i("profile", oldProf?.meetUp.toString())
+            btnLocation.isClickable = false
             }
         }
 
