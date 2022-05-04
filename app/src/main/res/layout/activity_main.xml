@@ -99,7 +99,7 @@
         android:id="@+id/exerciseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_workout_plan"
+        android:src="@drawable/ic_exercise"
         app:fabCustomSize="65dp"
         app:maxImageSize="45dp"
         android:backgroundTint="@color/mikado_yellow"

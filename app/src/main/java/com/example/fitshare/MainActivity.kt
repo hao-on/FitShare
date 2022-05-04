@@ -60,30 +60,18 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.newsFeed-> {
-                    workoutFab.clearAnimation()
-                    nutritionFab.clearAnimation()
-                    fab.clearAnimation()
                     openFragment(FeedsFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.fitness-> {
-                    workoutFab.clearAnimation()
-                    nutritionFab.clearAnimation()
-                    fab.clearAnimation()
                     openFragment(FitnessFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.recipe -> {
-                    workoutFab.clearAnimation()
-                    nutritionFab.clearAnimation()
-                    fab.clearAnimation()
                     openFragment(RecipeFragment())
                     return@OnItemSelectedListener true
                 }
                 R.id.profile -> {
-                    workoutFab.clearAnimation()
-                    nutritionFab.clearAnimation()
-                    fab.clearAnimation()
                     openFragment(ProfileFragment())
                     return@OnItemSelectedListener true
                 }
@@ -124,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Nutrition Button Clicked", Toast.LENGTH_SHORT).show()
         }
 
-        exerciseFab = findViewById(R.id.nutritionBtn)
+        exerciseFab = findViewById(R.id.exerciseBtn)
         exerciseFab.setOnClickListener{
             Toast.makeText(this, "Exercise Button Clicked", Toast.LENGTH_SHORT).show()
             val currFragment: Fragment? =
@@ -166,10 +154,12 @@ class MainActivity : AppCompatActivity() {
         if (!clicked) {
             workoutFab.visibility = View.INVISIBLE
             nutritionFab.visibility = View.INVISIBLE
+            exerciseFab.visibility = View.INVISIBLE
         }
         else{
             workoutFab.visibility = View.VISIBLE
             nutritionFab.visibility = View.VISIBLE
+            exerciseFab.visibility = View.VISIBLE
         }
     }
 
@@ -177,10 +167,12 @@ class MainActivity : AppCompatActivity() {
         if (!clicked){
             workoutFab.startAnimation(fromBottomAnimation)
             nutritionFab.startAnimation(fromBottomAnimation)
+            exerciseFab.startAnimation(fromBottomAnimation)
             fab.startAnimation(rotateOpenAnimation)
         }else{
             workoutFab.startAnimation(toBottomAnimation)
             nutritionFab.startAnimation(toBottomAnimation)
+            exerciseFab.startAnimation(toBottomAnimation)
             fab.startAnimation(rotateCloseAnimation)
         }
     }
@@ -189,10 +181,12 @@ class MainActivity : AppCompatActivity() {
         if (!clicked) {
             workoutFab.isClickable = true
             nutritionFab.isClickable = true
+            exerciseFab.isClickable = true
         }
         else{
             workoutFab.isClickable = false
             nutritionFab.isClickable = false
+            exerciseFab.isClickable = false
         }
     }
 
