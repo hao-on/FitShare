@@ -75,11 +75,11 @@ class UploadPostDialog: BottomSheetDialogFragment() {
             feedsRealm.executeTransactionAsync { transactionRealm: Realm ->
                 transactionRealm.insert(post) }
 
-            userRealm.executeTransactionAsync { transactionRealm: Realm ->
-                val userData = transactionRealm.where(User::class.java).findFirst()
-                userData?.posts?.add(post)
-                transactionRealm.insertOrUpdate(userData)
-            }
+//            userRealm.executeTransactionAsync { transactionRealm: Realm ->
+//                val userData = transactionRealm.where(User::class.java).findFirst()
+//                userData?.posts?.add(post)
+//                transactionRealm.insertOrUpdate(userData)
+//            }
 
             dialog?.dismiss()
         }
