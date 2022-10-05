@@ -1,6 +1,5 @@
 # FitShare
-A social Fitness-Nutrition Android written in Kotlin and connected with a MongoDB Realm backend.
-FitShare is health social app that combines aspects of fitness, recipes, and social features.
+FitShare is a social Fitness-Nutrition mobiel application written in Kotlin and connected with a MongoDB Realm backend.
 **Goal**: Build a community around fitness and recipe cooking.
 
 ## Features:
