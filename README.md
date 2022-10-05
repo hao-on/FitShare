@@ -3,7 +3,7 @@ FitShare is a social Fitness-Nutrition mobiel application written in Kotlin and 
 
 **Goal**: Build a community around fitness and recipe cooking.
 
-## Features:
+## Features
 ### Nutrition
   * View all recipes or your uploaded recipes
   * Add/Modify recipes and view recipe steps and ingredients
