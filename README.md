@@ -33,7 +33,7 @@ Feel free to fork or download this project so you could try it out and use this 
  
 ### Feed Tab
 <p align="center">
-  <img src="./Images/Feeds.gif" height="50">
+  <img src="./Images/Feeds.gif" width="50" height="300">
 </p>
 
 ### Recipe
