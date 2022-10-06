@@ -21,8 +21,9 @@ Feel free to fork or download this project so you could try it out and use this 
 ## DEMO TIME
 ### Bottom Navigation Bar
 <p align="center">
-  <img src="/Images/NavBar.png" width="50% height="auto" >
+  <img src="/Images/NavBar.png" width="50%" height="auto" >
 </p>
+                                                        
 * We have four pages: Feeds Tab, Fitnes, Recipe, and Profile. 
 * The floating button is one of our unique features. It is a dynamic add button, which performs differnt actions in each pages
   * Feeds: Uploading posts
