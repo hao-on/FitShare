@@ -1,9 +1,10 @@
 # FitShare
-FitShare is a social Fitness-Nutrition mobile application written in Kotlin and connected with a MongoDB Realm backend. This is my senior group project, where I worked with four other teammates. The devloping process actually took around 8 months, where the first 2 months is for brainstorming, planning, and setting up our backend. There were a lot of arguments, conflicts, and difficulties; but foruntately, we make it!!! We had the opportunity to represent our class in the Senior Expo 2022, and was honored as oen of the "Most socially impactful application".
+FitShare is a social Fitness-Nutrition mobile application written in Kotlin and connected with a MongoDB Realm backend. This application is my senior group project, where I worked with four other teammates. The developing process took around eight months, whereas brainstorming, planning, and setting up our backend took the first two months. There were a lot of arguments, conflicts, and difficulties, but fortunately, we made it!!! We had the opportunity to represent our class in the Senior Expo 2022 and was honored as one of the "Most socially impactful application."
 
 Feel free to fork or download this project so you could try it out and use this code as a foundation to create your own social app :grin:.
 
 **Goal**: Build a community around fitness and recipe cooking.
+
 
 ## Features
 ### Nutrition
@@ -16,12 +17,13 @@ Feel free to fork or download this project so you could try it out and use this 
 ### Social
   * Share recipes, workout advices, or daily activities
   * Communicate and Connect with other users
-  * Invite nearby users for a cooking meeting
+  * Integrated with Google Maps API, user can invite nearby users for a cooking meeting
+
 
 ## DEMO TIME
 ### Bottom Navigation Bar
-<p align="center">
-  <img src="/Images/NavBar.png" width="50%" height="auto" >
+<p align="left">
+  <img src="/Images/NavBar.png" width="300" height="80" >
 </p>
                                                         
 * We have four pages: Feeds Tab, Fitnes, Recipe, and Profile. 
@@ -30,26 +32,13 @@ Feel free to fork or download this project so you could try it out and use this 
   * Fitness: Pop up three buttons: Select Workout Plans, Add Exercises, and Add Foods
   * Recipe: Uploading recipes
   * Profile: Uploading/Modifying profile, and LogOut
- 
-### Feed Tab
-<p align="center">
-  <img src="./Images/Feeds.gif" width="50" height="300">
-</p>
 
-### Recipe
-<p align="center">
-  <img src="/Images/Recipe.gif">
-</p>
 
-### Profile
-<p align="center">
-  <img src="/Images/Profile.gif">
-</p>
+### Live Images
+| **Feeds** | **Recipes**| **Profile** | **Fitness** |
+|:---:|:---:|:---:|:---:|
+| <img src="./Images/Feeds.gif" width="220" height="440"> | <img src="./Images/Recipes.gif" width="220" height="440"> | <img src="./Images/Profile.gif" width="220" height="440"> | <img src="./Images/Fitness.png" width="220" height="440"> |
 
-### Fitness
-<p align="center">
-  <img src="/Images/Fitness.gif">
-</p>
 
 ## Thank you
 
