@@ -35,9 +35,11 @@ Feel free to fork or download this project so you could try it out and use this 
 
 
 ### Live Images
-| **Feeds** | **Recipes**| **Profile** | **Fitness** |
-|:---:|:---:|:---:|:---:|
-| <img src="./Images/Feeds.gif" width="220" height="440"> | <img src="./Images/Recipes.gif" width="220" height="440"> | <img src="./Images/Profile.gif" width="220" height="440"> | <img src="./Images/Fitness.png" width="220" height="440"> |
+| **Feeds** | **Recipes**| 
+|:---:|:---:|
+| <img src="./Images/Feeds.gif" width="250" height="500"> | <img src="./Images/Recipes.gif" width="250" height="500"> |
+| **Profile** | **Fitness** |
+| <img src="./Images/Profile.gif" width="250" height="500"> | <img src="./Images/Fitness.png" width="250" height="500"> |
 
 
 ## Thank you
